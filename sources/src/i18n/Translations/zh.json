@@ -1,0 +1,138 @@
+{
+  "Nav": {
+    "Learn": "学习",
+    "clip": "剪辑",
+    "home": "首页",
+    "share": "分享",
+    "instructor": "教练",
+    "theorytest": "理论测试"
+  },
+  "Auth": {
+    "login": "登录",
+    "email": "电子邮件",
+    "password": "密码",
+    "passforget": "忘记密码？",
+    "Newto": "新用户？",
+    "registerhere": "注册这里",
+    "Des": "ActoDriving 理论测试使数百万学习司机变得简单。"
+  },
+  "forgotPass": {
+    "Description": "请输入您的电子邮件地址以接收验证码",
+    "Email": "电子邮件地址",
+    "Send": "发送"
+  },
+  "OTPScreen": {
+    "Verification": "输入验证码",
+    "otpDesc": "我们已将验证码发送到您的电子邮件地址",
+    "notReceive": "没有收到验证码？",
+    "ResendOTP": "重新发送验证码",
+    "Confirm": "确认"
+  },
+  "resetPass": {
+    "NewPass": "新密码",
+    "ConfirmPass": "确认密码",
+    "Submit": "提交",
+    "Success": "成功！",
+    "SuccessMessage": "您的密码已更改！",
+    "Done": "完成",
+    "resetpassDesc": "您的新密码必须与之前使用的密码不同"
+  },
+  "Register": {
+    "FirstName": "名字",
+    "LastName": "姓氏",
+    "MobileNumber": "手机号码",
+    "Email": "电子邮件",
+    "Password": "密码",
+    "Register": "注册"
+  },
+  "Home": {
+    "mocktest": "模拟测试",
+    "mocktestsummary": "模拟测试结果是对实际考试的良好指示。",
+    "topics": "主题",
+    "topicsummary": "一次学习一个主题。测试将仅包含所选主题的问题。",
+    "mistake": "错误测试",
+    "mistakesummary": "重新做您之前做错的题目。",
+    "hazard": "危险感知",
+    "hazardsummary": "选择 34 个危险感知测试来准备实际考试。",
+    "highwaycode": "高速公路规则",
+    "highwaycode_Summary": "您的理论测试基于高速公路规则。这是必读内容的一部分。",
+    "signs": "了解交通标志",
+    "signs_summary": "必读书单",
+    "v_summary": "轻型汽车和四轮摩托车。",
+    "overview": "概述",
+    "s_material": "学习材料",
+    "s_summary": "理论测试所需的学习材料",
+    "view": "查看",
+    "NoCategory": "未选择类别"
+  },
+  "setting": {
+    "privacy": "隐私政策",
+    "privacysubtitle": "查看隐私政策",
+    "terms": "条款和条件",
+    "termssubtitle": "查看条款和条件",
+    "rate": "评分",
+    "ratesubtitle": "分享您的反馈！",
+    "share": "分享",
+    "sharesubtitle": "传播口碑！",
+    "about": "关于",
+    "Appearance": "外观",
+    "theme": "设备主题",
+    "Answer_single_tap": "单击回答",
+    "Disable_answer_preselection": "禁用答案预选择",
+    "App_language": "应用语言",
+    "device_language": "设备语言",
+    "Choose_theme": "选择主题",
+    "System_default": "系统默认",
+    "Light": "浅色",
+    "Dark": "深色",
+    "cancel": "取消",
+    "ok": "确定",
+    "logout": "退出登录",
+    "logout_desc": "您确定要永久注销您的帐户吗？",
+    "logout_mess": "一旦您注销帐户，我们将无法通知您有关新匹配的情况。",
+    "LogOut_Account": "是，注销帐户",
+    "Keepit": "不，保留",
+    "EditProfile": "编辑资料",
+    "Update_details": "更新您的详细信息"
+  },
+  "Delete": {
+    "Delete": "删除账户",
+    "update": "更新资料",
+    "Yes_Delete": "是的，删除账户",
+    "Permission_Mes": "您的账户及所有相关数据将被永久删除。您是否确定要继续此操作？"
+  },
+  "Question": {
+    "next": "下一步",
+    "explanation": "解释"
+  },
+  "header": {
+    "Register": "注册",
+    "Test": "测试",
+    "TheoryTest": "理论测试",
+    "MockTest": "模拟测试",
+    "TopicTest": "专题测试",
+    "MistakeTest": "错误测试",
+    "ForgotPass": "忘记密码",
+    "Setting": "设置",
+    "Mistakes": "错误",
+    "leavemess": "您确定要退出测试吗？",
+    "Cancel": "取消",
+    "OK": "确定",
+    "NewPassword": "创建新密码",
+    "Highwaycode": "高速公路规则",
+    "sign": "交通标志"
+  },
+  "errors": {
+    "tryagain": "无效的电子邮件或密码。请再试一次。",
+    "FirstName": "请输入您的名字",
+    "LastName": "请输入您的姓氏",
+    "MobileNumber": "请输入您的手机号码",
+    "Email": "请输入您的电子邮件",
+    "Password": "请输入您的密码",
+    "errPasswordValidation": "密码必须包含至少一个大写字母、一个小写字母和一个数字。",
+    "passLength": "密码长度必须至少为 8 个字符。",
+    "notmatch": "密码不匹配",
+    "InvalidEmail": "无效的电子邮件地址。",
+    "IncorrectPass": "密码错误。请重试或点击“忘记密码”。"
+  }
+}

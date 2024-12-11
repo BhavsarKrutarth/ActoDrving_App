@@ -1,0 +1,138 @@
+{
+  "Nav": {
+    "Learn": "Apprendre",
+    "clip": "Clips",
+    "home": "Accueil",
+    "share": "Partager",
+    "instructor": "Instructeur",
+    "theorytest": "Test théorique"
+  },
+  "Auth": {
+    "login": "Se connecter",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "passforget": "Mot de passe oublié ?",
+    "Newto": "Nouveau ?",
+    "registerhere": "S'inscrire ici",
+    "Des": "ActoDriving rend le test théorique facile pour des millions d'apprenants conducteurs."
+  },
+  "forgotPass": {
+    "Description": "Veuillez entrer votre adresse e-mail pour recevoir le code de vérification",
+    "Email": "Adresse e-mail",
+    "Send": "Envoyer"
+  },
+  "OTPScreen": {
+    "Verification": "Entrez le code de vérification",
+    "otpDesc": "Nous avons envoyé le code OTP à votre adresse e-mail",
+    "notReceive": "Vous n'avez pas reçu l'OTP ?",
+    "ResendOTP": "Renvoyer l'OTP",
+    "Confirm": "Confirmer"
+  },
+  "resetPass": {
+    "NewPass": "Nouveau mot de passe",
+    "ConfirmPass": "Confirmer le mot de passe",
+    "Submit": "Soumettre",
+    "Success": "Succès !",
+    "SuccessMessage": "Votre mot de passe a été modifié !",
+    "Done": "Fait",
+    "resetpassDesc": "Votre nouveau mot de passe doit être différent de l'ancien mot de passe"
+  },
+  "Register": {
+    "FirstName": "Prénom",
+    "LastName": "Nom de famille",
+    "MobileNumber": "Numéro de téléphone",
+    "Email": "E-mail",
+    "Password": "Mot de passe",
+    "Register": "S'inscrire"
+  },
+  "Home": {
+    "mocktest": "Test simulé",
+    "mocktestsummary": "Les résultats des tests simulés sont un bon indicateur de ce à quoi s'attendre lors de l'examen réel.",
+    "topics": "Sujets",
+    "topicsummary": "Apprenez un sujet à la fois. Les questions de l'examen ne proviendront que des sujets sélectionnés.",
+    "mistake": "Test des erreurs",
+    "mistakesummary": "Répondez à nouveau aux questions pour lesquelles vous avez fait des erreurs auparavant.",
+    "hazard": "Perception des dangers",
+    "hazardsummary": "Préparez-vous pour l'examen réel en choisissant parmi 34 tests de perception des dangers.",
+    "highwaycode": "Code de la route",
+    "highwaycode_Summary": "Votre test théorique est basé sur le code de la route. C'est une partie de la lecture nécessaire.",
+    "signs": "Connaître les panneaux de signalisation",
+    "signs_summary": "Liste de lecture nécessaire",
+    "v_summary": "Véhicules légers et quads.",
+    "overview": "Vue d'ensemble",
+    "s_material": "Matériel d'étude",
+    "s_summary": "Matériel d'étude nécessaire pour le test théorique",
+    "view": "Voir",
+    "NoCategory": "Aucune catégorie sélectionnée"
+  },
+  "setting": {
+    "privacy": "Politique de confidentialité",
+    "privacysubtitle": "Voir la politique de confidentialité",
+    "terms": "Conditions générales",
+    "termssubtitle": "Voir les conditions générales",
+    "rate": "Évaluer",
+    "ratesubtitle": "Partagez vos commentaires !",
+    "share": "Partager",
+    "sharesubtitle": "Répandre la voix !",
+    "about": "À propos",
+    "Appearance": "Apparence",
+    "theme": "Thème de l'appareil",
+    "Answer_single_tap": "Répondre par un seul tap",
+    "Disable_answer_preselection": "Désactiver la présélection de réponse",
+    "App_language": "Langue de l'application",
+    "device_language": "Langue de l'appareil",
+    "Choose_theme": "Choisissez le thème",
+    "System_default": "Défaut du système",
+    "Light": "Clair",
+    "Dark": "Sombre",
+    "cancel": "Annuler",
+    "ok": "OK",
+    "logout": "Se déconnecter",
+    "logout_desc": "Êtes-vous sûr de vouloir vous déconnecter définitivement de votre compte ?",
+    "logout_mess": "Une fois que vous vous déconnectez de votre compte, nous ne pourrons plus vous notifier des nouveaux matchs.",
+    "LogOut_Account": "Oui, déconnecter le compte",
+    "Keepit": "Non, le garder",
+    "EditProfile": "Modifier le profil",
+    "Update_details": "Mettez à jour vos informations"
+  },
+  "Delete": {
+    "Delete": "Supprimer le compte",
+    "update": "Mettre à jour le profil",
+    "Yes_Delete": "Oui, supprimer le compte",
+    "Permission_Mes": "Votre compte et toutes les données associées seront définitivement supprimés. Voulez-vous continuer cette action ?"
+  },
+  "Question": {
+    "next": "Suivant",
+    "explanation": "Explication"
+  },
+  "header": {
+    "Register": "S'inscrire",
+    "Test": "Test",
+    "TheoryTest": "Test théorique",
+    "MockTest": "Test simulé",
+    "TopicTest": "Test par sujet",
+    "MistakeTest": "Test des erreurs",
+    "ForgotPass": "Mot de passe oublié",
+    "Setting": "Paramètres",
+    "Mistakes": "Erreurs",
+    "leavemess": "Êtes-vous sûr de vouloir quitter le test ?",
+    "Cancel": "Annuler",
+    "OK": "OK",
+    "NewPassword": "Créer un nouveau mot de passe",
+    "Highwaycode": "Code de la route",
+    "sign": "Panneau de signalisation"
+  },
+  "errors": {
+    "tryagain": "E-mail ou mot de passe invalide. Veuillez réessayer.",
+    "FirstName": "Veuillez entrer votre prénom",
+    "LastName": "Veuillez entrer votre nom",
+    "MobileNumber": "Veuillez entrer votre numéro de téléphone",
+    "Email": "Veuillez entrer votre e-mail",
+    "Password": "Veuillez entrer votre mot de passe",
+    "errPasswordValidation": "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre.",
+    "passLength": "Le mot de passe doit comporter au moins 8 caractères.",
+    "notmatch": "Les mots de passe ne correspondent pas",
+    "InvalidEmail": "Adresse e-mail invalide.",
+    "IncorrectPass": "Mot de passe incorrect. Veuillez réessayer ou cliquez sur 'Mot de passe oublié'."
+  }
+}
