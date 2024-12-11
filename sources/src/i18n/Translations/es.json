@@ -1,0 +1,138 @@
+{
+  "Nav": {
+    "Learn": "Aprender",
+    "clip": "Clips",
+    "home": "Inicio",
+    "share": "Compartir",
+    "instructor": "Instructor",
+    "theorytest": "Examen Teórico"
+  },
+  "Auth": {
+    "login": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "passforget": "¿Olvidaste la contraseña?",
+    "Newto": "¿Nuevo en?",
+    "registerhere": "Regístrate aquí",
+    "Des": "ActoDriving hace que el examen teórico sea fácil para millones de conductores aprendices."
+  },
+  "forgotPass": {
+    "Description": "Introduce tu dirección de correo electrónico para recibir un código de verificación",
+    "Email": "Dirección de correo electrónico",
+    "Send": "Enviar"
+  },
+  "OTPScreen": {
+    "Verification": "Introduce el código de verificación",
+    "otpDesc": "Hemos enviado un OTP a tu dirección de correo electrónico",
+    "notReceive": "¿No recibiste el OTP?",
+    "ResendOTP": "Reenviar OTP",
+    "Confirm": "Confirmar"
+  },
+  "resetPass": {
+    "NewPass": "Nueva Contraseña",
+    "ConfirmPass": "Confirmar Contraseña",
+    "Submit": "Enviar",
+    "Success": "¡Éxito!",
+    "SuccessMessage": "¡Tu contraseña ha sido cambiada!",
+    "Done": "Hecho",
+    "resetpassDesc": "Tu nueva contraseña debe ser diferente de la anterior"
+  },
+  "Register": {
+    "FirstName": "Nombre",
+    "LastName": "Apellido",
+    "MobileNumber": "Número de móvil",
+    "Email": "Correo electrónico",
+    "Password": "Contraseña",
+    "Register": "Registrarse"
+  },
+  "Home": {
+    "mocktest": "Prueba de simulación",
+    "mocktestsummary": "Los resultados de la prueba de simulación son un buen indicador de lo que puedes esperar en el examen real.",
+    "topics": "Temas",
+    "topicsummary": "Aprende un tema a la vez. El examen contendrá preguntas solo del tema seleccionado.",
+    "mistake": "Prueba de errores",
+    "mistakesummary": "Vuelve a intentar las preguntas que respondiste incorrectamente antes.",
+    "hazard": "Percepción de peligros",
+    "hazardsummary": "Elige entre 34 pruebas de percepción de peligros para prepararte para el examen real.",
+    "highwaycode": "Código de la carretera",
+    "highwaycode_Summary": "Tu examen teórico se basa en el Código de la carretera. Es parte de la lista de lectura esencial.",
+    "signs": "Conoce tus señales de tráfico",
+    "signs_summary": "La lista de lectura esencial para aprender",
+    "v_summary": "Vehículos ligeros y motocicletas de cuatro ruedas.",
+    "overview": "Descripción general",
+    "s_material": "Material de estudio",
+    "s_summary": "El material de lectura esencial para el examen teórico",
+    "view": "Ver",
+    "NoCategory": "No se ha seleccionado ninguna categoría"
+  },
+  "setting": {
+    "privacy": "Política de privacidad",
+    "privacysubtitle": "Abrir política de privacidad",
+    "terms": "Términos y condiciones",
+    "termssubtitle": "Abrir términos y condiciones",
+    "rate": "Calificar",
+    "ratesubtitle": "¡Comparte tus comentarios!",
+    "share": "Compartir",
+    "sharesubtitle": "¡Difunde la noticia!",
+    "about": "Sobre",
+    "Appearance": "Apariencia",
+    "theme": "Tema del dispositivo",
+    "Answer_single_tap": "Responder con un solo toque",
+    "Disable_answer_preselection": "Desactivar preselección de respuesta",
+    "App_language": "Idioma de la aplicación",
+    "device_language": "idioma del dispositivo",
+    "Choose_theme": "Elegir tema",
+    "System_default": "Predeterminado del sistema",
+    "Light": "Claro",
+    "Dark": "Oscuro",
+    "cancel": "Cancelar",
+    "ok": "Aceptar",
+    "logout": "Cerrar sesión",
+    "logout_desc": "¿Estás seguro de que quieres cerrar sesión permanentemente?",
+    "logout_mess": "una vez que cierres sesión, no podremos notificártelo de nuevos partidos si lo haces.",
+    "LogOut_Account": "Sí, cerrar sesión",
+    "Keepit": "No, mantenerlo",
+    "EditProfile": "Editar perfil",
+    "Update_details": "Actualiza tus detalles"
+  },
+  "Delete": {
+    "Delete": "Eliminar cuenta",
+    "update": "Actualizar perfil",
+    "Yes_Delete": "Sí, eliminar cuenta",
+    "Permission_Mes": "Su cuenta y todos los datos relacionados se eliminarán permanentemente. ¿Quiere proceder con esta acción?"
+  },
+  "Question": {
+    "next": "Siguiente",
+    "explanation": "Explicación"
+  },
+  "header": {
+    "Register": "Registrarse",
+    "Test": "Prueba",
+    "TheoryTest": "Examen Teórico",
+    "MockTest": "Prueba de Simulación",
+    "TopicTest": "Prueba de Tema",
+    "MistakeTest": "Prueba de Errores",
+    "ForgotPass": "Olvidé mi contraseña",
+    "Setting": "Configuración",
+    "Mistakes": "Errores",
+    "leavemess": "¿Estás seguro de que quieres salir de la prueba?",
+    "Cancel": "Cancelar",
+    "OK": "Aceptar",
+    "NewPassword": "Crear nueva contraseña",
+    "Highwaycode": "Código de la carretera",
+    "sign": "Señal de tráfico"
+  },
+  "errors": {
+    "tryagain": "Correo electrónico o contraseña inválidos. Por favor, inténtalo de nuevo.",
+    "FirstName": "Por favor, introduce tu nombre",
+    "LastName": "Por favor, introduce tu apellido",
+    "MobileNumber": "Por favor, introduce tu número de móvil",
+    "Email": "Por favor, introduce tu correo electrónico",
+    "Password": "Por favor, introduce tu contraseña",
+    "errPasswordValidation": "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número.",
+    "passLength": "La contraseña debe tener al menos 8 caracteres.",
+    "notmatch": "Las contraseñas no coinciden",
+    "InvalidEmail": "Dirección de correo electrónico inválida.",
+    "IncorrectPass": "Contraseña incorrecta. Inténtalo de nuevo o haz clic en 'Olvidé mi contraseña' para restablecerla."
+  }
+}

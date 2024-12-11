@@ -1,0 +1,249 @@
+[
+  {
+    "level_": 0,
+    "message_": "Start JSON generation. Platform version: 24 min SDK version: x86",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "rebuilding JSON /Users/hp/ReactNative/UKDriving/ActoDriving/android/app/.cxx/RelWithDebInfo/5q5l2pz5/x86/android_gradle_build.json due to:",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "- a file changed",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "  - /Users/hp/ReactNative/UKDriving/ActoDriving/android/app/.cxx/RelWithDebInfo/5q5l2pz5/x86/build.ninja (LAST_MODIFIED_CHANGED)",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "  - /Users/hp/ReactNative/UKDriving/ActoDriving/android/app/.cxx/RelWithDebInfo/5q5l2pz5/x86/compile_commands.json (LAST_MODIFIED_CHANGED)",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "  - /Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt (LAST_MODIFIED_CHANGED)",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "  - /Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/lottie-react-native/android/build/generated/source/codegen/jni/CMakeLists.txt (LAST_MODIFIED_CHANGED)",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "  - /Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/CMakeLists.txt (LAST_MODIFIED_CHANGED)",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "  - /Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/CMakeLists.txt (LAST_MODIFIED_CHANGED)",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "  - /Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native-webview/android/build/generated/source/codegen/jni/CMakeLists.txt (LAST_MODIFIED_CHANGED)",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "/usr/local/Cellar/openjdk@17/17.0.13/libexec/openjdk.jdk/Contents/Home/bin/java \\\n  --class-path \\\n  /Users/hp/.gradle/caches/modules-2/files-2.1/com.google.prefab/cli/2.1.0/aa32fec809c44fa531f01dcfb739b5b3304d3050/cli-2.1.0-all.jar \\\n  com.google.prefab.cli.AppKt \\\n  --build-system \\\n  cmake \\\n  --platform \\\n  android \\\n  --abi \\\n  x86 \\\n  --os-version \\\n  24 \\\n  --stl \\\n  c++_shared \\\n  --ndk-version \\\n  26 \\\n  --output \\\n  /var/folders/n2/5b418xf10q16xpl6gddy5hjh0000gn/T/agp-prefab-staging10029528952427242259/staged-cli-output \\\n  /Users/hp/.gradle/caches/8.10.2/transforms/d5037f6fbd65df0db19a8e55cde8bb78/transformed/react-android-0.76.3-release/prefab \\\n  /Users/hp/.gradle/caches/8.10.2/transforms/d6d1c7a488269a3e16bdbb655ad449db/transformed/hermes-android-0.76.3-release/prefab \\\n  /Users/hp/.gradle/caches/8.10.2/transforms/8b60b4f75564ac53567672df7a1c9a73/transformed/fbjni-0.6.0/prefab\n",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "Received process result: 0",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "keeping json folder \u0027/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/.cxx/RelWithDebInfo/5q5l2pz5/x86\u0027 but regenerating project",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "executing cmake /Users/hp/Library/Android/sdk/cmake/3.22.1/bin/cmake \\\n  -H/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup \\\n  -DCMAKE_SYSTEM_NAME\u003dAndroid \\\n  -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON \\\n  -DCMAKE_SYSTEM_VERSION\u003d24 \\\n  -DANDROID_PLATFORM\u003dandroid-24 \\\n  -DANDROID_ABI\u003dx86 \\\n  -DCMAKE_ANDROID_ARCH_ABI\u003dx86 \\\n  -DANDROID_NDK\u003d/Users/hp/Library/Android/sdk/ndk/26.1.10909125 \\\n  -DCMAKE_ANDROID_NDK\u003d/Users/hp/Library/Android/sdk/ndk/26.1.10909125 \\\n  -DCMAKE_TOOLCHAIN_FILE\u003d/Users/hp/Library/Android/sdk/ndk/26.1.10909125/build/cmake/android.toolchain.cmake \\\n  -DCMAKE_MAKE_PROGRAM\u003d/Users/hp/Library/Android/sdk/cmake/3.22.1/bin/ninja \\\n  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/build/intermediates/cxx/RelWithDebInfo/5q5l2pz5/obj/x86 \\\n  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/build/intermediates/cxx/RelWithDebInfo/5q5l2pz5/obj/x86 \\\n  -DCMAKE_BUILD_TYPE\u003dRelWithDebInfo \\\n  -DCMAKE_FIND_ROOT_PATH\u003d/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/.cxx/RelWithDebInfo/5q5l2pz5/prefab/x86/prefab \\\n  -B/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/.cxx/RelWithDebInfo/5q5l2pz5/x86 \\\n  -GNinja \\\n  -DPROJECT_BUILD_DIR\u003d/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/build \\\n  -DREACT_ANDROID_DIR\u003d/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid \\\n  -DANDROID_STL\u003dc++_shared \\\n  -DANDROID_USE_LEGACY_TOOLCHAIN_FILE\u003dON\n",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "/Users/hp/Library/Android/sdk/cmake/3.22.1/bin/cmake \\\n  -H/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup \\\n  -DCMAKE_SYSTEM_NAME\u003dAndroid \\\n  -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON \\\n  -DCMAKE_SYSTEM_VERSION\u003d24 \\\n  -DANDROID_PLATFORM\u003dandroid-24 \\\n  -DANDROID_ABI\u003dx86 \\\n  -DCMAKE_ANDROID_ARCH_ABI\u003dx86 \\\n  -DANDROID_NDK\u003d/Users/hp/Library/Android/sdk/ndk/26.1.10909125 \\\n  -DCMAKE_ANDROID_NDK\u003d/Users/hp/Library/Android/sdk/ndk/26.1.10909125 \\\n  -DCMAKE_TOOLCHAIN_FILE\u003d/Users/hp/Library/Android/sdk/ndk/26.1.10909125/build/cmake/android.toolchain.cmake \\\n  -DCMAKE_MAKE_PROGRAM\u003d/Users/hp/Library/Android/sdk/cmake/3.22.1/bin/ninja \\\n  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/build/intermediates/cxx/RelWithDebInfo/5q5l2pz5/obj/x86 \\\n  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/build/intermediates/cxx/RelWithDebInfo/5q5l2pz5/obj/x86 \\\n  -DCMAKE_BUILD_TYPE\u003dRelWithDebInfo \\\n  -DCMAKE_FIND_ROOT_PATH\u003d/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/.cxx/RelWithDebInfo/5q5l2pz5/prefab/x86/prefab \\\n  -B/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/.cxx/RelWithDebInfo/5q5l2pz5/x86 \\\n  -GNinja \\\n  -DPROJECT_BUILD_DIR\u003d/Users/hp/ReactNative/UKDriving/ActoDriving/android/app/build \\\n  -DREACT_ANDROID_DIR\u003d/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid \\\n  -DANDROID_STL\u003dc++_shared \\\n  -DANDROID_USE_LEGACY_TOOLCHAIN_FILE\u003dON\n",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "Received process result: 0",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "Exiting generation of /Users/hp/ReactNative/UKDriving/ActoDriving/android/app/.cxx/RelWithDebInfo/5q5l2pz5/x86/compile_commands.json.bin normally",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "done executing cmake",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "JSON generation completed without problems",
+    "file_": "/Users/hp/ReactNative/UKDriving/ActoDriving/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  }
+]

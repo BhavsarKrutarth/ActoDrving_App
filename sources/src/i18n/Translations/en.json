@@ -1,0 +1,148 @@
+{
+  "languageNames": {
+    "en": "English",
+    "gu": "ગુજરાતી",
+    "hi": "हिन्दी",
+    "zh": "中文",
+    "fr": "Français",
+    "ur": "اردو",
+    "es": "Español",
+    "pa": "ਪੰਜਾਬੀ"
+  },
+  "Nav": {
+    "Learn": "Learn",
+    "clip": "Clips",
+    "home": "Home",
+    "share": "Share",
+    "instructor": "Instructor",
+    "theorytest": "Theory Test"
+  },
+  "Auth": {
+    "login": "Log In",
+    "email": "Email",
+    "password": "Password",
+    "passforget": "Forgot Password?",
+    "Newto": "New To ?",
+    "registerhere": "Register here",
+    "Des": "ActoDriving theory test made simple for millions of learner drivers."
+  },
+  "forgotPass": {
+    "Description": "Please Enter your Email Address To Receive a Verification Code",
+    "Email": "Email Address",
+    "Send": "Send"
+  },
+  "OTPScreen": {
+    "Verification": "Enter Verification Code",
+    "otpDesc": "We Have Sent an OTP to Your Email address",
+    "notReceive": "Didn't receive an OTP?",
+    "ResendOTP": "Resend OTP",
+    "Confirm": "Confirm"
+  },
+  "resetPass": {
+    "NewPass": "New Password",
+    "ConfirmPass": "Confirm Password",
+    "Submit": "Submit",
+    "Success": "Success!",
+    "SuccessMessage": "Your Password has been changed!",
+    "Done": "Done",
+    "resetpassDesc": "Your New Password Must Be Different From Previously Used Password"
+  },
+  "Register": {
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "MobileNumber": "Mobile Number",
+    "Email": "E-mail",
+    "Password": "Password",
+    "Register": "Register"
+  },
+  "Home": {
+    "mocktest": "Mock Test",
+    "mocktestsummary": "Mock test results are a good indicator of what to expect on the real test.",
+    "topics": "Topics",
+    "topicsummary": "Learn one topic at a time. The test will contain questions only from the selected topic.",
+    "mistake": "Mistakes Test",
+    "mistakesummary": "Have another go at questions that you got wrong before.",
+    "hazard": "Hazard Perception",
+    "hazardsummary": "Choose from 34 Hazard Perception Tests to ready yourself for the actual test.",
+    "highwaycode": "The Highway Code",
+    "highwaycode_Summary": "Your theory test is based on the Highway Code. It is part of the essential reading.",
+    "signs": "Know your Traffic Signs",
+    "signs_summary": "The essential reading list to learn ",
+    "v_summary": "Light vehicle and quad bikes.",
+    "overview": "Overview",
+    "s_material": "Study Material",
+    "s_summary": "The essential reading materials for the theory test",
+    "view": "View",
+    "NoCategory": "No Category Selected"
+  },
+  "setting": {
+    "privacy": "Privacy Policy",
+    "privacysubtitle": "Open Privacy Policy",
+    "terms": "Terms and Conditions",
+    "termssubtitle": "Open terms and conditions",
+    "rate": "Rate Us",
+    "ratesubtitle": "Share your feedback!",
+    "share": "Share",
+    "sharesubtitle": "Spread the word!",
+    "about": "About",
+    "Appearance": "Appearance",
+    "theme": "Device Theme",
+    "Answer_single_tap": "Answer with single tap",
+    "Disable_answer_preselection": "Disable answer preselection",
+    "App_language": "App language",
+    "device_language": "device's language",
+    "Choose_theme": "Choose theme",
+    "System_default": "System default",
+    "Light": "Light",
+    "Dark": "Dark",
+    "cancel": "Cancel",
+    "ok": "Ok",
+    "logout": "Log Out",
+    "logout_desc": "Are you sure you want to log out your account permanently?",
+    "logout_mess": "once you logout your account, we can't notify you of new matches if you do.",
+    "LogOut_Account": "Yes, Log Out Account",
+    "Keepit": "No, Keep It",
+    "EditProfile": "Edit Profile",
+    "Update_details": "Update your details"
+  },
+  "Delete": {
+    "Delete": "Delete Account",
+    "update": "Update Profile",
+    "Yes_Delete": "Yes, Delete Account",
+    "Permission_Mes": "Your account and all related data will be permanently deleted. Do you want to proceed with this action?"
+  },
+  "Question": {
+    "next": "Next",
+    "explanation": "Explanation"
+  },
+  "header": {
+    "Register": "Register  ",
+    "Test": "Test",
+    "TheoryTest": "Theory Test",
+    "MockTest": "Mock Test",
+    "TopicTest": "Topic Test",
+    "MistakeTest": "Mistake Test",
+    "ForgotPass": "Forgot Password",
+    "Setting": "Setting",
+    "Mistakes": "Mistakes",
+    "leavemess": "Are you sure you want to Quit the Test?",
+    "Cancel": "Cancel",
+    "OK": "OK",
+    "NewPassword": "Create New Password",
+    "Highwaycode": "Highwaycode",
+    "sign": "Traffic Sign"
+  },
+  "errors": {
+    "tryagain": "Invalid email or password. Please try again.",
+    "FirstName": "Please enter your First name",
+    "LastName": "Please enter your Last Name",
+    "MobileNumber": "Please enter your Mobile Number",
+    "Email": "Please enter your Email",
+    "Password": "Please enter your Password",
+    "errPasswordValidation": "Password must contain at least one uppercase letter, one lowercase letter, and one number.",
+    "passLength": "Password must be at least 8 characters.",
+    "notmatch": "Passwords do not match",
+    "InvalidEmail": "Invalid email address.",
+    "IncorrectPass": "Wrong password. Try again or click 'Forgot Password' to reset it."
+  }
+}

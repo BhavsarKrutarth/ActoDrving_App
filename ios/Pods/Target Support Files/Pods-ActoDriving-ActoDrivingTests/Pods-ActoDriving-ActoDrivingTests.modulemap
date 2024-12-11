@@ -1,0 +1,6 @@
+module Pods_ActoDriving_ActoDrivingTests {
+  umbrella header "Pods-ActoDriving-ActoDrivingTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
