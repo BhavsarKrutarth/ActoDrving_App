@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
   View,
   TouchableOpacity,
@@ -7,34 +7,34 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   Platform,
-} from 'react-native';
-import {useSelector} from 'react-redux';
-import {Colors, FontFamily, FontSize, hp, wp} from '../../theme';
-import RNStyles from '../../common/RNStyles';
-import RNText from '../../common/RNText';
-import RNImage from '../../common/RNImage';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {useTheme} from '../../common/RNThemeContext';
-import FetchMethod from '../../api/FetchMethod';
-import {useTranslation} from 'react-i18next';
-import {Images} from '../../constants';
+} from "react-native";
+import { useSelector } from "react-redux";
+import { Colors, FontFamily, FontSize, hp, wp } from "../../theme";
+import RNStyles from "../../common/RNStyles";
+import RNText from "../../common/RNText";
+import RNImage from "../../common/RNImage";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useTheme } from "../../common/RNThemeContext";
+import FetchMethod from "../../api/FetchMethod";
+import { useTranslation } from "react-i18next";
+import { Images } from "../../constants";
 
-const RNQueHeader = ({route}) => {
-  const {t} = useTranslation();
+const RNQueHeader = ({ route }) => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
-  const datatype = 'Quizdata';
+  const datatype = "Quizdata";
   const [modalVisible, setModalVisible] = useState(false);
   const [isCountQue, setCountQuestion] = useState(false);
-  const {colorScheme} = useTheme();
+  const { colorScheme } = useTheme();
 
-  const selectedQuiz = useSelector(state => state.Quiz.selectedQuiz);
-  const questions = useSelector(state => state.Quiz.questionData);
-  const userAnswers = useSelector(state => state.Quiz.userAnswers);
-  // console.log('userAnswer',JSON.stringify(userAnswers, null, 2));
-
+  const selectedQuiz = useSelector((state) => state.Quiz.selectedQuiz);
+  const questions = useSelector((state) => state.Quiz.questionData);
+  const userAnswers = useSelector((state) => state.Quiz.userAnswers);
   const handlePressBack = () => {
     setModalVisible(true);
   };
+  // console.log("selectedQuiz", selectedQuiz);
+  // console.log("userAnswer", JSON.stringify(userAnswers, null, 2));
 
   const handleMistakedata = async () => {
     try {
@@ -42,7 +42,6 @@ const RNQueHeader = ({route}) => {
         EndPoint: `UserQuestions_Answer`,
         Params: JSON.stringify(userAnswers),
       });
-
       if (response.responseCode) {
         navigation.goBack();
       }
@@ -52,33 +51,44 @@ const RNQueHeader = ({route}) => {
   };
 
   const vehicleIndex = userAnswers
-    .flatMap(user => user.vehicles.map((vehicle, index) => ({vehicle, index})))
-    .find(({vehicle}) =>
-      vehicle.quiz.some(quiz => quiz.QuizID === selectedQuiz.quiz_Id),
-    )?.index;
+    // .flatMap((user) =>
+    //   user.vehicles.map((vehicle, index) => ({ vehicle, index }))
+    // )
+    // .find(({ vehicle }) =>
+    //    returnvehicle.quiz.some((quiz) => quiz.QuizID === selectedQuiz.quiz_Id)
+    // )?.index;
+    .flatMap((user) =>
+      user.vehicles.map((vehicle, index) => {
+        return { vehicle, index };
+      })
+    )
+    .find(({ vehicle }) => {
+      return vehicle.quiz.some((quiz) => quiz.QuizID === selectedQuiz.quiz_Id);
+    })?.index;
+
   const quizAnswer =
-    userAnswers.flatMap(user =>
-      user.vehicles.flatMap(vehicle =>
-        vehicle.quiz.find(quiz => quiz.QuizID === selectedQuiz.quiz_Id),
-      ),
+    userAnswers.flatMap((user) =>
+      user.vehicles.flatMap((vehicle) =>
+        vehicle.quiz.find((quiz) => quiz.QuizID === selectedQuiz.quiz_Id)
+      )
     )[vehicleIndex] || {};
 
   const rightQuestions = quizAnswer.rightQuestions || [];
   const wrongQuestions = quizAnswer.wrongQuestions || [];
 
-  const getBorderColor = questionId => {
+  const getBorderColor = (questionId) => {
     if (rightQuestions.includes(questionId)) {
       return Colors.Green;
     }
     if (wrongQuestions.includes(questionId)) {
       return Colors.Red;
     }
-    return colorScheme === 'dark' ? '#3e6075' : '#CCC';
+    return colorScheme === "dark" ? "#3e6075" : "#CCC";
   };
 
   return (
     <View style={styles(colorScheme).headerContainer}>
-      <View style={[RNStyles.flexRowCenter, {gap: 20}]}>
+      <View style={[RNStyles.flexRowCenter, { gap: 20 }]}>
         <TouchableOpacity onPress={handlePressBack} hitSlop={20}>
           <RNImage
             style={styles(colorScheme).backIcon}
@@ -86,18 +96,18 @@ const RNQueHeader = ({route}) => {
           />
         </TouchableOpacity>
         <RNText style={[styles(colorScheme).titleText]}>
-          {t('header.MockTest')}
+          {t("header.MockTest")}
         </RNText>
       </View>
-      <View style={[{gap: 10}]}>
+      <View style={[{ gap: 10 }]}>
         <TouchableOpacity onPress={() => setCountQuestion(!isCountQue)}>
           <RNImage
             resizeMode="contain"
             style={styles(colorScheme).optionIcon}
             source={
-              colorScheme === 'dark'
-                ? require('../../assets/images/customer-satisfaction1.png')
-                : require('../../assets/images/customer-satisfaction.png')
+              colorScheme === "dark"
+                ? require("../../assets/images/customer-satisfaction1.png")
+                : require("../../assets/images/customer-satisfaction.png")
             }
           />
         </TouchableOpacity>
@@ -109,15 +119,18 @@ const RNQueHeader = ({route}) => {
           transparent={true}
           animationType="fade"
           visible={isCountQue}
-          onRequestClose={() => setCountQuestion(false)}>
+          onRequestClose={() => setCountQuestion(false)}
+        >
           <TouchableWithoutFeedback onPress={() => setCountQuestion(false)}>
             <View style={styles(colorScheme).overlay}>
               <TouchableOpacity
                 style={styles(colorScheme).questionCountModal}
-                activeOpacity={1}>
+                activeOpacity={1}
+              >
                 <ScrollView
                   contentContainerStyle={styles(colorScheme).scrollContent}
-                  showsVerticalScrollIndicator={false}>
+                  showsVerticalScrollIndicator={false}
+                >
                   {[...Array(selectedQuiz.total_QuestionsCount)].map(
                     (_, index) => {
                       const questionId = questions[index]?.questionId;
@@ -127,15 +140,17 @@ const RNQueHeader = ({route}) => {
                           key={index}
                           style={[
                             styles(colorScheme).QutionsIndex,
-                            {borderColor: borderColor},
-                          ]}>
+                            { borderColor: borderColor },
+                          ]}
+                        >
                           <RNText
-                            style={styles(colorScheme).QuestionsIndexText}>
+                            style={styles(colorScheme).QuestionsIndexText}
+                          >
                             {index + 1}
                           </RNText>
                         </TouchableOpacity>
                       );
-                    },
+                    }
                   )}
                 </ScrollView>
               </TouchableOpacity>
@@ -149,44 +164,49 @@ const RNQueHeader = ({route}) => {
         transparent={true}
         animationType="slide"
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}>
+        onRequestClose={() => setModalVisible(false)}
+      >
         <View style={styles(colorScheme).modalContainer}>
           <View style={styles(colorScheme).modalContent}>
             <RNText
-              style={[styles(colorScheme).titleText, {paddingBottom: hp(1)}]}>
-              {t('header.leavemess')}{' '}
+              style={[styles(colorScheme).titleText, { paddingBottom: hp(1) }]}
+            >
+              {t("header.leavemess")}{" "}
             </RNText>
-            <View style={[RNStyles.flexRowCenter, {gap: 10}]}>
+            <View style={[RNStyles.flexRowCenter, { gap: 10 }]}>
               <TouchableOpacity
                 style={[
                   styles(colorScheme).button,
                   {
                     backgroundColor:
-                      colorScheme === 'dark' ? '#3e6075' : Colors.lightWhite,
+                      colorScheme === "dark" ? "#3e6075" : Colors.lightWhite,
                   },
                 ]}
                 onPress={() => {
                   setModalVisible(false);
-                }}>
+                }}
+              >
                 <RNText style={styles(colorScheme).dialogText}>
-                  {t('header.Cancel')}{' '}
+                  {t("header.Cancel")}{" "}
                 </RNText>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[
                   styles(colorScheme).button,
-                  {backgroundColor: Colors.Orange},
+                  { backgroundColor: Colors.Orange },
                 ]}
                 onPress={async () => {
                   await handleMistakedata();
                   setModalVisible(false);
-                }}>
+                }}
+              >
                 <RNText
                   style={[
                     styles(colorScheme).dialogText,
-                    {color: Colors.White},
-                  ]}>
-                  {t('header.OK')}{' '}
+                    { color: Colors.White },
+                  ]}
+                >
+                  {t("header.OK")}{" "}
                 </RNText>
               </TouchableOpacity>
             </View>
@@ -197,16 +217,16 @@ const RNQueHeader = ({route}) => {
   );
 };
 
-const styles = colorScheme =>
+const styles = (colorScheme) =>
   StyleSheet.create({
     headerContainer: {
       ...RNStyles.flexRowBetween,
       borderBottomWidth: 1,
-      height: Platform.OS === 'ios' ? hp(12) : hp(8),
+      height: Platform.OS === "ios" ? hp(12) : hp(8),
       paddingHorizontal: wp(2),
-      paddingTop: Platform.OS === 'ios' ? hp(5) : hp(0),
-      backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
-      borderColor: colorScheme === 'dark' ? Colors.Grey : Colors.LightGrey,
+      paddingTop: Platform.OS === "ios" ? hp(5) : hp(0),
+      backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
+      borderColor: colorScheme === "dark" ? Colors.Grey : Colors.LightGrey,
     },
     backIcon: {
       height: wp(5),
@@ -215,8 +235,8 @@ const styles = colorScheme =>
     titleText: {
       fontFamily: FontFamily.SemiBold,
       fontSize: FontSize.font14,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
-      textAlign: 'center',
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
+      textAlign: "center",
     },
     optionIcon: {
       height: wp(8),
@@ -224,28 +244,28 @@ const styles = colorScheme =>
     },
     overlay: {
       flex: 1,
-      alignItems: 'flex-end',
-      top: Platform.OS === 'ios' ? hp(11) : hp(5.5),
+      alignItems: "flex-end",
+      top: Platform.OS === "ios" ? hp(11) : hp(5.5),
       right: 1,
       marginHorizontal: wp(2),
-      shadowColor: '#000',
-      shadowOffset: {width: 2, height: 2},
+      shadowColor: "#000",
+      shadowOffset: { width: 2, height: 2 },
       shadowOpacity: 0.2,
       shadowRadius: 5,
     },
     questionCountModal: {
       width: wp(80),
       maxHeight: hp(30),
-      backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
+      backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
       borderRadius: 10,
       padding: 20,
       elevation: 7,
     },
     scrollContent: {
-      flexWrap: 'wrap',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
+      flexWrap: "wrap",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
       gap: 5,
     },
     QutionsIndex: {
@@ -258,17 +278,17 @@ const styles = colorScheme =>
     QuestionsIndexText: {
       fontSize: FontSize.font10,
       fontFamily: FontFamily.SemiBold,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     modalContainer: {
       ...RNStyles.flexCenter,
       backgroundColor:
-        colorScheme === 'dark'
-          ? 'rgba(35, 55, 67, 0.5)'
-          : 'rgba(0 ,0 , 0, 0.5)',
+        colorScheme === "dark"
+          ? "rgba(35, 55, 67, 0.5)"
+          : "rgba(0 ,0 , 0, 0.5)",
     },
     modalContent: {
-      backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
+      backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
       width: wp(70),
       padding: hp(4),
       borderRadius: 10,
@@ -277,8 +297,8 @@ const styles = colorScheme =>
     dialogText: {
       fontFamily: FontFamily.Regular,
       fontSize: FontSize.font12,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
-      textAlign: 'center',
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
+      textAlign: "center",
     },
     button: {
       width: wp(25),

@@ -1,0 +1,3 @@
+/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/CMakeFiles/appmodules.dir
+/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/CMakeFiles/rebuild_cache.dir

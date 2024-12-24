@@ -1,3 +1,0 @@
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/hp/ReactNative/UKDriving/ActoDriving/android/app/.cxx/RelWithDebInfo/5q5l2pz5/armeabi-v7a

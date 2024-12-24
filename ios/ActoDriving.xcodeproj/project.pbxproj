@@ -13,7 +13,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		18935C0D3FD5A2C001FE9D3A /* libPods-ActoDriving.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB797946C4CC0B07F9EFB353 /* libPods-ActoDriving.a */; };
 		2F875E573A654CEB9D0E5A10 /* Inter_18pt-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F46AB196C989403499F40ACE /* Inter_18pt-Regular.ttf */; };
 		54E317EF68F34CF299803866 /* Inter_18pt-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D25C2EEACB8C48B4A371165D /* Inter_18pt-Black.ttf */; };
 		586EF1768FE2473CB95F3BF7 /* Inter_18pt-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59D25FA9687D4A54878639FD /* Inter_18pt-SemiBold.ttf */; };
@@ -21,9 +20,10 @@
 		63BB4370F51D44C4955ED57E /* Inter_24pt-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6471B6C58CA14D5E97112E41 /* Inter_24pt-Thin.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		82D352F5192740B0AC54D392 /* Inter_24pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C37B29C926A4483AAFAEAA4 /* Inter_24pt-Bold.ttf */; };
+		83519B49EA77CADE18ED25D2 /* libPods-ActoDriving.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 873E949B65F969B767048956 /* libPods-ActoDriving.a */; };
 		868F984DBB794059ADA64EC7 /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 054AF1EDDDBF4ECCB64F6226 /* Gilroy-Regular.ttf */; };
 		9B04B4B0A59D4CCFB43C35BC /* Gilroy-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C429F13EAAE49D4A5AB2615 /* Gilroy-SemiBold.ttf */; };
-		9C35CC16A7784D4FBE3DBE16 /* libPods-ActoDriving-ActoDrivingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A2E2224CFC66BA3344FEE1 /* libPods-ActoDriving-ActoDrivingTests.a */; };
+		A225528A1DBEF3CB699E19CA /* libPods-ActoDriving-ActoDrivingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF0BB814D9994EB7F4F30AD /* libPods-ActoDriving-ActoDrivingTests.a */; };
 		A853AD99270F4F9DB19F9FAA /* Inter_18pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84F4198DF79A4E8CA4C3BD77 /* Inter_18pt-Bold.ttf */; };
 		B55FB0D72307496F985D76FB /* Inter_18pt-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DDBB85B71A5420181C7F300 /* Inter_18pt-Light.ttf */; };
 		BC414D148C964E90842AA6B1 /* Inter_18pt-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5C18AF002864E6B8E141D86 /* Inter_18pt-ExtraBold.ttf */; };
@@ -50,8 +50,8 @@
 		00E356EE1AD99517003FC87E /* ActoDrivingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActoDrivingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ActoDrivingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActoDrivingTests.m; sourceTree = "<group>"; };
-		054AF1EDDDBF4ECCB64F6226 /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Regular.ttf"; path = "../assets/fonts/Gilroy-Regular.ttf"; sourceTree = "<group>"; };
-		07FADC7D6617411F88EA0A5A /* Gilroy-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Black.ttf"; path = "../assets/fonts/Gilroy-Black.ttf"; sourceTree = "<group>"; };
+		054AF1EDDDBF4ECCB64F6226 /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Regular.ttf"; path = "../assets/fonts/Gilroy-Regular.ttf"; sourceTree = "<group>"; };
+		07FADC7D6617411F88EA0A5A /* Gilroy-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Black.ttf"; path = "../assets/fonts/Gilroy-Black.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ActoDriving.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActoDriving.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ActoDriving/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ActoDriving/AppDelegate.mm; sourceTree = "<group>"; };
@@ -59,31 +59,31 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ActoDriving/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ActoDriving/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = ActoDriving/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		2C429F13EAAE49D4A5AB2615 /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-SemiBold.ttf"; path = "../assets/fonts/Gilroy-SemiBold.ttf"; sourceTree = "<group>"; };
-		4C37B29C926A4483AAFAEAA4 /* Inter_24pt-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_24pt-Bold.ttf"; path = "../assets/fonts/Inter_24pt-Bold.ttf"; sourceTree = "<group>"; };
-		4D04BF7DBD774B1A9728CAD0 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Bold.ttf"; path = "../assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; };
-		59D25FA9687D4A54878639FD /* Inter_18pt-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-SemiBold.ttf"; path = "../assets/fonts/Inter_18pt-SemiBold.ttf"; sourceTree = "<group>"; };
-		5CA9CCCFB295B62FBB65C876 /* Pods-ActoDriving-ActoDrivingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActoDriving-ActoDrivingTests.release.xcconfig"; path = "Target Support Files/Pods-ActoDriving-ActoDrivingTests/Pods-ActoDriving-ActoDrivingTests.release.xcconfig"; sourceTree = "<group>"; };
-		5DDBB85B71A5420181C7F300 /* Inter_18pt-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Light.ttf"; path = "../assets/fonts/Inter_18pt-Light.ttf"; sourceTree = "<group>"; };
-		6471B6C58CA14D5E97112E41 /* Inter_24pt-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_24pt-Thin.ttf"; path = "../assets/fonts/Inter_24pt-Thin.ttf"; sourceTree = "<group>"; };
-		68D0BF54246A14DCA011C61D /* Pods-ActoDriving-ActoDrivingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActoDriving-ActoDrivingTests.debug.xcconfig"; path = "Target Support Files/Pods-ActoDriving-ActoDrivingTests/Pods-ActoDriving-ActoDrivingTests.debug.xcconfig"; sourceTree = "<group>"; };
-		7677488DCD17611CBEE6E059 /* Pods-ActoDriving.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActoDriving.debug.xcconfig"; path = "Target Support Files/Pods-ActoDriving/Pods-ActoDriving.debug.xcconfig"; sourceTree = "<group>"; };
-		81A9DD0ADC704A7589C23BC3 /* Inter_28pt-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_28pt-Light.ttf"; path = "../assets/fonts/Inter_28pt-Light.ttf"; sourceTree = "<group>"; };
+		2C429F13EAAE49D4A5AB2615 /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-SemiBold.ttf"; path = "../assets/fonts/Gilroy-SemiBold.ttf"; sourceTree = "<group>"; };
+		3BF0BB814D9994EB7F4F30AD /* libPods-ActoDriving-ActoDrivingTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ActoDriving-ActoDrivingTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C37B29C926A4483AAFAEAA4 /* Inter_24pt-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_24pt-Bold.ttf"; path = "../assets/fonts/Inter_24pt-Bold.ttf"; sourceTree = "<group>"; };
+		4D04BF7DBD774B1A9728CAD0 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Bold.ttf"; path = "../assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; };
+		558359FC86BF67788BEF2A03 /* Pods-ActoDriving.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActoDriving.release.xcconfig"; path = "Target Support Files/Pods-ActoDriving/Pods-ActoDriving.release.xcconfig"; sourceTree = "<group>"; };
+		59D25FA9687D4A54878639FD /* Inter_18pt-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-SemiBold.ttf"; path = "../assets/fonts/Inter_18pt-SemiBold.ttf"; sourceTree = "<group>"; };
+		5DDBB85B71A5420181C7F300 /* Inter_18pt-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Light.ttf"; path = "../assets/fonts/Inter_18pt-Light.ttf"; sourceTree = "<group>"; };
+		6471B6C58CA14D5E97112E41 /* Inter_24pt-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_24pt-Thin.ttf"; path = "../assets/fonts/Inter_24pt-Thin.ttf"; sourceTree = "<group>"; };
+		81A9DD0ADC704A7589C23BC3 /* Inter_28pt-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_28pt-Light.ttf"; path = "../assets/fonts/Inter_28pt-Light.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ActoDriving/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		82F4D79E173D4888A55F0AE3 /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Heavy.ttf"; path = "../assets/fonts/Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
-		84F4198DF79A4E8CA4C3BD77 /* Inter_18pt-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Bold.ttf"; path = "../assets/fonts/Inter_18pt-Bold.ttf"; sourceTree = "<group>"; };
-		A8A2E2224CFC66BA3344FEE1 /* libPods-ActoDriving-ActoDrivingTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ActoDriving-ActoDrivingTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B4A2A33A308D96A3C89AD4A3 /* Pods-ActoDriving.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActoDriving.release.xcconfig"; path = "Target Support Files/Pods-ActoDriving/Pods-ActoDriving.release.xcconfig"; sourceTree = "<group>"; };
-		B5C18AF002864E6B8E141D86 /* Inter_18pt-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-ExtraBold.ttf"; path = "../assets/fonts/Inter_18pt-ExtraBold.ttf"; sourceTree = "<group>"; };
-		B62BE487CF6245718E1C7351 /* Gilroy-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-ExtraBold.ttf"; path = "../assets/fonts/Gilroy-ExtraBold.ttf"; sourceTree = "<group>"; };
-		BBB2696F3CFD476D923BB56C /* Gilroy-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Thin.ttf"; path = "../assets/fonts/Gilroy-Thin.ttf"; sourceTree = "<group>"; };
-		D25C2EEACB8C48B4A371165D /* Inter_18pt-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Black.ttf"; path = "../assets/fonts/Inter_18pt-Black.ttf"; sourceTree = "<group>"; };
-		DE08E18E2AFD4A2A94D08196 /* Gilroy-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Light.ttf"; path = "../assets/fonts/Gilroy-Light.ttf"; sourceTree = "<group>"; };
-		E1A32C380CFF4A4E96FF5592 /* Inter_18pt-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Medium.ttf"; path = "../assets/fonts/Inter_18pt-Medium.ttf"; sourceTree = "<group>"; };
-		EB797946C4CC0B07F9EFB353 /* libPods-ActoDriving.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ActoDriving.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		82F4D79E173D4888A55F0AE3 /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Heavy.ttf"; path = "../assets/fonts/Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
+		84F4198DF79A4E8CA4C3BD77 /* Inter_18pt-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Bold.ttf"; path = "../assets/fonts/Inter_18pt-Bold.ttf"; sourceTree = "<group>"; };
+		873E949B65F969B767048956 /* libPods-ActoDriving.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ActoDriving.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5C18AF002864E6B8E141D86 /* Inter_18pt-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-ExtraBold.ttf"; path = "../assets/fonts/Inter_18pt-ExtraBold.ttf"; sourceTree = "<group>"; };
+		B62BE487CF6245718E1C7351 /* Gilroy-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-ExtraBold.ttf"; path = "../assets/fonts/Gilroy-ExtraBold.ttf"; sourceTree = "<group>"; };
+		B71F1BD78A7CD4B28A573CA2 /* Pods-ActoDriving.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActoDriving.debug.xcconfig"; path = "Target Support Files/Pods-ActoDriving/Pods-ActoDriving.debug.xcconfig"; sourceTree = "<group>"; };
+		BBB2696F3CFD476D923BB56C /* Gilroy-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Thin.ttf"; path = "../assets/fonts/Gilroy-Thin.ttf"; sourceTree = "<group>"; };
+		C1EDBCE5D783DEA1DE575514 /* Pods-ActoDriving-ActoDrivingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActoDriving-ActoDrivingTests.release.xcconfig"; path = "Target Support Files/Pods-ActoDriving-ActoDrivingTests/Pods-ActoDriving-ActoDrivingTests.release.xcconfig"; sourceTree = "<group>"; };
+		C9CA672D385E7F3E92DDBB50 /* Pods-ActoDriving-ActoDrivingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActoDriving-ActoDrivingTests.debug.xcconfig"; path = "Target Support Files/Pods-ActoDriving-ActoDrivingTests/Pods-ActoDriving-ActoDrivingTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D25C2EEACB8C48B4A371165D /* Inter_18pt-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Black.ttf"; path = "../assets/fonts/Inter_18pt-Black.ttf"; sourceTree = "<group>"; };
+		DE08E18E2AFD4A2A94D08196 /* Gilroy-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Light.ttf"; path = "../assets/fonts/Gilroy-Light.ttf"; sourceTree = "<group>"; };
+		E1A32C380CFF4A4E96FF5592 /* Inter_18pt-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Medium.ttf"; path = "../assets/fonts/Inter_18pt-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F46AB196C989403499F40ACE /* Inter_18pt-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Regular.ttf"; path = "../assets/fonts/Inter_18pt-Regular.ttf"; sourceTree = "<group>"; };
-		FCE09DA2F8D844C195283B08 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Medium.ttf"; path = "../assets/fonts/Gilroy-Medium.ttf"; sourceTree = "<group>"; };
+		F46AB196C989403499F40ACE /* Inter_18pt-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Regular.ttf"; path = "../assets/fonts/Inter_18pt-Regular.ttf"; sourceTree = "<group>"; };
+		FCE09DA2F8D844C195283B08 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Medium.ttf"; path = "../assets/fonts/Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C35CC16A7784D4FBE3DBE16 /* libPods-ActoDriving-ActoDrivingTests.a in Frameworks */,
+				A225528A1DBEF3CB699E19CA /* libPods-ActoDriving-ActoDrivingTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18935C0D3FD5A2C001FE9D3A /* libPods-ActoDriving.a in Frameworks */,
+				83519B49EA77CADE18ED25D2 /* libPods-ActoDriving.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,8 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				EB797946C4CC0B07F9EFB353 /* libPods-ActoDriving.a */,
-				A8A2E2224CFC66BA3344FEE1 /* libPods-ActoDriving-ActoDrivingTests.a */,
+				873E949B65F969B767048956 /* libPods-ActoDriving.a */,
+				3BF0BB814D9994EB7F4F30AD /* libPods-ActoDriving-ActoDrivingTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,7 +171,6 @@
 				81A9DD0ADC704A7589C23BC3 /* Inter_28pt-Light.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -209,10 +208,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7677488DCD17611CBEE6E059 /* Pods-ActoDriving.debug.xcconfig */,
-				B4A2A33A308D96A3C89AD4A3 /* Pods-ActoDriving.release.xcconfig */,
-				68D0BF54246A14DCA011C61D /* Pods-ActoDriving-ActoDrivingTests.debug.xcconfig */,
-				5CA9CCCFB295B62FBB65C876 /* Pods-ActoDriving-ActoDrivingTests.release.xcconfig */,
+				B71F1BD78A7CD4B28A573CA2 /* Pods-ActoDriving.debug.xcconfig */,
+				558359FC86BF67788BEF2A03 /* Pods-ActoDriving.release.xcconfig */,
+				C9CA672D385E7F3E92DDBB50 /* Pods-ActoDriving-ActoDrivingTests.debug.xcconfig */,
+				C1EDBCE5D783DEA1DE575514 /* Pods-ActoDriving-ActoDrivingTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -224,12 +223,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ActoDrivingTests" */;
 			buildPhases = (
-				C565E18EF3E80022593D160E /* [CP] Check Pods Manifest.lock */,
+				61606ADFE9CA1BCCBE8B51F6 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				A4F67F79FA56B8C9869FFB27 /* [CP] Embed Pods Frameworks */,
-				D724E5A280B27C5EDD4A3208 /* [CP] Copy Pods Resources */,
+				229C2CD19B07609C93041FB6 /* [CP] Embed Pods Frameworks */,
+				B0D2A51D033BE7DF23E232C0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -245,13 +244,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ActoDriving" */;
 			buildPhases = (
-				7110CBC2F41F2FF0E55EBB4B /* [CP] Check Pods Manifest.lock */,
+				DDFF0D1E61BB8587642F047F /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				4F2F7500536BD5A65EA1BFD4 /* [CP] Embed Pods Frameworks */,
-				AE21B6A8399F03144D4D8756 /* [CP] Copy Pods Resources */,
+				2A24405B18AD0029ED384F00 /* [CP] Embed Pods Frameworks */,
+				322C73E6BAB9A02A33959157 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -354,46 +353,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		4F2F7500536BD5A65EA1BFD4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ActoDriving/Pods-ActoDriving-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ActoDriving/Pods-ActoDriving-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ActoDriving/Pods-ActoDriving-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7110CBC2F41F2FF0E55EBB4B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ActoDriving-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A4F67F79FA56B8C9869FFB27 /* [CP] Embed Pods Frameworks */ = {
+		229C2CD19B07609C93041FB6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -410,7 +370,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ActoDriving-ActoDrivingTests/Pods-ActoDriving-ActoDrivingTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AE21B6A8399F03144D4D8756 /* [CP] Copy Pods Resources */ = {
+		2A24405B18AD0029ED384F00 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ActoDriving/Pods-ActoDriving-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ActoDriving/Pods-ActoDriving-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ActoDriving/Pods-ActoDriving-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		322C73E6BAB9A02A33959157 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -427,7 +404,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ActoDriving/Pods-ActoDriving-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C565E18EF3E80022593D160E /* [CP] Check Pods Manifest.lock */ = {
+		61606ADFE9CA1BCCBE8B51F6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -449,7 +426,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D724E5A280B27C5EDD4A3208 /* [CP] Copy Pods Resources */ = {
+		B0D2A51D033BE7DF23E232C0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -464,6 +441,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ActoDriving-ActoDrivingTests/Pods-ActoDriving-ActoDrivingTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DDFF0D1E61BB8587642F047F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ActoDriving-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -499,7 +498,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68D0BF54246A14DCA011C61D /* Pods-ActoDriving-ActoDrivingTests.debug.xcconfig */;
+			baseConfigurationReference = C9CA672D385E7F3E92DDBB50 /* Pods-ActoDriving-ActoDrivingTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -526,7 +525,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5CA9CCCFB295B62FBB65C876 /* Pods-ActoDriving-ActoDrivingTests.release.xcconfig */;
+			baseConfigurationReference = C1EDBCE5D783DEA1DE575514 /* Pods-ActoDriving-ActoDrivingTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -550,11 +549,12 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7677488DCD17611CBEE6E059 /* Pods-ActoDriving.debug.xcconfig */;
+			baseConfigurationReference = B71F1BD78A7CD4B28A573CA2 /* Pods-ActoDriving.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 68B87T3N23;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ActoDriving/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -578,11 +578,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4A2A33A308D96A3C89AD4A3 /* Pods-ActoDriving.release.xcconfig */;
+			baseConfigurationReference = 558359FC86BF67788BEF2A03 /* Pods-ActoDriving.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 68B87T3N23;
 				INFOPLIST_FILE = ActoDriving/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -671,10 +672,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -743,10 +741,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

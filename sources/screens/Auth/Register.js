@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, { useState, useRef } from "react";
 import {
   TouchableOpacity,
   View,
@@ -6,7 +6,7 @@ import {
   ScrollView,
   StatusBar,
   Platform,
-} from 'react-native';
+} from "react-native";
 import {
   RNContainer,
   RNText,
@@ -14,24 +14,24 @@ import {
   RNLoader,
   RNImage,
   RNKeyboardAvoid,
-} from '../../common';
-import {Colors, FontFamily, FontSize, hp, wp} from '../../theme';
-import {Text} from 'react-native-paper';
-import FetchMethod from '../../api/FetchMethod';
-import Toast from 'react-native-toast-notifications';
-import {useTheme} from '../../common/RNThemeContext';
-import {Validation} from '../../utils';
-import {useTranslation} from 'react-i18next';
+} from "../../common";
+import { Colors, FontFamily, FontSize, hp, wp } from "../../theme";
+import { Text } from "react-native-paper";
+import FetchMethod from "../../api/FetchMethod";
+import Toast from "react-native-toast-notifications";
+import { useTheme } from "../../common/RNThemeContext";
+import { Validation } from "../../utils";
+import { useTranslation } from "react-i18next";
 
-export default function Register({navigation}) {
-  const {t} = useTranslation();
-  const {colorScheme} = useTheme();
+export default function Register({ navigation }) {
+  const { t } = useTranslation();
+  const { colorScheme } = useTheme();
   const toastRef = useRef();
   const [state, setState] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   });
   const [isNavigate, setIsNavigate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,51 +49,51 @@ export default function Register({navigation}) {
 
   const OnRegisterPress = async () => {
     setIsNavigate(true);
-    if (state.password == '') {
-      setPasswordError(t('errors.Password'));
+    if (state.password == "") {
+      setPasswordError(t("errors.Password"));
     } else if (state.password.length < 8 && state.password.length > 0) {
-      setPasswordError(t('errors.passLength'));
+      setPasswordError(t("errors.passLength"));
     } else if (!Validation.isPasswordValid(state.password)) {
-      setPasswordError(t('errors.errPasswordValidation'));
+      setPasswordError(t("errors.errPasswordValidation"));
     }
     if (isValidation) {
       setIsLoading(true);
       try {
         const response = await FetchMethod.POST({
-          EndPoint: 'Register/OTP',
+          EndPoint: "Register/OTP",
           Params: {
             email: state.email,
             firstName: state.firstName,
-            moblieNo: '',
+            moblieNo: "",
           },
         });
-        console.log('Register response -->', response.otp);
+        console.log("Register response -->", response.otp);
         if (response != null) {
-          navigation.navigate('OTPScreen', {
+          navigation.navigate("OTPScreen", {
             component: response.otp,
             RegisterData: state,
-            Flag: 'RegisterData',
+            Flag: "RegisterData",
           });
         } else {
           toastRef.current.show(`Registration failed`, {
-            type: 'danger',
-            placement: 'top',
+            type: "danger",
+            placement: "top",
             duration: 2000,
             offset: StatusBar.currentHeight + hp(2),
-            animationType: 'slide-in',
+            animationType: "slide-in",
           });
         }
       } catch (error) {
         setTimeout(() => {
-          toastRef.current.show('User already exists', {
-            type: 'danger',
-            placement: 'top',
+          toastRef.current.show("User already exists", {
+            type: "danger",
+            placement: "top",
             duration: 2000,
             offset: StatusBar.currentHeight + hp(2),
-            animationType: 'slide-in',
+            animationType: "slide-in",
           });
         }, 1000);
-        console.log('register error', error);
+        console.log("register error", error);
       } finally {
         setIsLoading(false);
       }
@@ -107,72 +107,81 @@ export default function Register({navigation}) {
   return (
     <RNContainer
       style={{
-        backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
+        backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
       }}
-      hidden={true}>
-      <RNKeyboardAvoid offSet={Platform.OS === 'ios' ? hp(15) : hp(0)}>
+      // hidden={true}
+    >
+      <RNKeyboardAvoid offSet={Platform.OS === "ios" ? hp(15) : hp(0)}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="interactive">
-          <View style={{justifyContent: 'center', flex: 1, marginTop: hp(5)}}>
-            <View style={{paddingHorizontal: wp(5)}}>
+          keyboardDismissMode="interactive"
+        >
+          <View style={{ justifyContent: "center", flex: 1, marginTop: hp(5) }}>
+            <View style={{ paddingHorizontal: wp(5) }}>
               <View style={styles(colorScheme).InputViewBox}>
                 <RNText style={styles(colorScheme).userText}>
-                  {t('Register.FirstName')}{' '}
+                  {t("Register.FirstName")}{" "}
                   <Text
-                    style={{color: Colors.Orange, fontSize: FontSize.font18}}>
+                    style={{ color: Colors.Orange, fontSize: FontSize.font18 }}
+                  >
                     *
                   </Text>
                 </RNText>
                 <RNInput
-                  placeholder={t('Register.FirstName')}
+                  placeholder={t("Register.FirstName")}
                   value={state.firstName}
-                  onChangeText={v => setState(p => ({...p, firstName: v}))}
+                  onChangeText={(v) =>
+                    setState((p) => ({ ...p, firstName: v }))
+                  }
                   style={styles(colorScheme).InputView}
                 />
                 <RNText
                   size={FontSize.font12}
                   pBottom={hp(1)}
                   pTop={hp(isFirstNamevalid ? 0.5 : 0)}
-                  color={Colors.Red}>
-                  {isFirstNamevalid ? t('errors.FirstName') : ''}
+                  color={Colors.Red}
+                >
+                  {isFirstNamevalid ? t("errors.FirstName") : ""}
                 </RNText>
               </View>
               <View style={styles(colorScheme).InputViewBox}>
                 <RNText style={styles(colorScheme).userText}>
-                  {t('Register.LastName')}{' '}
+                  {t("Register.LastName")}{" "}
                   <Text
-                    style={{color: Colors.Orange, fontSize: FontSize.font18}}>
+                    style={{ color: Colors.Orange, fontSize: FontSize.font18 }}
+                  >
                     *
                   </Text>
                 </RNText>
                 <RNInput
-                  placeholder={t('Register.LastName')}
+                  placeholder={t("Register.LastName")}
                   value={state.lastName}
-                  onChangeText={v => setState(p => ({...p, lastName: v}))}
+                  onChangeText={(v) => setState((p) => ({ ...p, lastName: v }))}
                   style={styles(colorScheme).InputView}
                 />
                 <RNText
                   size={FontSize.font12}
                   pBottom={hp(1)}
                   pTop={hp(IslastNameValid ? 0.5 : 0)}
-                  color={Colors.Red}>
-                  {IslastNameValid ? t('errors.LastName') : ''}
+                  color={Colors.Red}
+                >
+                  {IslastNameValid ? t("errors.LastName") : ""}
                 </RNText>
               </View>
               <View style={styles(colorScheme).InputViewBox}>
                 <RNText style={styles(colorScheme).userText}>
-                  {t('Register.Email')}{' '}
+                  {t("Register.Email")}{" "}
                   <Text
-                    style={{color: Colors.Orange, fontSize: FontSize.font18}}>
+                    style={{ color: Colors.Orange, fontSize: FontSize.font18 }}
+                  >
                     *
                   </Text>
                 </RNText>
                 <RNInput
-                  placeholder={'E-mail'}
+                  placeholder={"E-mail"}
                   value={state.email}
-                  onChangeText={v => setState(p => ({...p, email: v}))}
+                  onChangeText={(v) => setState((p) => ({ ...p, email: v }))}
                   style={styles(colorScheme).InputView}
                 />
               </View>
@@ -180,42 +189,47 @@ export default function Register({navigation}) {
                 size={FontSize.font12}
                 pBottom={hp(1)}
                 pTop={hp(isEmailError ? 0.5 : 0)}
-                color={Colors.Red}>
-                {isEmailError ? t('errors.Email') : ''}
+                color={Colors.Red}
+              >
+                {isEmailError ? t("errors.Email") : ""}
               </RNText>
               <View style={styles(colorScheme).InputViewBox}>
                 <RNText style={styles(colorScheme).userText}>
-                  {t('Register.Password')}{' '}
-                  <Text style={{color: Colors.Orange}}>*</Text>
+                  {t("Register.Password")}{" "}
+                  <Text style={{ color: Colors.Orange }}>*</Text>
                 </RNText>
                 <View
                   style={[
                     styles(colorScheme).inputContainer,
                     {
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     },
-                  ]}>
+                  ]}
+                >
                   <RNInput
                     style={styles(colorScheme).userInput}
                     placeholder="Password"
                     value={state.password}
-                    onChangeText={v => setState(p => ({...p, password: v}))}
+                    onChangeText={(v) =>
+                      setState((p) => ({ ...p, password: v }))
+                    }
                     secureTextEntry={!showPassword}
                   />
                   <TouchableOpacity
-                    onPress={() => setShowPassword(!showPassword)}>
+                    onPress={() => setShowPassword(!showPassword)}
+                  >
                     <RNImage
-                      style={{width: wp(5), height: wp(5)}}
+                      style={{ width: wp(5), height: wp(5) }}
                       source={
                         showPassword
-                          ? colorScheme === 'dark'
-                            ? require('../../assets/images/eye-off.png')
-                            : require('../../assets/images/eye-off1.png')
-                          : colorScheme === 'dark'
-                          ? require('../../assets/images/eye-on.png')
-                          : require('../../assets/images/eye-on1.png')
+                          ? colorScheme === "dark"
+                            ? require("../../assets/images/eye-off.png")
+                            : require("../../assets/images/eye-off1.png")
+                          : colorScheme === "dark"
+                          ? require("../../assets/images/eye-on.png")
+                          : require("../../assets/images/eye-on1.png")
                       }
                     />
                   </TouchableOpacity>
@@ -224,16 +238,18 @@ export default function Register({navigation}) {
                   size={FontSize.font12}
                   pBottom={hp(1)}
                   pTop={hp(PasswordError ? 0.5 : 0)}
-                  color={Colors.Red}>
-                  {PasswordError || ''}
+                  color={Colors.Red}
+                >
+                  {PasswordError || ""}
                 </RNText>
               </View>
               <View style={styles(colorScheme).bottomView}>
                 <TouchableOpacity
                   style={styles(colorScheme).loginButton}
-                  onPress={() => OnRegisterPress()}>
+                  onPress={() => OnRegisterPress()}
+                >
                   <RNText style={styles(colorScheme).loginText}>
-                    {t('Register.Register')}{' '}
+                    {t("Register.Register")}{" "}
                   </RNText>
                 </TouchableOpacity>
               </View>
@@ -246,7 +262,7 @@ export default function Register({navigation}) {
   );
 }
 
-const styles = colorScheme =>
+const styles = (colorScheme) =>
   StyleSheet.create({
     InputViewBox: {
       marginBottom: hp(0),
@@ -254,11 +270,11 @@ const styles = colorScheme =>
     userText: {
       fontSize: FontSize.font14,
       fontFamily: FontFamily.Medium,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
       paddingBottom: hp(1),
     },
     bottomView: {
-      justifyContent: 'center',
+      justifyContent: "center",
       marginTop: hp(4),
     },
     loginButton: {
@@ -270,8 +286,8 @@ const styles = colorScheme =>
     loginText: {
       color: Colors.White,
       fontSize: FontSize.font16,
-      fontFamily: 'Poppins-Medium',
-      textAlign: 'center',
+      fontFamily: "Poppins-Medium",
+      textAlign: "center",
     },
     inputContainer: {
       borderWidth: 2,
@@ -286,11 +302,11 @@ const styles = colorScheme =>
       width: wp(75),
       fontFamily: FontFamily.Medium,
       fontSize: FontSize.font14,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
       borderWidth: 0,
     },
     InputView: {
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
       height: hp(6),
       paddingHorizontal: wp(3),
     },

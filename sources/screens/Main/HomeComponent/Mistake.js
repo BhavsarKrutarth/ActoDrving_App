@@ -1,28 +1,28 @@
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
-import {RNContainer, RNImage, RNStyles, RNText} from '../../../common';
-import {useDispatch, useSelector} from 'react-redux';
-import {useTheme} from '../../../common/RNThemeContext';
-import {Colors, FontFamily, FontSize, hp, wp} from '../../../theme';
-import {useTranslation} from 'react-i18next';
-import {ADD_MiSTAKEDATA} from '../../../redux/Reducers/MistakeReducers';
-import {CheckBox} from '@rneui/themed';
-import {Image} from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { RNContainer, RNImage, RNStyles, RNText } from "../../../common";
+import { useDispatch, useSelector } from "react-redux";
+import { useTheme } from "../../../common/RNThemeContext";
+import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
+import { useTranslation } from "react-i18next";
+import { ADD_MiSTAKEDATA } from "../../../redux/Reducers/MistakeReducers";
+import { CheckBox } from "@rneui/themed";
+import { Image } from "react-native";
 
 export default function Mistake() {
-  const {t} = useTranslation();
-  const {colorScheme} = useTheme();
+  const { t } = useTranslation();
+  const { colorScheme } = useTheme();
   const dispatch = useDispatch();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedId, setSelectedId] = useState(null);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
   const [correctOptionId, setCorrectOptionId] = useState(null);
   const Mistakequestions = useSelector(
-    state => state.Mistake.mistakequesrtionsData,
+    (state) => state.Mistake.mistakequesrtionsData
   );
-  const categoryData = useSelector(state => state.Category.selectedCategory);
-  const userLoginData = useSelector(state => state.Authentication.AsyncValue);
-  const mistakeResponse = useSelector(state => state.Mistake.mistakeResponse);
+  const categoryData = useSelector((state) => state.Category.selectedCategory);
+  const userLoginData = useSelector((state) => state.Authentication.AsyncValue);
+  const mistakeResponse = useSelector((state) => state.Mistake.mistakeResponse);
   console.log(mistakeResponse);
   // console.log(JSON.stringify(mistakeResponse, null, 2));
 
@@ -36,7 +36,7 @@ export default function Mistake() {
     }
   };
 
-  const handleOptionPress = option => {
+  const handleOptionPress = (option) => {
     if (!isOptionSelected) {
       setSelectedId(option.questions_OptionsID);
       setIsOptionSelected(true);
@@ -45,7 +45,7 @@ export default function Mistake() {
         setCorrectOptionId(null);
       } else {
         const correctOption = currentQuestion.options.find(
-          opt => opt.isCorrect,
+          (opt) => opt.isCorrect
         );
         setCorrectOptionId(correctOption.questions_OptionsID);
       }
@@ -54,13 +54,13 @@ export default function Mistake() {
         ADD_MiSTAKEDATA({
           loginID: userLoginData.userLoginID,
           vehicleID: categoryData.vehicle_Id,
-          ...(currentQuestion.dataType === 'Quizdata'
-            ? {QuizID: currentQuestion.testID}
-            : {TopicID: currentQuestion.testID}),
+          ...(currentQuestion.dataType === "Quizdata"
+            ? { QuizID: currentQuestion.testID }
+            : { TopicID: currentQuestion.testID }),
           isCorrect,
           questionIndex: currentQuestion.questionId,
           // QuestionCounter: currentQuestionIndex + 1
-        }),
+        })
       );
     }
   };
@@ -68,8 +68,8 @@ export default function Mistake() {
   const currentQuestion = Mistakequestions[currentQuestionIndex];
   if (!Mistakequestions || Mistakequestions.length === 0) {
     return (
-      <View style={[RNStyles.flexCenter, {backgroundColor: Colors.White}]}>
-        <RNText style={{fontFamily: FontFamily.GilroySemiBold}}>
+      <View style={[RNStyles.flexCenter, { backgroundColor: Colors.White }]}>
+        <RNText style={{ fontFamily: FontFamily.GilroySemiBold }}>
           No data found
         </RNText>
       </View>
@@ -79,11 +79,11 @@ export default function Mistake() {
   return (
     <RNContainer style={styles(colorScheme).container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {currentQuestion.questions_ImageName !== '0' && (
+        {currentQuestion.questions_ImageName !== "0" && (
           <View style={styles(colorScheme).bannerImage}>
             <RNImage
-              style={{width: wp(100)}}
-              source={{uri: currentQuestion.questions_ImageName}}
+              style={{ width: wp(100) }}
+              source={{ uri: currentQuestion.questions_ImageName }}
             />
           </View>
         )}
@@ -97,7 +97,8 @@ export default function Mistake() {
                 width: wp(90),
                 paddingVertical: hp(2),
               },
-            ]}>
+            ]}
+          >
             {currentQuestionIndex + 1}. {currentQuestion.questionsText}
           </RNText>
         </View>
@@ -105,17 +106,18 @@ export default function Mistake() {
         <View
           style={[
             currentQuestion.options.some(
-              option => option.options_Image_URL != '0',
+              (option) => option.options_Image_URL != "0"
             )
               ? RNStyles.flexWrapHorizontal
               : null,
-            {width: wp(95), gap: 20, alignSelf: 'center'},
-          ]}>
-          {currentQuestion.options.map(option => (
+            { width: wp(95), gap: 20, alignSelf: "center" },
+          ]}
+        >
+          {currentQuestion.options.map((option) => (
             <TouchableOpacity
               key={option.questions_OptionsID}
               style={[
-                option.options_Image_URL != '0'
+                option.options_Image_URL != "0"
                   ? styles(colorScheme).optionImage
                   : styles(colorScheme).optionbtn,
                 {
@@ -127,8 +129,8 @@ export default function Mistake() {
                         : Colors.lightRed
                       : correctOptionId === option.questions_OptionsID
                       ? Colors.LightGreen
-                      : colorScheme === 'dark'
-                      ? '#111c22'
+                      : colorScheme === "dark"
+                      ? "#111c22"
                       : Colors.lightWhite,
                   borderColor:
                     selectedId === option.questions_OptionsID
@@ -137,12 +139,13 @@ export default function Mistake() {
                         : Colors.Red
                       : correctOptionId === option.questions_OptionsID
                       ? Colors.Green
-                      : colorScheme === 'dark'
-                      ? '#111c22'
+                      : colorScheme === "dark"
+                      ? "#111c22"
                       : Colors.lightWhite,
                 },
               ]}
-              onPress={() => handleOptionPress(option)}>
+              onPress={() => handleOptionPress(option)}
+            >
               {/* <RadioButton
                 value={option.questions_OptionsID}
                 status={
@@ -158,8 +161,8 @@ export default function Mistake() {
                 source={
                   selectedId === option.questions_OptionsID ||
                   correctOptionId === option.questions_OptionsID
-                    ? require('../../../assets/images/F_Radio.png')
-                    : require('../../../assets/images/Radio.png')
+                    ? require("../../../assets/images/F_Radio.png")
+                    : require("../../../assets/images/Radio.png")
                 }
                 style={{
                   width: wp(5),
@@ -191,9 +194,9 @@ export default function Mistake() {
                 }}
                 textStyle={{color: 'transparent'}}
               /> */}
-              {option.options_Image_URL !== '0' ? (
+              {option.options_Image_URL !== "0" ? (
                 <RNImage
-                  source={{uri: option.options_Image_URL}}
+                  source={{ uri: option.options_Image_URL }}
                   style={styles(colorScheme).image}
                 />
               ) : (
@@ -207,11 +210,12 @@ export default function Mistake() {
                       color:
                         selectedId === option.questions_OptionsID
                           ? Colors.White
-                          : colorScheme === 'dark'
+                          : colorScheme === "dark"
                           ? Colors.lightWhite
-                          : '#262626',
+                          : "#262626",
                     },
-                  ]}>
+                  ]}
+                >
                   {option.optionsText}
                 </RNText>
               )}
@@ -222,7 +226,7 @@ export default function Mistake() {
         <View style={styles(colorScheme).explanationView}>
           <View style={styles(colorScheme).explanationContainer}>
             <RNText style={styles(colorScheme).explanation}>
-              {t('Question.explanation')}
+              {t("Question.explanation")}
             </RNText>
             <RNText style={styles(colorScheme).subtext}>
               {currentQuestion.explanation}
@@ -230,9 +234,10 @@ export default function Mistake() {
           </View>
           <TouchableOpacity
             onPress={handleNextQuestion}
-            style={styles(colorScheme).nextButton}>
+            style={styles(colorScheme).nextButton}
+          >
             <RNText style={styles(colorScheme).buttonText}>
-              {t('Question.next')}
+              {t("Question.next")}
             </RNText>
           </TouchableOpacity>
         </View>
@@ -241,12 +246,12 @@ export default function Mistake() {
   );
 }
 
-const styles = colorScheme =>
+const styles = (colorScheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
       gap: 15,
-      backgroundColor: colorScheme === 'dark' ? Colors.Black : Colors.White,
+      backgroundColor: colorScheme === "dark" ? Colors.Black : Colors.White,
     },
     bannerImage: {
       paddingVertical: 10,
@@ -268,8 +273,8 @@ const styles = colorScheme =>
     optionText: {
       fontSize: FontSize.font13,
       fontFamily: FontFamily.SemiBold,
-      color: colorScheme === 'dark' ? Colors.lightWhite : Colors.Black,
-      textTransform: 'capitalize',
+      color: colorScheme === "dark" ? Colors.lightWhite : Colors.Black,
+      textTransform: "capitalize",
       width: wp(80),
     },
     radioButton: {
@@ -277,13 +282,13 @@ const styles = colorScheme =>
       width: wp(2),
     },
     explanationView: {
-      alignSelf: 'center',
+      alignSelf: "center",
       width: wp(95),
       gap: 20,
       marginVertical: hp(2),
     },
     explanationContainer: {
-      backgroundColor: colorScheme === 'dark' ? '#a5d9b1' : '#dbf0e0',
+      backgroundColor: colorScheme === "dark" ? "#a5d9b1" : "#dbf0e0",
       padding: wp(7),
       gap: 5,
       borderRadius: 10,
@@ -300,15 +305,15 @@ const styles = colorScheme =>
     },
     nextButton: {
       ...RNStyles.flexCenter,
-      backgroundColor: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      backgroundColor: colorScheme === "dark" ? Colors.White : Colors.Black,
       padding: hp(1),
       width: wp(20),
       borderRadius: 50,
     },
     buttonText: {
-      color: colorScheme === 'dark' ? Colors.Black : Colors.White,
+      color: colorScheme === "dark" ? Colors.Black : Colors.White,
       fontFamily: FontFamily.Medium,
-      textTransform: 'capitalize',
+      textTransform: "capitalize",
     },
     optionImage: {
       width: wp(40),
@@ -325,6 +330,6 @@ const styles = colorScheme =>
       ...RNStyles.flexCenter,
       fontFamily: FontFamily.Bold,
       fontSize: FontSize.font16,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
   });

@@ -1,36 +1,36 @@
-import React from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import {RNImage, RNText, RNStyles} from '../../../common';
-import {Colors, FontFamily, FontSize, hp, wp} from '../../../theme';
-import {Images} from '../../../constants';
-import {useSelector} from 'react-redux';
-import {useTranslation} from 'react-i18next';
+import React from "react";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { RNImage, RNText, RNStyles } from "../../../common";
+import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
+import { Images } from "../../../constants";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export const OverviewContent = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return [
     {
       id: 1,
-      navigation: 'CNIndexes',
-      component: 'MockTest',
+      navigation: "CNIndexes",
+      component: "MockTest",
       imageSorce: Images.mocktest,
-      title: t('Home.mocktest'),
-      content: t('Home.mocktestsummary'),
+      title: t("Home.mocktest"),
+      content: t("Home.mocktestsummary"),
     },
     {
       id: 2,
-      navigation: 'CNIndexes',
-      component: 'TopicTest',
+      navigation: "CNIndexes",
+      component: "TopicTest",
       imageSorce: Images.topics,
-      title: t('Home.topics'),
-      content: t('Home.topicsummary'),
+      title: t("Home.topics"),
+      content: t("Home.topicsummary"),
     },
     {
       id: 3,
-      navigation: 'Mistake',
+      navigation: "Mistake",
       imageSorce: Images.mistake,
-      title: t('Home.mistake'),
-      content: t('Home.mistakesummary'),
+      title: t("Home.mistake"),
+      content: t("Home.mistakesummary"),
       isMistake: true,
     },
     // {
@@ -71,17 +71,18 @@ export const Item = ({
 }) => {
   const isSelected = selectedId === id;
   const MistakeQuestionsData = useSelector(
-    state => state.Mistake.mistakequesrtionsData,
+    (state) => state.Mistake.mistakequesrtionsData
   );
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity
       style={styles(colorScheme).item}
       onPress={() => {
         setSelectedId(id);
-        navigation.navigate(navigationScreen, {component});
-      }}>
+        navigation.navigate(navigationScreen, { component });
+      }}
+    >
       <View style={[RNStyles.flexRowBetween]}>
         <View style={styles(colorScheme).wrapper}>
           {isSelected && (
@@ -95,23 +96,25 @@ export const Item = ({
             <View
               style={{
                 ...RNStyles.flexRowCenter,
-                position: 'absolute',
+                position: "absolute",
                 zIndex: 1,
-                overflow: 'hidden',
+                overflow: "hidden",
                 top: hp(0),
                 left: wp(9),
-                backgroundColor: '#DCEAFF',
+                backgroundColor: "#DCEAFF",
                 height: wp(6),
                 width: wp(6),
                 borderRadius: 50,
                 borderWidth: 1,
-                borderColor: '#7EB2FF',
-              }}>
+                borderColor: "#7EB2FF",
+              }}
+            >
               <RNText
                 style={{
                   fontSize: FontSize.font13,
                   fontFamily: FontFamily.Bold,
-                }}>
+                }}
+              >
                 {MistakeQuestionsData.length}
               </RNText>
             </View>
@@ -125,14 +128,15 @@ export const Item = ({
         <TouchableOpacity
           style={[
             styles(colorScheme).buttonContainer,
-            {backgroundColor: isSelected ? Colors.Orange : Colors.BgBlack},
+            { backgroundColor: isSelected ? Colors.Orange : Colors.BgBlack },
           ]}
           onPress={() => {
             setSelectedId(id);
-            navigation.navigate(navigationScreen, {component});
-          }}>
+            navigation.navigate(navigationScreen, { component });
+          }}
+        >
           <RNText style={styles(colorScheme).buttonText}>
-            {t('Home.view')}
+            {t("Home.view")}
           </RNText>
         </TouchableOpacity>
       </View>
@@ -205,7 +209,7 @@ export const Item = ({
 //   );
 // };
 
-const styles = colorScheme =>
+const styles = (colorScheme) =>
   StyleSheet.create({
     buttonContainer: {
       backgroundColor: Colors.Orange,
@@ -221,33 +225,33 @@ const styles = colorScheme =>
     item: {
       width: wp(45),
       borderRadius: 10,
-      backgroundColor: colorScheme === 'dark' ? Colors.Blue : Colors.White,
+      backgroundColor: colorScheme === "dark" ? Colors.Blue : Colors.White,
       padding: wp(3),
       gap: 20,
     },
-    image: {height: wp(7), width: wp(7)},
+    image: { height: wp(7), width: wp(7) },
     wrapper: {
       height: wp(13),
       width: wp(13),
-      backgroundColor: colorScheme === 'dark' ? '#3e6075' : '#F0F0F0',
+      backgroundColor: colorScheme === "dark" ? "#3e6075" : "#F0F0F0",
       borderRadius: 50,
-      justifyContent: 'center',
-      alignItems: 'center',
+      justifyContent: "center",
+      alignItems: "center",
     },
     title: {
       fontFamily: FontFamily.SemiBold,
       fontSize: FontSize.font18,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     content: {
       fontFamily: FontFamily.Medium,
       fontSize: FontSize.font13,
-      color: colorScheme === 'dark' ? Colors.Grey : Colors.DarkGrey,
+      color: colorScheme === "dark" ? Colors.Grey : Colors.DarkGrey,
     },
     selected: {
       height: wp(13),
       width: wp(13),
-      position: 'absolute',
-      overflow: 'hidden',
+      position: "absolute",
+      overflow: "hidden",
     },
   });

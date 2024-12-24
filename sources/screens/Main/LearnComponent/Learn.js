@@ -1,22 +1,22 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import {Colors, FontFamily, FontSize, hp, wp} from '../../../theme';
-import {RNContainer, RNImage, RNStyles, RNText} from '../../../common';
-import {useTranslation} from 'react-i18next';
-import {useTheme} from '../../../common/RNThemeContext';
-import {Images} from '../../../constants';
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
+import { RNContainer, RNImage, RNStyles, RNText } from "../../../common";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../../../common/RNThemeContext";
+import { Images } from "../../../constants";
 
-export default function Learn({navigation}) {
-  const {colorScheme} = useTheme();
-  const {t} = useTranslation();
+export default function Learn({ navigation }) {
+  const { colorScheme } = useTheme();
+  const { t } = useTranslation();
 
   const Std_Material = [
     {
       id: 1,
-      navigation: 'Highwaycode',
+      navigation: "Highwaycode",
       imageSorce: Images.highwaycode,
-      title: t('Home.highwaycode'),
-      content: t('Home.highwaycode_Summary'),
+      title: t("Home.highwaycode"),
+      content: t("Home.highwaycode_Summary"),
     },
     // {
     //   id: 2,
@@ -34,15 +34,17 @@ export default function Learn({navigation}) {
         paddingHorizontal: wp(3),
         paddingVertical: hp(3),
         gap: wp(7),
-      }}>
-      <View style={{gap: hp(0.5)}}>
-        <View style={{flexDirection: 'row'}}>
+      }}
+    >
+      <View style={{ gap: hp(0.5) }}>
+        <View style={{ flexDirection: "row" }}>
           <RNText
             style={{
               fontSize: FontSize.font18,
               fontFamily: FontFamily.SemiBold,
-            }}>
-            {t('Home.s_material')}
+            }}
+          >
+            {t("Home.s_material")}
           </RNText>
           <RNImage source={Images.star1} style={styles(colorScheme).starIcon} />
         </View>
@@ -51,8 +53,9 @@ export default function Learn({navigation}) {
             fontSize: FontSize.font13,
             fontFamily: FontFamily.Medium,
             color: Colors.DarkGrey,
-          }}>
-          {t('Home.s_summary')}
+          }}
+        >
+          {t("Home.s_summary")}
         </RNText>
       </View>
       <View style={RNStyles.center}>
@@ -60,8 +63,9 @@ export default function Learn({navigation}) {
           <TouchableOpacity
             key={item.id}
             style={styles(colorScheme).modalContainer}
-            onPress={() => navigation.navigate(item.navigation)}>
-            <View style={[RNStyles.flexRowBetween, {gap: 20}]}>
+            onPress={() => navigation.navigate(item.navigation)}
+          >
+            <View style={[RNStyles.flexRowBetween, { gap: 20 }]}>
               <View
                 style={[
                   RNStyles.center,
@@ -71,22 +75,25 @@ export default function Learn({navigation}) {
                     backgroundColor: Colors.lightWhite,
                     borderRadius: 50,
                   },
-                ]}>
+                ]}
+              >
                 <RNImage
                   source={item.imageSorce}
-                  style={{width: wp(8), height: wp(8)}}
+                  style={{ width: wp(8), height: wp(8) }}
                 />
               </View>
               <TouchableOpacity
                 style={styles(colorScheme).buttonView}
-                onPress={() => navigation.navigate(item.navigation)}>
+                onPress={() => navigation.navigate(item.navigation)}
+              >
                 <RNText
                   style={{
                     color: Colors.White,
                     fontFamily: FontFamily.SemiBold,
                     fontSize: FontSize.font16,
-                  }}>
-                  {t('Home.view')}
+                  }}
+                >
+                  {t("Home.view")}
                 </RNText>
               </TouchableOpacity>
             </View>
@@ -95,14 +102,16 @@ export default function Learn({navigation}) {
                 style={{
                   fontSize: FontSize.font17,
                   fontFamily: FontFamily.Bold,
-                }}>
+                }}
+              >
                 {item.title}
               </RNText>
               <RNText
                 style={{
                   fontSize: FontSize.font13,
                   fontFamily: FontFamily.Regular,
-                }}>
+                }}
+              >
                 {item.content}
               </RNText>
             </View>
@@ -113,7 +122,7 @@ export default function Learn({navigation}) {
   );
 }
 
-const styles = colorScheme =>
+const styles = (colorScheme) =>
   StyleSheet.create({
     modalContainer: {
       backgroundColor: Colors.White,
