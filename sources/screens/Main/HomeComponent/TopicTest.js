@@ -1,4 +1,10 @@
-import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  BackHandler,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
 import { RNImage, RNLoader, RNStyles, RNText } from "../../../common";
@@ -13,6 +19,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { CheckBox, Icon } from "@rneui/themed";
 import { Image } from "react-native";
 import { QuestionsReport } from "../../../components";
+import QuitModal from "../../../components/QuitModal";
 
 export default function TopicTest() {
   const { t } = useTranslation();
@@ -30,6 +37,7 @@ export default function TopicTest() {
   const mistakequesrtionsData = useSelector(
     (state) => state.Mistake.mistakequesrtionsData
   );
+  const [modalVisible, setModalVisible] = useState(false);
   const [ReportScreen, SetReportScreen] = useState(false);
   const userLoginData = useSelector((state) => state.Authentication.AsyncValue);
   const [isLoading, setLoading] = useState(false);
@@ -87,7 +95,7 @@ export default function TopicTest() {
             })
           );
         } catch (error) {
-          console.error("Error fetching mistake questions:", error);
+          console.log("Error fetching mistake questions:", error);
         }
       };
       fetchMistakeQuestions();
@@ -99,9 +107,63 @@ export default function TopicTest() {
       selectedTopic.fill_Questions,
     ])
   );
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        // Show the modal when back button is pressed
+        if (!modalVisible) {
+          setModalVisible(true);
+          return true; // Prevent the default back action
+        }
+
+        // If modal is already visible, allow closing it
+        setModalVisible(false);
+        return true; // Prevent default back action while closing the modal
+      }
+    );
+
+    return () => backHandler.remove(); // Cleanup the listener on unmount
+  }, [modalVisible]);
+  const QuestionsReports = async () => {
+    setLoading(true);
+    const vehicle = userAnswers?.[0]?.vehicles?.[0];
+    const Topic = vehicle?.topic?.find(
+      (q) => q.topicID === selectedTopic.topicID
+    );
+    //console.log("Topic", Topic);
+    const rightQuestionsCount = Topic.rightQuestions.length;
+    const wrongQuestionsCount = Topic.wrongQuestions.length;
+    const TotalQuestions = rightQuestionsCount + wrongQuestionsCount;
+
+    try {
+      const response = await FetchMethod.POST({
+        EndPoint: `UserMistakesDataControllers/QuestionsReport`,
+        Params: {
+          quizID: 0,
+          userLoginID: userLoginData.userLoginID,
+          topicID: selectedTopic.topicID,
+          totalQuestions: TotalQuestions,
+          correct: rightQuestionsCount,
+          iNcorrect: wrongQuestionsCount,
+        },
+      });
+      setLoading(false);
+      // dispatch(SET_QUESTIONDATA(response));
+      if (response) {
+        setLoading(false);
+        SetReportScreen(true);
+        console.log("Questions Answer Report Data renpose", response);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log("Error fetching QuizQuestions:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
+      //console.log("selectedTopic.topicID", selectedTopic.topicID);
       setLoading(true);
       try {
         const response = await FetchMethod.GET({
@@ -109,7 +171,7 @@ export default function TopicTest() {
         });
         dispatch(SET_TOPICQUESTION_DATA(response));
       } catch (error) {
-        console.error("Error fetching Topic:", error);
+        console.log("Error fetching Topic:", error);
       } finally {
         setLoading(false);
       }
@@ -191,42 +253,6 @@ export default function TopicTest() {
   ) {
     return <RNLoader visible={isLoading} />;
   }
-
-  const QuestionsReports = async () => {
-    setLoading(true);
-    const vehicle = userAnswers?.[0]?.vehicles?.[0];
-    const Topic = vehicle?.topic?.find(
-      (q) => q.topicID === selectedTopic.topicID
-    );
-    //console.log("Topic", Topic);
-    const rightQuestionsCount = Topic.rightQuestions.length;
-    const wrongQuestionsCount = Topic.wrongQuestions.length;
-    const TotalQuestions = rightQuestionsCount + wrongQuestionsCount;
-
-    try {
-      const response = await FetchMethod.POST({
-        EndPoint: `UserMistakesDataControllers/QuestionsReport`,
-        Params: {
-          quizID: 0,
-          userLoginID: userLoginData.userLoginID,
-          topicID: selectedTopic.topicID,
-          totalQuestions: TotalQuestions,
-          correct: rightQuestionsCount,
-          iNcorrect: wrongQuestionsCount,
-        },
-      });
-      setLoading(false);
-      // dispatch(SET_QUESTIONDATA(response));
-      if (response) {
-        setLoading(false);
-        SetReportScreen(true);
-        console.log("Questions Answer Report Data renpose", response);
-      }
-    } catch (error) {
-      setLoading(false);
-      console.log("Error fetching QuizQuestions:", error);
-    }
-  };
 
   return (
     <View style={[styles(colorScheme).container]}>
@@ -410,6 +436,10 @@ export default function TopicTest() {
               </RNText>
             </TouchableOpacity>
           </View>
+          <QuitModal
+            visible={modalVisible}
+            OnRequestClose={() => setModalVisible(false)}
+          />
         </ScrollView>
       )}
     </View>

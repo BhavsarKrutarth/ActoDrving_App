@@ -6,7 +6,7 @@ import { RNContainer, RNLoader } from "../../../common";
 import { hp } from "../../../theme";
 import { QuestionsReport } from "../../../components";
 
-export default function highwaycode() {
+export default function Highwaycode() {
   const { selectedLanguage } = useTheme();
   const [loading, setLoading] = useState(true);
   //console.log(selectedLanguage);

@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  Image,
 } from "react-native";
 import { useTranslation } from "react-i18next";
 import {
@@ -30,6 +31,9 @@ import {
 import { useDispatch } from "react-redux";
 import { Images } from "../../constants";
 import { Functions } from "../../utils";
+import { hoverGestureHandlerProps } from "react-native-gesture-handler/lib/typescript/handlers/gestures/hoverGesture";
+// import { GoogleSignin } from "@react-native-google-signin/google-signin";
+// import { appleAuth } from "@invertase/react-native-apple-authentication";
 
 export default function Login({ navigation }) {
   const { t } = useTranslation();
@@ -43,9 +47,69 @@ export default function Login({ navigation }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoginBtnDisabled, setLoginBtnDisabled] = useState(true);
 
+  // GoogleSignin.configure({
+  //   // "676136670646-l8glp1iovmo8u6n3oa5r08qpe556so9d.apps.googleusercontent.com",
+  //   webClientId:
+  //     "676136670646-l8glp1iovmo8u6n3oa5r08qpe556so9d.apps.googleusercontent.com",
+  //   offlineAccess: true,
+  //   scopes: ["email", "profile"],
+  //   iosClientId:
+  //     "676136670646-sth07223adbr6cvdt3954ukj9n0ropou.apps.googleusercontent.com",
+  // });
   useEffect(() => {
     setLoginBtnDisabled(number === "" || password === "");
   }, [number, password]);
+
+  // const onGoogleButtonPress = async () => {
+  //   try {
+  //     console.log("Checking Play Services...");
+  //     await GoogleSignin.hasPlayServices({
+  //       showPlayServicesUpdateDialog: true,
+  //     });
+
+  //     console.log("Attempting Google Sign-In...");
+  //     const response = await GoogleSignin.signIn();
+  //     console.log("Google Sign-In Response:", response);
+
+  //     if (response.data?.idToken) {
+  //       console.log("Google ID Token found:", response.data?.idToken);
+  //       const googleCredential = auth.GoogleAuthProvider.credential(
+  //         response.idToken
+  //       );
+  //       console.log("Signing in with Google Credential...");
+  //       return auth().signInWithCredential(googleCredential);
+  //     } else {
+  //       console.log("Google Sign-In failed: ID Token is null.");
+  //     }
+  //   } catch (error) {
+  //     console.log("Google Sign-In Error:", error);
+  //   }
+  // };
+
+  // const onAppleButtonPress = async () => {
+  //   // Start the sign-in request
+  //   const appleAuthRequestResponse = await appleAuth.performRequest({
+  //     requestedOperation: appleAuth.Operation.LOGIN,
+  //     // As per the FAQ of react-native-apple-authentication, the name should come first in the following array.
+  //     // See: https://github.com/invertase/react-native-apple-authentication#faqs
+  //     requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+  //   });
+
+  //   // Ensure Apple returned a user identityToken
+  //   if (!appleAuthRequestResponse.identityToken) {
+  //     throw new Error("Apple Sign-In failed - no identify token returned");
+  //   }
+
+  //   // Create a Firebase credential from the response
+  //   const { identityToken, nonce } = appleAuthRequestResponse;
+  //   const appleCredential = auth.AppleAuthProvider.credential(
+  //     identityToken,
+  //     nonce
+  //   );
+
+  //   // Sign the user in with the credential
+  //   return auth().signInWithCredential(appleCredential);
+  // };
 
   const handleMobileLogin = useCallback(async () => {
     const newErrors = {};
@@ -216,6 +280,43 @@ export default function Login({ navigation }) {
                 {t("Auth.login")}
               </RNText>
             </TouchableOpacity>
+            {/* <View style={{ paddingTop: hp(4) }}>
+              <TouchableOpacity
+                style={styles(colorScheme).SocialBtnStyles}
+                onPress={() => onGoogleButtonPress()}
+              >
+                <View style={styles(colorScheme).SocaialBtnView}>
+                  <RNImage
+                    source={Images.Google}
+                    style={{ width: wp(6), height: wp(6) }}
+                  />
+                  <RNText style={styles(colorScheme).SocialBtnText}>
+                    Log in With Google
+                  </RNText>
+                </View>
+              </TouchableOpacity>
+              {Platform.OS === "ios" ? (
+                <TouchableOpacity
+                  onPress={() => onAppleButtonPress()}
+                  style={[
+                    styles(colorScheme).SocialBtnStyles,
+                    { marginTop: hp(1) },
+                  ]}
+                >
+                  <View style={styles(colorScheme).SocaialBtnView}>
+                    <RNImage
+                      source={Images.Apple}
+                      style={{ width: wp(6.5), height: wp(6.5) }}
+                    />
+                    <RNText style={styles(colorScheme).SocialBtnText}>
+                      Continue With Apple
+                    </RNText>
+                  </View>
+                </TouchableOpacity>
+              ) : (
+                ""
+              )}
+            </View> */}
             <View style={styles(colorScheme).newRegister}>
               <RNText
                 style={{
@@ -327,5 +428,20 @@ const styles = (colorScheme) =>
       fontSize: FontSize.font16,
       fontFamily: FontFamily.SemiBold,
       textAlign: "center",
+    },
+    SocialBtnStyles: {
+      backgroundColor: "#F3F3F3",
+      paddingVertical: hp(1.2),
+      borderRadius: 5,
+    },
+    SocialBtnText: {
+      color: Colors.Black,
+      fontSize: FontSize.font15,
+      fontFamily: FontFamily.SemiBold,
+      textAlign: "center",
+    },
+    SocaialBtnView: {
+      ...RNStyles.flexRowCenter,
+      gap: wp(3),
     },
   });

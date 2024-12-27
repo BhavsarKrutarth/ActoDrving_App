@@ -1,5 +1,7 @@
 import {
+  BackHandler,
   Image,
+  Modal,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -16,9 +18,10 @@ import {
   ADD_ANSWER,
   SET_QUESTIONDATA,
 } from "../../../redux/Reducers/QuizReducer";
-import { useFocusEffect } from "@react-navigation/native";
-import { CheckBox } from "@rneui/themed";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { QuestionsReport } from "../../../components";
+import { renderNode } from "@rneui/base";
+import QuitModal from "../../../components/QuitModal";
 
 export default function MockTest() {
   const { t } = useTranslation();
@@ -35,9 +38,11 @@ export default function MockTest() {
   const selectedQuestion = useSelector((state) => state.Quiz.selectedQuestion);
   const userLoginData = useSelector((state) => state.Authentication.AsyncValue);
   const userAnswers = useSelector((state) => state.Quiz.userAnswers);
+  const [modalVisible, setModalVisible] = useState(false);
   const mistakequesrtionsData = useSelector(
     (state) => state.Mistake.mistakequesrtionsData
   );
+  const navigation = useNavigation();
   const datatype = "Quizdata";
   //console.log("selectedQuestion", JSON.stringify(selectedQuestion, null, 2));
 
@@ -58,6 +63,25 @@ export default function MockTest() {
       selectedQuiz.fill_Questions,
     ])
   );
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        // Show the modal when back button is pressed
+        if (!modalVisible) {
+          setModalVisible(true);
+          return true; // Prevent the default back action
+        }
+
+        // If modal is already visible, allow closing it
+        setModalVisible(false);
+        return true; // Prevent default back action while closing the modal
+      }
+    );
+
+    return () => backHandler.remove(); // Cleanup the listener on unmount
+  }, [modalVisible]);
+
   useEffect(() => {
     fetchQuestions();
   }, [dispatch, selectedQuiz, selectedLanguage]);
@@ -95,7 +119,7 @@ export default function MockTest() {
       //console.log("SET_QUESTIONDATA =====>", response);
       dispatch(SET_QUESTIONDATA(response));
     } catch (error) {
-      console.error("Error fetching QuizQuestions:", error);
+      console.log("Error fetching QuizQuestions:", error);
     } finally {
       setLoading(false);
     }
@@ -145,7 +169,7 @@ export default function MockTest() {
         })
       );
     } catch (error) {
-      console.error("Error fetching mistake questions:", error);
+      console.log("Error fetching mistake questions:", error);
     }
   };
 
@@ -177,6 +201,12 @@ export default function MockTest() {
       console.log("Error fetching QuizQuestions:", error);
     }
   };
+
+  // BackHandler.addEventListener("hardwareBackPress", function () {
+  //   console.log("data");
+  //   setModalVisible(true);
+  //   return;
+  // });
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
@@ -406,6 +436,10 @@ export default function MockTest() {
               </RNText>
             </TouchableOpacity>
           </View>
+          <QuitModal
+            visible={modalVisible}
+            OnRequestClose={() => setModalVisible(false)}
+          />
         </ScrollView>
       )}
     </View>

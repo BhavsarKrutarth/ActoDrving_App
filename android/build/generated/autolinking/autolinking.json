@@ -28,6 +28,39 @@
         }
       }
     },
+    "@react-native-firebase/app": {
+      "root": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/app",
+      "name": "@react-native-firebase/app",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/app/RNFBApp.podspec",
+          "version": "21.6.1",
+          "configurations": [],
+          "scriptPhases": [
+            {
+              "name": "[RNFB] Core Configuration",
+              "path": "./ios_config.sh",
+              "execution_position": "after_compile",
+              "input_files": [
+                "$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)"
+              ]
+            }
+          ]
+        },
+        "android": {
+          "sourceDir": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/app/android",
+          "packageImportPath": "import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;",
+          "packageInstance": "new ReactNativeFirebaseAppPackage()",
+          "buildTypes": [],
+          "componentDescriptors": [],
+          "cmakeListsPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/app/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
     "@react-native-google-signin/google-signin": {
       "root": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-google-signin/google-signin",
       "name": "@react-native-google-signin/google-signin",
@@ -168,7 +201,7 @@
       "platforms": {
         "ios": {
           "podspecPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/react-native-screens/RNScreens.podspec",
-          "version": "4.3.0",
+          "version": "4.4.0",
           "configurations": [],
           "scriptPhases": []
         },

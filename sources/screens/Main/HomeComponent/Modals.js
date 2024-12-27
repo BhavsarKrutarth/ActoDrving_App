@@ -103,7 +103,9 @@ export const Item = ({
                 left: wp(9),
                 backgroundColor: "#DCEAFF",
                 height: wp(6),
-                width: wp(6),
+                minWidth: wp(6),
+                maxWidth: wp(12),
+                // width: wp(12),
                 borderRadius: 50,
                 borderWidth: 1,
                 borderColor: "#7EB2FF",
@@ -113,6 +115,7 @@ export const Item = ({
                 style={{
                   fontSize: FontSize.font13,
                   fontFamily: FontFamily.Bold,
+                  paddingHorizontal: wp(1),
                 }}
               >
                 {MistakeQuestionsData.length}
@@ -228,6 +231,7 @@ const styles = (colorScheme) =>
       backgroundColor: colorScheme === "dark" ? Colors.Blue : Colors.White,
       padding: wp(3),
       gap: 20,
+      marginBottom: hp(1.5),
     },
     image: { height: wp(7), width: wp(7) },
     wrapper: {

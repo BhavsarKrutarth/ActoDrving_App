@@ -1,5 +1,11 @@
-import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import {
+  BackHandler,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { RNContainer, RNImage, RNStyles, RNText } from "../../../common";
 import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "../../../common/RNThemeContext";
@@ -8,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { ADD_MiSTAKEDATA } from "../../../redux/Reducers/MistakeReducers";
 import { CheckBox } from "@rneui/themed";
 import { Image } from "react-native";
+import QuitModal from "../../../components/QuitModal";
 
 export default function Mistake() {
   const { t } = useTranslation();
@@ -23,7 +30,8 @@ export default function Mistake() {
   const categoryData = useSelector((state) => state.Category.selectedCategory);
   const userLoginData = useSelector((state) => state.Authentication.AsyncValue);
   const mistakeResponse = useSelector((state) => state.Mistake.mistakeResponse);
-  console.log(mistakeResponse);
+  const [modalVisible, setModalVisible] = useState(false);
+  // console.log(mistakeResponse);
   // console.log(JSON.stringify(mistakeResponse, null, 2));
 
   const handleNextQuestion = () => {
@@ -35,7 +43,24 @@ export default function Mistake() {
     } else {
     }
   };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        // Show the modal when back button is pressed
+        if (!modalVisible) {
+          setModalVisible(true);
+          return true; // Prevent the default back action
+        }
 
+        // If modal is already visible, allow closing it
+        setModalVisible(false);
+        return true; // Prevent default back action while closing the modal
+      }
+    );
+
+    return () => backHandler.remove(); // Cleanup the listener on unmount
+  }, [modalVisible]);
   const handleOptionPress = (option) => {
     if (!isOptionSelected) {
       setSelectedId(option.questions_OptionsID);
@@ -241,6 +266,11 @@ export default function Mistake() {
             </RNText>
           </TouchableOpacity>
         </View>
+        <QuitModal
+          visible={modalVisible}
+          OnRequestClose={() => setModalVisible(false)}
+          MistakeData={true}
+        />
       </ScrollView>
     </RNContainer>
   );

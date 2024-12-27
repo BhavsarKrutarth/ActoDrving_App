@@ -72,12 +72,12 @@ const CustomTab = ({ navigation }) => {
         <RNText
           style={{
             color: Colors.Black,
-            fontSize: FontSize.font12,
+            fontSize: FontSize.font14,
             fontFamily: FontFamily.GilroyMedium,
             paddingTop: hp(0),
           }}
         >
-          {t("Nav.home")}
+          {/* {t("Nav.home")} */}
         </RNText>
       </Pressable>
     );
@@ -217,18 +217,25 @@ const TabContent = () => {
         initialParams={{ title: t("header.MockTest") }}
         options={({ route }) => ({
           header: () => <RNQueHeader component={route.params?.component} />,
+          gestureEnabled: false, // Disables swipe back action
         })}
       />
       <Stack.Screen
         name="TopicTest"
         component={TopicTest}
-        options={{ header: () => <RNTopicHeader /> }}
+        options={{
+          header: () => <RNTopicHeader />,
+          gestureEnabled: false, // Disables swipe back action
+        }}
         initialParams={{ title: t("header.TopicTest") }}
       />
       <Stack.Screen
         name="Mistake"
         component={Mistake}
-        options={{ header: () => <RNMistakeHeader /> }}
+        options={{
+          header: () => <RNMistakeHeader />,
+          gestureEnabled: false, // Disables swipe back action
+        }}
         initialParams={{ title: t("header.Mistakes") }}
       />
       <Stack.Screen

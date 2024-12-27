@@ -12,7 +12,7 @@ import Mistake from "../../screens/Main/HomeComponent/Mistake";
 import TopicTest from "../../screens/Main/HomeComponent/TopicTest";
 import { CNIndexes } from "../../screens/Main/HomeComponent/CNIndexes";
 import Setting from "../../screens/Main/SettingComponent/Setting";
-import highwaycode from "../../screens/Main/LearnComponent/Highwaycode";
+import Highwaycode from "../../screens/Main/LearnComponent/Highwaycode";
 import AuthNavigation from "../AuthNavigation";
 import NavRoutes from "../NavRoutes";
 import TabContent from "./TabContent";
@@ -40,6 +40,7 @@ export default function index() {
           initialParams={{ title: t("header.MockTest") }}
           options={({ route }) => ({
             header: () => <RNQueHeader component={route.params?.component} />,
+            // gestureEnabled: false, // Disables swipe back action
           })}
         />
         <Stack.Screen
@@ -66,7 +67,7 @@ export default function index() {
         />
         <Stack.Screen
           name="Highwaycode"
-          component={highwaycode}
+          component={Highwaycode}
           initialParams={{ title: t("header.Highwaycode") }}
         />
         <Stack.Screen

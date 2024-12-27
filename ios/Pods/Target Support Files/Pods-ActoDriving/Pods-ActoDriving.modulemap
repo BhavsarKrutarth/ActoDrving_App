@@ -1,6 +1,0 @@
-module Pods_ActoDriving {
-  umbrella header "Pods-ActoDriving-umbrella.h"
-
-  export *
-  module * { export * }
-}

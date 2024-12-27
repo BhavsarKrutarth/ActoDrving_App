@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   Platform,
+  BackHandler,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Colors, FontFamily, FontSize, hp, wp } from "../../theme";
@@ -18,6 +19,7 @@ import { useTheme } from "../../common/RNThemeContext";
 import FetchMethod from "../../api/FetchMethod";
 import { useTranslation } from "react-i18next";
 import { Images } from "../../constants";
+import QuitModal from "../../components/QuitModal";
 
 const RNQueHeader = ({ route }) => {
   const { t } = useTranslation();
@@ -36,19 +38,19 @@ const RNQueHeader = ({ route }) => {
   // console.log("selectedQuiz", selectedQuiz);
   // console.log("userAnswer", JSON.stringify(userAnswers, null, 2));
 
-  const handleMistakedata = async () => {
-    try {
-      const response = await FetchMethod.POST({
-        EndPoint: `UserQuestions_Answer`,
-        Params: JSON.stringify(userAnswers),
-      });
-      if (response.responseCode) {
-        navigation.goBack();
-      }
-    } catch (error) {
-      navigation.goBack();
-    }
-  };
+  // const handleMistakedata = async () => {
+  //   try {
+  //     const response = await FetchMethod.POST({
+  //       EndPoint: `UserQuestions_Answer`,
+  //       Params: JSON.stringify(userAnswers),
+  //     });
+  //     if (response.responseCode) {
+  //       navigation.goBack();
+  //     }
+  //   } catch (error) {
+  //     navigation.goBack();
+  //   }
+  // };
 
   const vehicleIndex = userAnswers
     // .flatMap((user) =>
@@ -112,7 +114,6 @@ const RNQueHeader = ({ route }) => {
           />
         </TouchableOpacity>
       </View>
-
       {/* CountQuestion modal container */}
       {isCountQue && (
         <Modal
@@ -158,9 +159,12 @@ const RNQueHeader = ({ route }) => {
           </TouchableWithoutFeedback>
         </Modal>
       )}
-
       {/* Setting modal container */}
-      <Modal
+      <QuitModal
+        visible={modalVisible}
+        OnRequestClose={() => setModalVisible(false)}
+      />
+      {/* <Modal
         transparent={true}
         animationType="slide"
         visible={modalVisible}
@@ -212,7 +216,7 @@ const RNQueHeader = ({ route }) => {
             </View>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </View>
   );
 };
@@ -280,31 +284,31 @@ const styles = (colorScheme) =>
       fontFamily: FontFamily.SemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
-    modalContainer: {
-      ...RNStyles.flexCenter,
-      backgroundColor:
-        colorScheme === "dark"
-          ? "rgba(35, 55, 67, 0.5)"
-          : "rgba(0 ,0 , 0, 0.5)",
-    },
-    modalContent: {
-      backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
-      width: wp(70),
-      padding: hp(4),
-      borderRadius: 10,
-      gap: 15,
-    },
-    dialogText: {
-      fontFamily: FontFamily.Regular,
-      fontSize: FontSize.font12,
-      color: colorScheme === "dark" ? Colors.White : Colors.Black,
-      textAlign: "center",
-    },
-    button: {
-      width: wp(25),
-      padding: wp(1.8),
-      borderRadius: 5,
-    },
+    // modalContainer: {
+    //   ...RNStyles.flexCenter,
+    //   backgroundColor:
+    //     colorScheme === "dark"
+    //       ? "rgba(35, 55, 67, 0.5)"
+    //       : "rgba(0 ,0 , 0, 0.5)",
+    // },
+    // modalContent: {
+    //   backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
+    //   width: wp(70),
+    //   padding: hp(4),
+    //   borderRadius: 10,
+    //   gap: 15,
+    // },
+    // dialogText: {
+    //   fontFamily: FontFamily.Regular,
+    //   fontSize: FontSize.font12,
+    //   color: colorScheme === "dark" ? Colors.White : Colors.Black,
+    //   textAlign: "center",
+    // },
+    // button: {
+    //   width: wp(25),
+    //   padding: wp(1.8),
+    //   borderRadius: 5,
+    // },
   });
 
 export default RNQueHeader;

@@ -61,68 +61,72 @@ export default function Home({ navigation }) {
       }}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* banner view */}
-        <View style={RNStyles.flexCenter}>
-          <View
-            style={{ overflow: "hidden", borderRadius: 10, marginTop: hp(2) }}
-          >
-            <Image
-              style={{ width: wp(95), height: hp(20) }}
-              source={Images.car}
-            />
-            <View style={[RNStyles.flexRow, styles(colorScheme).CategoryData]}>
-              <View>
-                <RNText style={styles(colorScheme).bannerText}>
-                  {selectedCategory
-                    ? selectedCategory.name
-                    : t("Home.NoCategory")}
-                </RNText>
-                <RNText style={[styles(colorScheme).content]}>
-                  {t("Home.v_summary")}
-                </RNText>
+        <View style={{ paddingHorizontal: wp(2) }}>
+          {/* banner view */}
+          <View style={RNStyles.flexCenter}>
+            <View
+              style={{ overflow: "hidden", borderRadius: 10, marginTop: hp(2) }}
+            >
+              <Image
+                style={{ width: wp(95), height: hp(20) }}
+                source={Images.car}
+              />
+              <View
+                style={[RNStyles.flexRow, styles(colorScheme).CategoryData]}
+              >
+                <View>
+                  <RNText style={styles(colorScheme).bannerText}>
+                    {selectedCategory
+                      ? selectedCategory.name
+                      : t("Home.NoCategory")}
+                  </RNText>
+                  <RNText style={[styles(colorScheme).content]}>
+                    {t("Home.v_summary")}
+                  </RNText>
+                </View>
               </View>
             </View>
           </View>
-        </View>
 
-        {/* Overview */}
-        <View style={styles(colorScheme).ContentView}>
-          <View style={{ flex: 1 }}>
-            <View style={{ flexDirection: "row" }}>
-              <RNText style={styles(colorScheme).overviewText}>
-                {t("Home.overview")}
-              </RNText>
-              <RNImage
-                style={styles(colorScheme).starIcon}
-                source={Images.star1}
-              />
-            </View>
-            <View
-              style={{
-                paddingHorizontal: wp(3),
-                flexWrap: "wrap",
-                flexDirection: "row",
-                // ...RNStyles.flexWrapHorizontal,
-                gap: wp(4),
-              }}
-            >
-              {overviewContent.map((item) => (
-                <Item
-                  key={item.id}
-                  {...item}
-                  selectedId={selectedId}
-                  setSelectedId={setSelectedId}
-                  colorScheme={colorScheme}
-                  navigationScreen={item.navigation}
-                  component={item.component}
-                  navigation={navigation}
+          {/* Overview */}
+          <View style={styles(colorScheme).ContentView}>
+            <View style={{ flex: 1 }}>
+              <View style={{ flexDirection: "row" }}>
+                <RNText style={styles(colorScheme).overviewText}>
+                  {t("Home.overview")}
+                </RNText>
+                <RNImage
+                  style={styles(colorScheme).starIcon}
+                  source={Images.star1}
                 />
-              ))}
+              </View>
+              <View
+                style={{
+                  //paddingHorizontal: wp(3),
+                  flexWrap: "wrap",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  // ...RNStyles.flexWrapHorizontal,
+                  // gap: wp(2),
+                }}
+              >
+                {overviewContent.map((item) => (
+                  <Item
+                    key={item.id}
+                    {...item}
+                    selectedId={selectedId}
+                    setSelectedId={setSelectedId}
+                    colorScheme={colorScheme}
+                    navigationScreen={item.navigation}
+                    component={item.component}
+                    navigation={navigation}
+                  />
+                ))}
+              </View>
             </View>
-          </View>
 
-          {/* Study Material */}
-          {/* <View style={{ flex: 1, paddingVertical: 20, marginBottom: 50 }}>
+            {/* Study Material */}
+            {/* <View style={{ flex: 1, paddingVertical: 20, marginBottom: 50 }}>
             <View style={{ flexDirection: 'row' }}>
               <RNText style={styles(colorScheme).overviewText}>
                 {t('Home.s_material')}
@@ -158,6 +162,7 @@ export default function Home({ navigation }) {
               ))}
             </View>
           </View> */}
+          </View>
         </View>
       </ScrollView>
     </RNContainer>

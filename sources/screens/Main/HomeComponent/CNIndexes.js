@@ -95,7 +95,7 @@ export function CNIndexes({ route, navigation }) {
       });
       dispatch(SET_TOPICDATA(topicResponse));
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.log("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
@@ -115,8 +115,6 @@ export function CNIndexes({ route, navigation }) {
   };
 
   const handleQuizSelection = (quizItem) => {
-    console.log("quizItem", quizItem);
-
     dispatch(SET_SELECTED_QUIZDATA(quizItem));
     navigation.navigate("Mocktest", { component: "MockTest" });
   };

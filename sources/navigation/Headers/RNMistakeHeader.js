@@ -17,6 +17,7 @@ import FetchMethod from "../../api/FetchMethod";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import { Images } from "../../constants";
+import QuitModal from "../../components/QuitModal";
 
 const RNMistakeHeader = ({}) => {
   const { t } = useTranslation();
@@ -32,20 +33,20 @@ const RNMistakeHeader = ({}) => {
     setModalVisible(true);
   };
 
-  const handleMistakedata = async () => {
-    try {
-      const response = await FetchMethod.POST({
-        EndPoint: `UserQuestions_Answer`,
-        Params: JSON.stringify(mistakeResponse),
-      });
-      //console.log(response);
-      if (response.responseCode) {
-        navigation.goBack();
-      }
-    } catch (error) {
-      navigation.goBack();
-    }
-  };
+  // const handleMistakedata = async () => {
+  //   try {
+  //     const response = await FetchMethod.POST({
+  //       EndPoint: `UserQuestions_Answer`,
+  //       Params: JSON.stringify(mistakeResponse),
+  //     });
+  //     //console.log(response);
+  //     if (response.responseCode) {
+  //       navigation.goBack();
+  //     }
+  //   } catch (error) {
+  //     navigation.goBack();
+  //   }
+  // };
 
   const vehicleData = mistakeResponse.flatMap((user) =>
     user.vehicles.map((vehicle) => ({
@@ -59,10 +60,10 @@ const RNMistakeHeader = ({}) => {
     for (const vehicle of vehicleData) {
       if (dataType == "Quizdata") {
         for (const quiz of vehicle.quizzes) {
-          console.log(questionId);
+          // console.log(questionId);
 
           if (quiz.QuizID === testID) {
-            console.log("quiz.QuizID === testID", quiz.QuizID === testID);
+            //console.log("quiz.QuizID === testID", quiz.QuizID === testID);
 
             const rightQuestions = quiz.rightQuestions;
             const wrongQuestions = quiz.wrongQuestions;
@@ -155,7 +156,12 @@ const RNMistakeHeader = ({}) => {
       )}
 
       {/* Setting modal container */}
-      <Modal
+      <QuitModal
+        visible={modalVisible}
+        OnRequestClose={() => setModalVisible(false)}
+        MistakeData={true}
+      />
+      {/* <Modal
         transparent={true}
         animationType="slide"
         visible={modalVisible}
@@ -203,7 +209,7 @@ const RNMistakeHeader = ({}) => {
             </View>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </SafeAreaView>
   );
 };
@@ -262,31 +268,31 @@ const styles = (colorScheme) =>
       fontFamily: FontFamily.SemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
-    modalContainer: {
-      ...RNStyles.flexCenter,
-      backgroundColor:
-        colorScheme === "dark"
-          ? "rgba(35, 55, 67, 0.5)"
-          : "rgba(0 ,0 , 0, 0.5)",
-    },
-    modalContent: {
-      backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
-      width: wp(70),
-      padding: hp(5),
-      borderRadius: 10,
-      gap: 15,
-    },
-    dialogText: {
-      fontFamily: FontFamily.Regular,
-      fontSize: FontSize.font12,
-      color: colorScheme === "dark" ? Colors.White : Colors.Black,
-      textAlign: "center",
-    },
-    button: {
-      width: wp(25),
-      padding: wp(1.5),
-      borderRadius: 5,
-    },
+    // modalContainer: {
+    //   ...RNStyles.flexCenter,
+    //   backgroundColor:
+    //     colorScheme === "dark"
+    //       ? "rgba(35, 55, 67, 0.5)"
+    //       : "rgba(0 ,0 , 0, 0.5)",
+    // },
+    // modalContent: {
+    //   backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
+    //   width: wp(70),
+    //   padding: hp(5),
+    //   borderRadius: 10,
+    //   gap: 15,
+    // },
+    // dialogText: {
+    //   fontFamily: FontFamily.Regular,
+    //   fontSize: FontSize.font12,
+    //   color: colorScheme === "dark" ? Colors.White : Colors.Black,
+    //   textAlign: "center",
+    // },
+    // button: {
+    //   width: wp(25),
+    //   padding: wp(1.5),
+    //   borderRadius: 5,
+    // },
   });
 
 export default RNMistakeHeader;

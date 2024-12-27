@@ -42,6 +42,20 @@ if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "/Users/sonoma/Library/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-objdump")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  include("/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/rnasyncstorage_autolinked_build/cmake_install.cmake")
+  include("/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/RNGoogleSignInCGen_autolinked_build/cmake_install.cmake")
+  include("/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/lottiereactnative_autolinked_build/cmake_install.cmake")
+  include("/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/rngesturehandler_codegen_autolinked_build/cmake_install.cmake")
+  include("/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/safeareacontext_autolinked_build/cmake_install.cmake")
+  include("/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/rnscreens_autolinked_build/cmake_install.cmake")
+  include("/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/rnsvg_autolinked_build/cmake_install.cmake")
+  include("/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/RNVectorIconsSpec_autolinked_build/cmake_install.cmake")
+  include("/Users/sonoma/Reactnative/ActoDrving_App/android/app/.cxx/RelWithDebInfo/146i65n1/armeabi-v7a/RNCWebViewSpec_autolinked_build/cmake_install.cmake")
+
+endif()
+
 if(CMAKE_INSTALL_COMPONENT)
   set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 else()
