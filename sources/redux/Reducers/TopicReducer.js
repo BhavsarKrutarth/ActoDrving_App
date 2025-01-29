@@ -5,25 +5,25 @@ const initialState = {
   selectedTopic: null,
   QuestionData: [],
   selectedQuestion: [],
-  correctAnswers: [], 
-  wrongAnswers: []  
+  correctAnswers: [],
+  wrongAnswers: [],
 };
 
 const TopicReducer = createSlice({
-  name: 'Topic',
+  name: "Topic",
   initialState,
   reducers: {
     SET_TOPICDATA: (state, action) => {
       state.topicData = action.payload;
     },
     SET_SELECTED_TOPICDATA: (state, action) => {
-      state.selectedTopic = action.payload
+      state.selectedTopic = action.payload;
     },
     SET_TOPICQUESTION_DATA: (state, action) => {
-      state.QuestionData = action.payload
+      state.QuestionData = action.payload;
     },
     SET_SELECTED_TOPICQUESTION: (state, action) => {
-      state.selectedQuestion = action.payload
+      state.selectedQuestion = action.payload;
     },
     ADD_CORRECT_ANSWER: (state, action) => {
       state.correctAnswers.push(action.payload);
@@ -31,10 +31,20 @@ const TopicReducer = createSlice({
     ADD_WRONG_ANSWER: (state, action) => {
       state.wrongAnswers.push(action.payload);
     },
-  }
+    SET_CLEAR_TOPICDATA: (state, action) => {
+      state.QuestionData = [];
+    },
+  },
 });
 
-export const { SET_TOPICDATA ,SET_SELECTED_TOPICDATA, SET_TOPICQUESTION_DATA, SET_SELECTED_TOPICQUESTION, ADD_CORRECT_ANSWER, ADD_WRONG_ANSWER } = TopicReducer.actions;
+export const {
+  SET_TOPICDATA,
+  SET_SELECTED_TOPICDATA,
+  SET_TOPICQUESTION_DATA,
+  SET_SELECTED_TOPICQUESTION,
+  ADD_CORRECT_ANSWER,
+  ADD_WRONG_ANSWER,
+  SET_CLEAR_TOPICDATA,
+} = TopicReducer.actions;
 
 export default TopicReducer.reducer;
-

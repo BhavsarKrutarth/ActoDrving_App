@@ -1,14 +1,31 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
 import { RNContainer, RNImage, RNStyles, RNText } from "../../../common";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../../../common/RNThemeContext";
 import { Images } from "../../../constants";
+import NetInfo from "@react-native-community/netinfo";
+import NetInfoScreen from "../../../components/NetInfo";
 
 export default function Learn({ navigation }) {
   const { colorScheme } = useTheme();
   const { t } = useTranslation();
+  const [isOffline, setIsOffline] = useState(false);
+
+  useEffect(() => {
+    // Subscribe to NetInfo updates
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsOffline(!state.isConnected); // If not connected, set isOffline to true
+    });
+    return () => unsubscribe();
+  }, []);
 
   const Std_Material = [
     {
@@ -40,8 +57,9 @@ export default function Learn({ navigation }) {
         <View style={{ flexDirection: "row" }}>
           <RNText
             style={{
-              fontSize: FontSize.font18,
-              fontFamily: FontFamily.SemiBold,
+              fontSize:
+                Platform.OS === "ios" ? FontSize.font22 : FontSize.font18,
+              fontFamily: FontFamily.GilroySemiBold,
             }}
           >
             {t("Home.s_material")}
@@ -50,8 +68,8 @@ export default function Learn({ navigation }) {
         </View>
         <RNText
           style={{
-            fontSize: FontSize.font13,
-            fontFamily: FontFamily.Medium,
+            fontSize: Platform.OS === "ios" ? FontSize.font16 : FontSize.font13,
+            fontFamily: FontFamily.GilroyMedium,
             color: Colors.DarkGrey,
           }}
         >
@@ -89,8 +107,9 @@ export default function Learn({ navigation }) {
                 <RNText
                   style={{
                     color: Colors.White,
-                    fontFamily: FontFamily.SemiBold,
-                    fontSize: FontSize.font16,
+                    fontFamily: FontFamily.GilroySemiBold,
+                    fontSize:
+                      Platform.OS === "ios" ? FontSize.font18 : FontSize.font14,
                   }}
                 >
                   {t("Home.view")}
@@ -100,16 +119,21 @@ export default function Learn({ navigation }) {
             <View>
               <RNText
                 style={{
-                  fontSize: FontSize.font17,
-                  fontFamily: FontFamily.Bold,
+                  fontSize:
+                    Platform.OS === "ios" ? FontSize.font22 : FontSize.font18,
+                  fontFamily: FontFamily.GilroyBold,
                 }}
               >
                 {item.title}
               </RNText>
               <RNText
+                pTop={Platform.OS === "ios" ? hp(0.8) : hp(0.6)}
                 style={{
-                  fontSize: FontSize.font13,
-                  fontFamily: FontFamily.Regular,
+                  fontSize:
+                    Platform.OS === "ios" ? FontSize.font16 : FontSize.font14,
+
+                  fontFamily: FontFamily.GilroyRegular,
+                  lineHeight: Platform.OS === "ios" ? hp(2.5) : hp(2.2),
                 }}
               >
                 {item.content}
@@ -118,6 +142,7 @@ export default function Learn({ navigation }) {
           </TouchableOpacity>
         ))}
       </View>
+      <NetInfoScreen isvisible={isOffline} />
     </RNContainer>
   );
 }
@@ -139,7 +164,7 @@ const styles = (colorScheme) =>
       fontFamily: FontFamily.Bold,
       borderRadius: 20,
       paddingHorizontal: wp(5),
-      paddingVertical: wp(2),
+      paddingVertical: wp(1.8),
     },
     starIcon: {
       width: wp(2),

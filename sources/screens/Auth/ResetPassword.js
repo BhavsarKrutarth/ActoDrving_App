@@ -8,8 +8,8 @@ import {
   Modal,
   Image,
   Platform,
-} from 'react-native';
-import {Colors, FontFamily, FontSize, hp, wp} from '../../theme';
+} from "react-native";
+import { Colors, FontFamily, FontSize, hp, wp } from "../../theme";
 import {
   RNContainer,
   RNImage,
@@ -17,24 +17,24 @@ import {
   RNLoader,
   RNStyles,
   RNKeyboardAvoid,
-} from '../../common';
-import {useRef, useState} from 'react';
-import Validation from '../../utils/Validation';
-import FetchMethod from '../../api/FetchMethod';
-import Toast from 'react-native-toast-notifications';
-import {useTheme} from '../../common/RNThemeContext';
-import {useTranslation} from 'react-i18next';
-import { Images } from '../../constants';
+} from "../../common";
+import { useRef, useState } from "react";
+import Validation from "../../utils/Validation";
+import FetchMethod from "../../api/FetchMethod";
+import Toast from "react-native-toast-notifications";
+import { useTheme } from "../../common/RNThemeContext";
+import { useTranslation } from "react-i18next";
+import { Images } from "../../constants";
 
-const ResetPassword = ({navigation, route}) => {
-  const {t} = useTranslation();
-  const {component} = route.params;
+const ResetPassword = ({ navigation, route }) => {
+  const { t } = useTranslation();
+  const { component } = route.params;
   const toastRef = useRef();
-  const {colorScheme} = useTheme();
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [newPasswordError, setNewPasswordError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const { colorScheme } = useTheme();
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [newPasswordError, setNewPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [matchPassword, setMatchPassword] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -42,30 +42,30 @@ const ResetPassword = ({navigation, route}) => {
   const [Successmodel, setSuccessmodel] = useState(false);
 
   const ResetPasswordSubmit = async () => {
-    if (newPassword === '') {
-      setNewPasswordError(t('errors.Password'));
-      setConfirmPasswordError('');
+    if (newPassword === "") {
+      setNewPasswordError(t("errors.Password"));
+      setConfirmPasswordError("");
       setMatchPassword(false);
     } else if (newPassword.length < 8 && newPassword.length > 0) {
-      setNewPasswordError(t('errors.passLength'));
+      setNewPasswordError(t("errors.passLength"));
     } else if (!Validation.isPasswordValid(newPassword)) {
-      setNewPasswordError(t('errors.errPasswordValidation'));
-      setConfirmPasswordError('');
+      setNewPasswordError(t("errors.errPasswordValidation"));
+      setConfirmPasswordError("");
       setMatchPassword(false);
-    } else if (confirmPassword === '') {
-      setConfirmPasswordError('Please Enter Your Password');
+    } else if (confirmPassword === "") {
+      setConfirmPasswordError("Please Enter Your Password");
       setMatchPassword(false);
-      setNewPasswordError('');
+      setNewPasswordError("");
     } else if (newPassword !== confirmPassword) {
       setMatchPassword(true);
-      setNewPasswordError('');
-      setConfirmPasswordError('');
+      setNewPasswordError("");
+      setConfirmPasswordError("");
     } else {
       setLoading(true);
-      console.log('submit');
+      console.log("submit");
       setMatchPassword(false);
-      setNewPasswordError('');
-      setConfirmPasswordError('');
+      setNewPasswordError("");
+      setConfirmPasswordError("");
       try {
         const response = await FetchMethod.POST({
           EndPoint: `Forgotpass/ResetPassword`,
@@ -81,7 +81,7 @@ const ResetPassword = ({navigation, route}) => {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        console.log('ResetPassword Error', error);
+        console.log("ResetPassword Error", error);
       }
     }
   };
@@ -89,139 +89,158 @@ const ResetPassword = ({navigation, route}) => {
   return (
     <RNContainer
       style={{
-        backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
-      }}>
-      <RNKeyboardAvoid offSet={Platform.OS === 'ios' ? hp(5) : hp(10)}>
+        backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
+      }}
+    >
+      <RNKeyboardAvoid offSet={Platform.OS === "ios" ? hp(5) : hp(10)}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="interactive">
-          <View style={{height: hp(42), marginBottom: hp(4)}}>
-            <RNImage
-              source={
-                colorScheme === 'dark'
-                  ? require('../../assets/images/ScreenIcone/Dark_reset.png')
-                  : require('../../assets/images/ScreenIcone/Light_reset.png')
-              }
-              style={styles(colorScheme).ImageView}
-            />
-            <View style={{paddingHorizontal: wp(6)}}>
-              <Text style={styles(colorScheme).ContenText}>
-                {t('resetPass.resetpassDesc')}
-              </Text>
-            </View>
-          </View>
-          <View style={{height: hp(42), paddingHorizontal: wp(6), gap: 50}}>
-            <View style={{gap: 20}}>
-              {/* New password */}
-              <View style={styles(colorScheme).PasswordView}>
-                <Text
-                  style={{
-                    color: colorScheme === 'dark' ? Colors.White : Colors.Black,
-                    fontFamily: FontFamily.Medium,
-                  }}>
-                  {t('resetPass.NewPass')}
+          keyboardDismissMode="interactive"
+        >
+          <View>
+            <View style={{ height: hp(42), marginBottom: hp(4) }}>
+              <RNImage
+                source={
+                  colorScheme === "dark"
+                    ? require("../../assets/images/ScreenIcone/Dark_reset.png")
+                    : require("../../assets/images/ScreenIcone/Light_reset.png")
+                }
+                style={styles(colorScheme).ImageView}
+              />
+              <View style={{ paddingHorizontal: wp(6) }}>
+                <Text style={styles(colorScheme).ContenText}>
+                  {t("resetPass.resetpassDesc")}
                 </Text>
-                <View
-                  style={[
-                    styles(colorScheme).passwordContainer,
-                    {
-                      borderBottomColor:
-                        colorScheme === 'dark' ? Colors.White : Colors.Black,
-                    },
-                  ]}>
-                  <TextInput
-                    style={[styles(colorScheme).PasswordInputView]}
-                    secureTextEntry={!showNewPassword}
-                    value={newPassword}
-                    onChangeText={setNewPassword}
-                  />
-                  <TouchableOpacity
-                    onPress={() => setShowNewPassword(!showNewPassword)}>
-                    <RNImage
-                      style={{width: wp(5), height: wp(5)}}
-                      source={
-                        showNewPassword
-                          ? colorScheme === 'dark'
-                            ? require('../../assets/images/eye-on.png')
-                            : require('../../assets/images/eye-on1.png')
-                          : colorScheme === 'dark'
-                          ? require('../../assets/images/eye-off.png')
-                          : require('../../assets/images/eye-off1.png')
-                      }
-                    />
-                  </TouchableOpacity>
-                </View>
-                <RNText
-                  size={FontSize.font12}
-                  pBottom={hp(1)}
-                  pTop={hp(newPasswordError ? 0.5 : 0)}
-                  color="red">
-                  {newPasswordError || ''}
-                </RNText>
-              </View>
-
-              {/* Confirm password */}
-              <View style={styles(colorScheme).PasswordView}>
-                <Text
-                  style={{
-                    color: colorScheme === 'dark' ? Colors.White : Colors.Black,
-                    fontFamily: FontFamily.Medium,
-                  }}>
-                  {t('resetPass.ConfirmPass')}
-                </Text>
-                <View
-                  style={[
-                    styles(colorScheme).passwordContainer,
-                    {
-                      borderBottomColor:
-                        colorScheme === 'dark' ? Colors.White : Colors.Black,
-                    },
-                  ]}>
-                  <TextInput
-                    style={styles(colorScheme).PasswordInputView}
-                    secureTextEntry={!showConfirmPassword}
-                    value={confirmPassword}
-                    onChangeText={setConfirmPassword}
-                  />
-                  <TouchableOpacity
-                    onPress={() =>
-                      setShowConfirmPassword(!showConfirmPassword)
-                    }>
-                    <RNImage
-                      style={{width: wp(5), height: wp(5)}}
-                      source={
-                        showConfirmPassword
-                          ? colorScheme === 'dark'
-                            ? require('../../assets/images/eye-on.png')
-                            : require('../../assets/images/eye-on1.png')
-                          : colorScheme === 'dark'
-                          ? require('../../assets/images/eye-off.png')
-                          : require('../../assets/images/eye-off1.png')
-                      }
-                    />
-                  </TouchableOpacity>
-                </View>
-                <RNText
-                  size={FontSize.font12}
-                  pBottom={hp(1)}
-                  pTop={hp(confirmPasswordError || matchPassword ? 0.5 : 0)}
-                  color="red">
-                  {confirmPasswordError ||
-                    (matchPassword ? t('errors.notmatch') : '')}
-                </RNText>
               </View>
             </View>
-
-            <View style={{flex: 1}}>
-              <View style={{justifyContent: 'flex-end'}}>
-                <TouchableOpacity
-                  style={styles(colorScheme).SubmitButton}
-                  onPress={() => ResetPasswordSubmit()}>
-                  <RNText style={styles(colorScheme).SubmitText}>
-                    {t('resetPass.Submit')}
+            <View
+              style={{ height: hp(42), paddingHorizontal: wp(6), gap: hp(6) }}
+            >
+              <View style={{ gap: hp(2) }}>
+                {/* New password */}
+                <View>
+                  <Text
+                    style={{
+                      color:
+                        colorScheme === "dark" ? Colors.White : Colors.Black,
+                      fontFamily: FontFamily.GilroyMedium,
+                      fontSize: FontSize.font15,
+                    }}
+                  >
+                    {t("resetPass.NewPass")}
+                  </Text>
+                  <View
+                    style={[
+                      styles(colorScheme).passwordContainer,
+                      {
+                        borderBottomColor:
+                          colorScheme === "dark" ? Colors.White : Colors.Black,
+                      },
+                    ]}
+                  >
+                    <TextInput
+                      style={[styles(colorScheme).PasswordInputView]}
+                      secureTextEntry={!showNewPassword}
+                      value={newPassword}
+                      onChangeText={setNewPassword}
+                    />
+                    <TouchableOpacity
+                      onPress={() => setShowNewPassword(!showNewPassword)}
+                    >
+                      <RNImage
+                        style={{ width: wp(5), height: wp(5) }}
+                        source={
+                          showNewPassword
+                            ? colorScheme === "dark"
+                              ? require("../../assets/images/eye-on.png")
+                              : require("../../assets/images/eye-on1.png")
+                            : colorScheme === "dark"
+                            ? require("../../assets/images/eye-off.png")
+                            : require("../../assets/images/eye-off1.png")
+                        }
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <RNText
+                    size={FontSize.font12}
+                    pBottom={hp(1)}
+                    pTop={hp(newPasswordError ? 0.5 : 0)}
+                    color="red"
+                  >
+                    {newPasswordError || ""}
                   </RNText>
-                </TouchableOpacity>
+                </View>
+
+                {/* Confirm password */}
+                <View>
+                  <Text
+                    style={{
+                      color:
+                        colorScheme === "dark" ? Colors.White : Colors.Black,
+                      fontFamily: FontFamily.GilroyMedium,
+                      fontSize: FontSize.font15,
+                    }}
+                  >
+                    {t("resetPass.ConfirmPass")}
+                  </Text>
+                  <View
+                    style={[
+                      styles(colorScheme).passwordContainer,
+                      {
+                        borderBottomColor:
+                          colorScheme === "dark" ? Colors.White : Colors.Black,
+                      },
+                    ]}
+                  >
+                    <TextInput
+                      style={styles(colorScheme).PasswordInputView}
+                      secureTextEntry={!showConfirmPassword}
+                      value={confirmPassword}
+                      onChangeText={setConfirmPassword}
+                    />
+                    <TouchableOpacity
+                      onPress={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                    >
+                      <RNImage
+                        style={{ width: wp(5), height: wp(5) }}
+                        source={
+                          showConfirmPassword
+                            ? colorScheme === "dark"
+                              ? require("../../assets/images/eye-on.png")
+                              : require("../../assets/images/eye-on1.png")
+                            : colorScheme === "dark"
+                            ? require("../../assets/images/eye-off.png")
+                            : require("../../assets/images/eye-off1.png")
+                        }
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <RNText
+                    size={FontSize.font12}
+                    pBottom={hp(1)}
+                    pTop={hp(confirmPasswordError || matchPassword ? 0.5 : 0)}
+                    color="red"
+                  >
+                    {confirmPasswordError ||
+                      (matchPassword ? t("errors.notmatch") : "")}
+                  </RNText>
+                </View>
+              </View>
+
+              <View style={{ flex: 1 }}>
+                <View style={{ justifyContent: "flex-end" }}>
+                  <TouchableOpacity
+                    style={styles(colorScheme).SubmitButton}
+                    onPress={() => ResetPasswordSubmit()}
+                  >
+                    <RNText style={styles(colorScheme).SubmitText}>
+                      {t("resetPass.Submit")}
+                    </RNText>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
@@ -232,44 +251,48 @@ const ResetPassword = ({navigation, route}) => {
                 RNStyles.flexCenter,
                 {
                   backgroundColor:
-                    colorScheme === 'dark'
-                      ? 'rgba(35, 55, 67, 0.8)'
-                      : 'rgba(0 ,0 , 0, 0.5)',
+                    colorScheme === "dark"
+                      ? "rgba(35, 55, 67, 0.8)"
+                      : "rgba(0 ,0 , 0, 0.5)",
                 },
-              ]}>
+              ]}
+            >
               <View style={styles(colorScheme).successView}>
-                <View style={{alignItems: 'center'}}>
+                <View style={{ alignItems: "center" }}>
                   <Image
                     source={Images.Success}
                     style={styles(colorScheme).IconeView}
                   />
-                  <View style={{paddingTop: hp(3)}}>
+                  <View style={{ paddingTop: hp(3) }}>
                     <Text
                       style={[
                         styles(colorScheme).ModelTitalText,
-                        {fontSize: FontSize.font24},
-                      ]}>
-                      {t('resetPass.Success')}
+                        { fontSize: FontSize.font24 },
+                      ]}
+                    >
+                      {t("resetPass.Success")}
                     </Text>
                     <Text
                       style={[
                         styles(colorScheme).ModelTitalText,
-                        {fontSize: FontSize.font13},
-                      ]}>
-                      {t('resetPass.SuccessMessage')}
+                        { fontSize: FontSize.font14, paddingTop: hp(1) },
+                      ]}
+                    >
+                      {t("resetPass.SuccessMessage")}
                     </Text>
                   </View>
-                  <View style={{paddingVertical: hp(5)}}>
+                  <View style={{ paddingVertical: hp(5) }}>
                     <TouchableOpacity
                       style={[
                         styles(colorScheme).SubmitButton,
-                        {width: wp(50)},
+                        { width: wp(50) },
                       ]}
                       onPress={() => {
-                        setSuccessmodel(false), navigation.navigate('Login');
-                      }}>
+                        setSuccessmodel(false), navigation.navigate("Login");
+                      }}
+                    >
                       <RNText style={styles(colorScheme).SubmitText}>
-                        {t('resetPass.Done')}
+                        {t("resetPass.Done")}
                       </RNText>
                     </TouchableOpacity>
                   </View>
@@ -284,61 +307,61 @@ const ResetPassword = ({navigation, route}) => {
   );
 };
 
-const styles = colorScheme =>
+const styles = (colorScheme) =>
   StyleSheet.create({
     ImageView: {
-      height: wp(70),
+      height: Platform.OS === "ios" ? wp(60) : wp(70),
       width: wp(100),
     },
     ContenText: {
-      fontSize: FontSize.font16,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
-      textAlign: 'center',
-      fontFamily: FontFamily.SemiBold,
-      marginHorizontal: wp(3)
+      fontSize: FontSize.font15,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
+      textAlign: "center",
+      fontFamily: FontFamily.GilroySemiBold,
+      marginHorizontal: wp(3),
+      lineHeight: hp(2.8),
     },
     passwordContainer: {
       borderBottomWidth: 1,
-
       height: hp(5),
       ...RNStyles.flexRowBetween,
     },
     PasswordInputView: {
       height: hp(6),
       width: wp(80),
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
       fontSize: FontSize.font14,
-      fontFamily: FontFamily.SemiBold,
+      fontFamily: FontFamily.GilroySemiBold,
     },
     SubmitButton: {
       backgroundColor: Colors.Orange,
       borderRadius: 5,
-      padding: hp(1),
+      padding: Platform.OS === "ios" ? hp(1.8) : hp(1.3),
     },
     SubmitText: {
       color: Colors.White,
       fontSize: FontSize.font18,
       fontFamily: FontFamily.GilroySemiBold,
-      textAlign: 'center',
+      textAlign: "center",
     },
     successView: {
-      backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
+      backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
       width: wp(85),
       paddingHorizontal: wp(10),
       paddingTop: hp(5),
       borderRadius: 20,
       gap: hp(1),
-      justifyContent: 'center',
-      alignItems: 'center',
+      justifyContent: "center",
+      alignItems: "center",
     },
     IconeView: {
       height: hp(15),
       width: wp(40),
     },
     ModelTitalText: {
-      fontFamily: FontFamily.SemiBold,
-      color: colorScheme === 'dark' ? Colors.LightGrey : Colors.Black,
-      textAlign: 'center',
+      fontFamily: FontFamily.GilroySemiBold,
+      color: colorScheme === "dark" ? Colors.LightGrey : Colors.Black,
+      textAlign: "center",
     },
   });
 

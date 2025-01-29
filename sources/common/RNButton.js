@@ -1,8 +1,8 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Colors, FontFamily, FontSize, hp, wp } from '../theme';
-import RNStyles from './RNStyles';
-import RNText from './RNText';
+import React from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { Colors, FontFamily, FontSize, hp, wp } from "../theme";
+import RNStyles from "./RNStyles";
+import RNText from "./RNText";
 
 const RNButton = ({ title, style, textStyle, onPress, disable }) => {
   return (
@@ -10,7 +10,8 @@ const RNButton = ({ title, style, textStyle, onPress, disable }) => {
       onPress={onPress}
       activeOpacity={0.5}
       disabled={disable}
-      style={[styles.Container, style]}>
+      style={[styles.Container, style]}
+    >
       <RNText style={[styles.buttonText, textStyle]}>{title}</RNText>
     </TouchableOpacity>
   );

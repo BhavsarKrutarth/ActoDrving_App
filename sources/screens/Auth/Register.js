@@ -45,10 +45,12 @@ export default function Register({ navigation }) {
   const isValidation =
     state.firstName.length > 2 &&
     state.lastName.length > 2 &&
-    Validation.isEmailValid(state.email);
+    Validation.isEmailValid(state.email) &&
+    Validation.isPasswordValid(state.password);
 
   const OnRegisterPress = async () => {
     setIsNavigate(true);
+    34567;
     if (state.password == "") {
       setPasswordError(t("errors.Password"));
     } else if (state.password.length < 8 && state.password.length > 0) {
@@ -115,7 +117,7 @@ export default function Register({ navigation }) {
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="interactive"
+          keyboardDismissMode="on-drag"
         >
           <View style={{ justifyContent: "center", flex: 1, marginTop: hp(5) }}>
             <View style={{ paddingHorizontal: wp(5) }}>
@@ -243,6 +245,7 @@ export default function Register({ navigation }) {
                   {PasswordError || ""}
                 </RNText>
               </View>
+
               <View style={styles(colorScheme).bottomView}>
                 <TouchableOpacity
                   style={styles(colorScheme).loginButton}
@@ -268,8 +271,8 @@ const styles = (colorScheme) =>
       marginBottom: hp(0),
     },
     userText: {
-      fontSize: FontSize.font14,
-      fontFamily: FontFamily.Medium,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font14,
+      fontFamily: FontFamily.GilroyMedium,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       paddingBottom: hp(1),
     },
@@ -280,13 +283,13 @@ const styles = (colorScheme) =>
     loginButton: {
       backgroundColor: Colors.Orange,
       borderRadius: 5,
-      padding: hp(2),
+      padding: hp(1.8),
       width: wp(90),
     },
     loginText: {
       color: Colors.White,
-      fontSize: FontSize.font16,
-      fontFamily: "Poppins-Medium",
+      fontSize: Platform.OS === "ios" ? FontSize.font20 : FontSize.font16,
+      fontFamily: FontFamily.GilroyMedium,
       textAlign: "center",
     },
     inputContainer: {
@@ -300,8 +303,8 @@ const styles = (colorScheme) =>
     userInput: {
       height: hp(6),
       width: wp(75),
-      fontFamily: FontFamily.Medium,
-      fontSize: FontSize.font14,
+      fontFamily: FontFamily.GilroyMedium,
+      fontSize: Platform.OS === "ios" ? FontSize.font17 : FontSize.font14,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       borderWidth: 0,
     },
@@ -309,5 +312,7 @@ const styles = (colorScheme) =>
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       height: hp(6),
       paddingHorizontal: wp(3),
+      fontFamily: FontFamily.GilroyMedium,
+      fontSize: Platform.OS === "ios" ? FontSize.font17 : FontSize.font14,
     },
   });

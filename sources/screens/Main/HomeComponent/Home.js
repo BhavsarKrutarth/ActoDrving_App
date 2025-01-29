@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,8 @@ import {
 import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
 import { Item, OverviewContent } from "./Modals";
 import { Images } from "../../../constants";
+import NetInfo from "@react-native-community/netinfo";
+import NetInfoScreen from "../../../components/NetInfo";
 
 export default function Home({ navigation }) {
   const { t } = useTranslation();
@@ -29,10 +31,17 @@ export default function Home({ navigation }) {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(true);
   const overviewContent = OverviewContent() || [];
+  const [isOffline, setIsOffline] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
       const fetchMistakeData = async () => {
+        // console.log(
+        //   userLoginData.userLoginID,
+        //   selectedCategory?.vehicle_Id,
+        //   selectedLanguage
+        // );
+
         try {
           const response = await FetchMethod.GET({
             EndPoint: `UserMistakesDataControllers/MistackData?UserLoginId=${userLoginData.userLoginID}&VehicalID=${selectedCategory?.vehicle_Id}&LangCode=${selectedLanguage}`,
@@ -46,9 +55,16 @@ export default function Home({ navigation }) {
         }
       };
       fetchMistakeData();
-    }, [selectedCategory?.vehicle_Id, selectedLanguage])
+    }, [selectedCategory?.vehicle_Id, selectedLanguage, isOffline])
   );
 
+  useEffect(() => {
+    // Subscribe to NetInfo updates
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsOffline(!state.isConnected); // If not connected, set isOffline to true
+    });
+    return () => unsubscribe();
+  }, []);
   if (isLoading) {
     return <RNLoader visible={isLoading} />;
   }
@@ -165,6 +181,7 @@ export default function Home({ navigation }) {
           </View>
         </View>
       </ScrollView>
+      <NetInfoScreen isvisible={isOffline} />
     </RNContainer>
   );
 }
@@ -172,14 +189,14 @@ export default function Home({ navigation }) {
 const styles = (colorScheme) =>
   StyleSheet.create({
     bannerText: {
-      fontSize: FontSize.font20,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font21 : FontSize.font18,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     ContentView: { flex: 2.5, paddingTop: hp(3), paddingBottom: hp(15) },
     overviewText: {
       fontSize: FontSize.font22,
-      fontFamily: FontFamily.SemiBold,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       paddingLeft: 20,
       paddingBottom: 5,
@@ -190,8 +207,9 @@ const styles = (colorScheme) =>
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     content: {
-      fontFamily: FontFamily.Medium,
-      fontSize: FontSize.font13,
+      paddingTop: Platform.OS === "ios" ? hp(0.5) : hp(0),
+      fontFamily: FontFamily.GilroyMedium,
+      fontSize: Platform.OS === "ios" ? FontSize.font15 : FontSize.font13,
       color: colorScheme === "dark" ? Colors.Grey : Colors.DarkGrey,
     },
     CategoryData: {

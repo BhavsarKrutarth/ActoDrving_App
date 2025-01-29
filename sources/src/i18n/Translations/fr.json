@@ -134,5 +134,24 @@
     "notmatch": "Les mots de passe ne correspondent pas",
     "InvalidEmail": "Adresse e-mail invalide.",
     "IncorrectPass": "Mot de passe incorrect. Veuillez réessayer ou cliquez sur 'Mot de passe oublié'."
+  },
+  "MistkeModal" : {
+   "Success": "Succès",
+    "warning": "avertissement",
+    "SuccessContent": "Félicitations pour avoir terminé votre examen—bien joué!",
+    "tryagainContent": "Ne pas lire attentivement la question peut conduire à de mauvaises réponses",
+    "Ok": "D'accord",
+    "Tryagain": "Réessayer"
+  },
+  "QuestionsReport":{
+    "Congratulations": "Félicitations!",
+    "Congratulations_Des": "Bien joué ! Vous avez obtenu un score parfait !",
+    "Title": "Presque là !",
+    "Subtitle": "Vous ferez mieux la prochaine fois",
+    "Subtitle_Des": "Continuez à vous entraîner pour améliorer votre score ! Si nécessaire, retournez à notre page d’étude et apprenez tout ce dont vous avez besoin !",
+    "continue": "Continuer",
+    "Correct": "Correct",
+    "Incorrect": "Incorrect",
+    "outof": "sur"
   }
 }

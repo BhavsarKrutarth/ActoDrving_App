@@ -3,6 +3,30 @@
   "reactNativePath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/react-native",
   "reactNativeVersion": "0.76",
   "dependencies": {
+    "@invertase/react-native-apple-authentication": {
+      "root": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@invertase/react-native-apple-authentication",
+      "name": "@invertase/react-native-apple-authentication",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@invertase/react-native-apple-authentication/RNAppleAuthentication.podspec",
+          "version": "2.4.0",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@invertase/react-native-apple-authentication/android",
+          "packageImportPath": "import com.RNAppleAuthentication.AppleAuthenticationAndroidPackage;",
+          "packageInstance": "new AppleAuthenticationAndroidPackage()",
+          "buildTypes": [],
+          "componentDescriptors": [],
+          "cmakeListsPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@invertase/react-native-apple-authentication/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
     "@react-native-async-storage/async-storage": {
       "root": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-async-storage/async-storage",
       "name": "@react-native-async-storage/async-storage",
@@ -28,13 +52,37 @@
         }
       }
     },
+    "@react-native-community/netinfo": {
+      "root": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-community/netinfo",
+      "name": "@react-native-community/netinfo",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-community/netinfo/react-native-netinfo.podspec",
+          "version": "11.4.1",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-community/netinfo/android",
+          "packageImportPath": "import com.reactnativecommunity.netinfo.NetInfoPackage;",
+          "packageInstance": "new NetInfoPackage()",
+          "buildTypes": [],
+          "componentDescriptors": [],
+          "cmakeListsPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
     "@react-native-firebase/app": {
       "root": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/app",
       "name": "@react-native-firebase/app",
       "platforms": {
         "ios": {
           "podspecPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/app/RNFBApp.podspec",
-          "version": "21.6.1",
+          "version": "21.6.2",
           "configurations": [],
           "scriptPhases": [
             {
@@ -54,6 +102,30 @@
           "buildTypes": [],
           "componentDescriptors": [],
           "cmakeListsPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/app/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
+    "@react-native-firebase/auth": {
+      "root": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/auth",
+      "name": "@react-native-firebase/auth",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/auth/RNFBAuth.podspec",
+          "version": "21.6.2",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/auth/android",
+          "packageImportPath": "import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;",
+          "packageInstance": "new ReactNativeFirebaseAuthPackage()",
+          "buildTypes": [],
+          "componentDescriptors": [],
+          "cmakeListsPath": "/Users/sonoma/Reactnative/ActoDrving_App/node_modules/@react-native-firebase/auth/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -549,7 +621,7 @@
         {
           "name": "--terminal <string>",
           "description": "Launches the Metro Bundler in a new window using the specified terminal path.",
-          "default": "vscode"
+          "default": "Apple_Terminal"
         },
         {
           "name": "--binary-path <string>",
@@ -709,7 +781,7 @@
         {
           "name": "--terminal <string>",
           "description": "Launches the Metro Bundler in a new window using the specified terminal path.",
-          "default": "vscode"
+          "default": "Apple_Terminal"
         },
         {
           "name": "--appId <string>",
@@ -782,7 +854,7 @@
     "android": {}
   },
   "assets": [
-    "./assets/fonts"
+    "./sources/assets/fonts"
   ],
   "project": {
     "ios": {

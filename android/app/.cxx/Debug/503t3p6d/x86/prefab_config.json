@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "prefabPath": "/Users/sonoma/.gradle/caches/modules-2/files-2.1/com.google.prefab/cli/2.1.0/aa32fec809c44fa531f01dcfb739b5b3304d3050/cli-2.1.0-all.jar",
+  "packages": [
+    "/Users/sonoma/.gradle/caches/8.10.2/transforms/d5a1b4d68ebc23eb0f8a2f23ab1f82a4/transformed/react-android-0.76.3-debug/prefab",
+    "/Users/sonoma/.gradle/caches/8.10.2/transforms/33df44b8fa7ae993313a9ee82a62ba23/transformed/hermes-android-0.76.3-debug/prefab",
+    "/Users/sonoma/.gradle/caches/8.10.2/transforms/c4e0dceaebea6b33a1710d9de23246ba/transformed/fbjni-0.6.0/prefab"
+  ]
+}

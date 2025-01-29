@@ -85,7 +85,6 @@ export default function OTPScreen({ navigation, route }) {
 
   const OnRegisterPress = async () => {
     setLoading(true);
-
     const enteredPin = Object.values(pin).join("");
     console.log("Entered PIN:", enteredPin);
     console.log("Expected Component:", component);
@@ -103,6 +102,7 @@ export default function OTPScreen({ navigation, route }) {
               emailID: RegisterData.email,
               moblieNo: "",
               password: RegisterData.password,
+              flag: "Register",
             },
           });
           console.log("Register response -->", response);
@@ -184,16 +184,12 @@ export default function OTPScreen({ navigation, route }) {
   }
 
   return (
-    <RNContainer style={[RNStyles.flexCenter, styles(colorScheme).Container]}>
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-        keyboardDismissMode="interactive"
-      >
-        <RNKeyboardAvoid
-          style={{ gap: hp(5) }}
-          offSet={Platform.OS === "android" ? -50 : 0}
+    <RNContainer style={[styles(colorScheme).Container]}>
+      <RNKeyboardAvoid>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="interactive"
         >
           <View style={styles(colorScheme).topContainer}>
             <RNImage
@@ -250,8 +246,8 @@ export default function OTPScreen({ navigation, route }) {
               {t("OTPScreen.Confirm")}
             </RNText>
           </TouchableOpacity>
-        </RNKeyboardAvoid>
-      </ScrollView>
+        </ScrollView>
+      </RNKeyboardAvoid>
       <Toast ref={toastRef} />
     </RNContainer>
   );
@@ -260,35 +256,39 @@ export default function OTPScreen({ navigation, route }) {
 const styles = (colorScheme) =>
   StyleSheet.create({
     Container: {
+      ...RNStyles.flexCenter,
       backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
       // paddingBottom: hp(5)
     },
     topContainer: {
       ...RNStyles.flexRowEnd,
-      flex: 1,
-      gap: hp(2),
+      //flex: 1,
+      // gap: hp(2),
     },
     title: {
-      fontSize: FontSize.font20,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font24 : FontSize.font21,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.lightWhite : Colors.Black,
     },
     subtitle: {
-      fontSize: FontSize.font12,
-      fontFamily: FontFamily.Medium,
+      fontSize: Platform.OS === "ios" ? FontSize.font16 : FontSize.font14,
+      fontFamily: FontFamily.GilroyMedium,
       color: colorScheme === "dark" ? Colors.Grey : Colors.DarkGrey,
       textAlign: "center",
+      lineHeight: Platform.OS === "ios" ? hp(2.5) : hp(2),
+      marginTop: hp(2),
     },
     illustration: {
       overflow: "hidden",
-      width: wp(75),
-      height: wp(75),
+      width: Platform.OS === "ios" ? wp(70) : wp(75),
+      height: Platform.OS === "ios" ? wp(70) : wp(75),
     },
     otpContainer: {
       ...RNStyles.flexWrapHorizontal,
-      flex: 0.5,
-      gap: 20,
+      //flex: 0.5,
+      gap: wp(4),
       justifyContent: "center",
+      marginTop: hp(4),
     },
     optSubContainer: {
       ...RNStyles.flexRowCenter,
@@ -299,20 +299,21 @@ const styles = (colorScheme) =>
       textAlign: "center",
       fontSize: FontSize.font18,
       color: Colors.White,
-      fontFamily: FontFamily.Bold,
+      fontFamily: FontFamily.GilroyBold,
     },
     confirmButton: {
       backgroundColor: Colors.Orange,
       paddingHorizontal: wp(10),
-      paddingVertical: hp(1),
+      paddingVertical: Platform.OS === "ios" ? hp(1.5) : hp(1),
       borderRadius: 10,
       width: "60%",
       alignSelf: "center",
+      marginTop: hp(5),
     },
     confirmButtonText: {
       color: Colors.White,
-      fontSize: FontSize.font16,
-      fontFamily: FontFamily.Bold,
+      fontSize: Platform.OS === "ios" ? FontSize.font20 : FontSize.font17,
+      fontFamily: FontFamily.GilroyBold,
       textAlign: "center",
     },
   });

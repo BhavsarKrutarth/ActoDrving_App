@@ -217,7 +217,7 @@ const styles = (colorScheme) =>
   StyleSheet.create({
     headerContainer: {
       borderBottomWidth: 1,
-      height: Platform.OS === "ios" ? hp(12) : hp(8),
+      height: Platform.OS === "ios" ? hp(12) : hp(7),
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
@@ -227,12 +227,12 @@ const styles = (colorScheme) =>
       borderColor: colorScheme === "dark" ? Colors.Grey : Colors.LightGrey,
     },
     backIcon: {
-      height: wp(5),
-      width: wp(5),
+      height: wp(6),
+      width: wp(6),
     },
     titleText: {
-      fontFamily: FontFamily.SemiBold,
-      fontSize: FontSize.font14,
+      fontFamily: FontFamily.GilroySemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font19 : FontSize.font16,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       textAlign: "center",
     },
@@ -275,8 +275,8 @@ const styles = (colorScheme) =>
       justifyContent: "center",
     },
     QuestionsIndexText: {
-      fontSize: FontSize.font10,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font12 : FontSize.font10,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     // modalContainer: {

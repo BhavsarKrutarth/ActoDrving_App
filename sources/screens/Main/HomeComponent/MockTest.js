@@ -7,8 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState, useCallback } from "react";
-import { Colors, FontFamily, FontSize, height, hp, wp } from "../../../theme";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import {
+  Colors,
+  FontFamily,
+  FontSize,
+  height,
+  hp,
+  normalize,
+  wp,
+} from "../../../theme";
 import { RNImage, RNLoader, RNStyles, RNText } from "../../../common";
 import { useDispatch, useSelector } from "react-redux";
 import FetchMethod from "../../../api/FetchMethod";
@@ -16,12 +24,16 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "../../../common/RNThemeContext";
 import {
   ADD_ANSWER,
+  QUESTIONS_ANSWER,
+  SET_CLEAR_QUESTIONDATA,
   SET_QUESTIONDATA,
 } from "../../../redux/Reducers/QuizReducer";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { QuestionsReport } from "../../../components";
 import { renderNode } from "@rneui/base";
 import QuitModal from "../../../components/QuitModal";
+import NetInfoScreen from "../../../components/NetInfo";
+import NetInfo from "@react-native-community/netinfo";
 
 export default function MockTest() {
   const { t } = useTranslation();
@@ -39,18 +51,24 @@ export default function MockTest() {
   const userLoginData = useSelector((state) => state.Authentication.AsyncValue);
   const userAnswers = useSelector((state) => state.Quiz.userAnswers);
   const [modalVisible, setModalVisible] = useState(false);
+  const [RightQuestions, SetRightQuestions] = useState([]);
+  const [WrongQuestions, SetWrongQuestions] = useState([]);
+  const [AnswerCorrect, setAnswerCorrect] = useState(false);
+  const [isOffline, setIsOffline] = useState(false);
+  const scrollRef = useRef();
   const mistakequesrtionsData = useSelector(
     (state) => state.Mistake.mistakequesrtionsData
   );
   const navigation = useNavigation();
   const datatype = "Quizdata";
-  //console.log("selectedQuestion", JSON.stringify(selectedQuestion, null, 2));
+  let currentQuestion = selectedQuestion || questions[currentQuestionIndex];
+  //console.log("currentQuestion", currentQuestion);
 
   useFocusEffect(
     useCallback(() => {
       if (selectedQuiz?.fill_Questions == questions.length) {
-        // SetReportScreen(true);
-        QuestionsReports();
+        SetReportScreen(true);
+        //QuestionsReports();
       } else {
         SetReportScreen(false);
       }
@@ -64,6 +82,14 @@ export default function MockTest() {
     ])
   );
   useEffect(() => {
+    // Subscribe to NetInfo updates
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsOffline(!state.isConnected); // If not connected, set isOffline to true
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       () => {
@@ -72,36 +98,40 @@ export default function MockTest() {
           setModalVisible(true);
           return true; // Prevent the default back action
         }
-
         // If modal is already visible, allow closing it
         setModalVisible(false);
         return true; // Prevent default back action while closing the modal
       }
     );
-
     return () => backHandler.remove(); // Cleanup the listener on unmount
   }, [modalVisible]);
 
   useEffect(() => {
     fetchQuestions();
-  }, [dispatch, selectedQuiz, selectedLanguage]);
-
+    return () => ClearData();
+  }, [selectedQuiz, selectedLanguage, isOffline]);
+  const ClearData = () => {
+    dispatch(SET_CLEAR_QUESTIONDATA());
+  };
   useEffect(() => {
     if (questions.length > 0 && selectedQuiz?.fill_Questions >= 0) {
       const initialIndex = Math.min(
         selectedQuiz.fill_Questions,
         questions.length - 1
       );
+      // console.log("initialIndex", initialIndex);
+
       setCurrentQuestionIndex(initialIndex);
     }
   }, [questions, selectedQuiz]);
 
   useEffect(() => {
     if (selectedQuestion) {
-      //const index = questions.indexOf(selectedQuestion);
+      //  const index = questions.indexOf(selectedQuestion);
       const index = questions.findIndex(
         (question) => question.quiz_Id === selectedQuestion.quiz_Id
       );
+
       if (index !== -1) {
         setCurrentQuestionIndex(index);
         setSelectedId(null);
@@ -124,6 +154,7 @@ export default function MockTest() {
       setLoading(false);
     }
   };
+
   const fetchMistakeQuestions = () => {
     try {
       const filteredQuestions = mistakequesrtionsData
@@ -132,19 +163,18 @@ export default function MockTest() {
             item.testID === selectedQuiz.quiz_Id && item.dataType === datatype
         )
         .map((item) => item.questionId);
-      //console.log("filteredQuestions", filteredQuestions);
 
       const completedQuestionIds = questions
         .slice(0, selectedQuiz.fill_Questions)
         .map((question) => question.questionId);
-      //console.log("completedQuestionIds", completedQuestionIds);
+
       const incorrectQuestions = completedQuestionIds.filter((id) =>
         filteredQuestions.includes(id)
       );
+
       const correctQuestions = completedQuestionIds.filter(
         (id) => !filteredQuestions.includes(id)
       );
-
       dispatch(
         ADD_ANSWER({
           loginID: userLoginData.userLoginID,
@@ -172,52 +202,61 @@ export default function MockTest() {
       console.log("Error fetching mistake questions:", error);
     }
   };
-
-  const QuestionsReports = async () => {
-    const vehicle = userAnswers?.[0]?.vehicles?.[0];
-    const quiz = vehicle?.quiz?.find((q) => q.QuizID === selectedQuiz.quiz_Id);
-    const rightQuestionsCount = quiz.rightQuestions.length;
-    const wrongQuestionsCount = quiz.wrongQuestions.length;
-    const TotalQuestions = rightQuestionsCount + wrongQuestionsCount;
-
-    try {
-      const response = await FetchMethod.POST({
-        EndPoint: `UserMistakesDataControllers/QuestionsReport`,
-        Params: {
-          quizID: selectedQuiz.quiz_Id,
-          userLoginID: userLoginData.userLoginID,
-          topicID: 0,
-          totalQuestions: TotalQuestions,
-          correct: rightQuestionsCount,
-          iNcorrect: wrongQuestionsCount,
-        },
-      });
-      // dispatch(SET_QUESTIONDATA(response));
-      if (response) {
-        SetReportScreen(true);
-        //console.log("Questions Answer Report Data renpose", response);
-      }
-    } catch (error) {
-      console.log("Error fetching QuizQuestions:", error);
-    }
-  };
-
-  // BackHandler.addEventListener("hardwareBackPress", function () {
-  //   console.log("data");
-  //   setModalVisible(true);
-  //   return;
-  // });
-
   const handleNextQuestion = () => {
+    scrollRef.current.scrollTo({ x: 0, y: 0, animated: true });
+    dispatch(
+      QUESTIONS_ANSWER({
+        loginID: userLoginData.userLoginID,
+        vehicleID: selectedQuiz.vehicleId,
+        QuizID: selectedQuiz.quiz_Id,
+        //isCorrect,
+        //questionIndex: currentQuestion.questionId,
+        rightQuestions: RightQuestions,
+        wrongQuestions: WrongQuestions,
+        isTopic: false,
+        QuestionCounter: currentQuestionIndex + 1,
+      })
+    );
+
+    dispatch(
+      ADD_ANSWER({
+        loginID: userLoginData.userLoginID,
+        vehicleID: selectedQuiz.vehicleId,
+        QuizID: selectedQuiz.quiz_Id,
+        isCorrect: AnswerCorrect,
+        questionIndex: currentQuestion.questionId,
+        isTopic: false,
+        //QuestionCounter: currentQuestionIndex + 1,
+      })
+    );
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedId(null);
       setCorrectOptionId(null);
       setIsOptionSelected(false);
+      // dispatch(
+      //   QUESTIONS_ANSWER({
+      //     loginID: userLoginData.userLoginID,
+      //     vehicleID: selectedQuiz.vehicleId,
+      //     QuizID: selectedQuiz.quiz_Id,
+      //     //isCorrect,
+      //     //questionIndex: currentQuestion.questionId,
+      //     rightQuestions: RightQuestions,
+      //     wrongQuestions: WrongQuestions,
+      //     isTopic: false,
+      //     QuestionCounter: currentQuestionIndex + 1,
+      //   })
+      // );
     } else {
-      QuestionsReports();
+      SetReportScreen(true);
+      //QuestionsReports();
       console.log("Quiz completed!");
     }
+    // if (currentQuestionIndex == questions.length - 1) {
+    //   SetReportScreen(true);
+    //   //QuestionsReports();
+    //   console.log("Quiz completed!");
+    // }
   };
 
   const handleOptionPress = (option) => {
@@ -225,44 +264,76 @@ export default function MockTest() {
       setSelectedId(option.question_Option_id);
       setIsOptionSelected(true);
       const isCorrect = option.isCorrect;
+      setAnswerCorrect(isCorrect);
       if (isCorrect) {
         setCorrectOptionId(null);
+        // SetRightQuestions.push(currentQuestion.questionId);
+        SetRightQuestions((prevRightQuestions) => [
+          ...prevRightQuestions,
+          currentQuestion.questionId,
+        ]);
       } else {
         const correctOption = currentQuestion.options.find(
           (opt) => opt.isCorrect
         );
         setCorrectOptionId(correctOption.question_Option_id);
+        // SetWrongQuestions.push(currentQuestion.questionId);
+        SetWrongQuestions((prevWrongQuestions) => [
+          ...prevWrongQuestions,
+          currentQuestion.questionId,
+        ]);
       }
+      ScrollToEndEffect();
+      // dispatch(
+      //   ADD_ANSWER({
+      //     loginID: userLoginData.userLoginID,
+      //     vehicleID: selectedQuiz.vehicleId,
+      //     QuizID: selectedQuiz.quiz_Id,
+      //     isCorrect,
+      //     questionIndex: currentQuestion.questionId,
+      //     isTopic: false,
+      //     //QuestionCounter: currentQuestionIndex + 1,
+      //   })
+      // );
 
-      dispatch(
-        ADD_ANSWER({
-          loginID: userLoginData.userLoginID,
-          vehicleID: selectedQuiz.vehicleId,
-          QuizID: selectedQuiz.quiz_Id,
-          isCorrect,
-          questionIndex: currentQuestion.questionId,
-          isTopic: false,
-          QuestionCounter: currentQuestionIndex + 1,
-        })
-      );
+      // dispatch(
+      //   QUESTIONS_ANSWER({
+      //     loginID: userLoginData.userLoginID,
+      //     vehicleID: selectedQuiz.vehicleId,
+      //     QuizID: selectedQuiz.quiz_Id,
+      //     isCorrect,
+      //     questionIndex: currentQuestion.questionId,
+      //     rightQuestions: RightQuestions,
+      //     wrongQuestions: WrongQuestions,
+      //     isTopic: false,
+      //     QuestionCounter: currentQuestionIndex + 1,
+      //   })
+      // );
     }
   };
 
-  const currentQuestion = selectedQuestion || questions[currentQuestionIndex];
-  if (!currentQuestion) {
+  if (!currentQuestion || currentQuestion == undefined) {
     return <RNLoader visible={isLoading} />;
   }
+
+  const ScrollToEndEffect = () => {
+    scrollRef.current.scrollToEnd({ animated: true });
+  };
 
   return (
     <View style={[styles(colorScheme).container]}>
       {ReportScreen ? (
         <QuestionsReport
-          navigationScreen={"CNIndexes"}
-          component={"MockTest"}
+          // navigationScreen={"CNIndexes"}
+          // component={"MockTest"}
           quiz_Id={selectedQuiz.quiz_Id}
         />
       ) : (
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          ref={scrollRef}
+          // onContentSizeChange={() => ScrollToEndEffect()}
+        >
           {currentQuestion.imagePathURL != 0 && (
             <View style={styles(colorScheme).bannerImage}>
               <RNImage
@@ -277,9 +348,11 @@ export default function MockTest() {
               style={[
                 styles(colorScheme).optionText,
                 {
-                  fontSize: FontSize.font18,
+                  fontSize:
+                    Platform.OS === "ios" ? FontSize.font20 : FontSize.font15,
                   width: wp(90),
                   paddingVertical: hp(2),
+                  lineHeight: hp(3.2),
                 },
               ]}
             >
@@ -337,7 +410,39 @@ export default function MockTest() {
                   onPress={() => handleOptionPress(option)}
                   color={Colors.White}
                 /> */}
-                  <Image
+                  <View>
+                    <View
+                      style={[
+                        styles(colorScheme).RadioBtnView,
+                        {
+                          borderColor:
+                            selectedId === option.question_Option_id ||
+                            correctOptionId === option.question_Option_id
+                              ? Colors.White
+                              : Colors.Grey,
+                        },
+                      ]}
+                    >
+                      {selectedId === option.question_Option_id ||
+                      correctOptionId === option.question_Option_id ? (
+                        <View
+                          style={[
+                            styles(colorScheme).RadioView,
+                            {
+                              backgroundColor:
+                                selectedId === option.question_Option_id ||
+                                correctOptionId === option.question_Option_id
+                                  ? Colors.White
+                                  : Colors.Grey,
+                            },
+                          ]}
+                        ></View>
+                      ) : (
+                        <View></View>
+                      )}
+                    </View>
+                  </View>
+                  {/* <Image
                     resizeMode="contain"
                     source={
                       selectedId === option.question_Option_id ||
@@ -346,7 +451,7 @@ export default function MockTest() {
                         : require("../../../assets/images/Radio.png")
                     }
                     style={{
-                      width: wp(5),
+                      width: wp(6),
                       height: wp(5),
                       tintColor:
                         selectedId === option.question_Option_id ||
@@ -354,7 +459,7 @@ export default function MockTest() {
                           ? Colors.White
                           : Colors.Grey,
                     }}
-                  />
+                  /> */}
                   {/* <CheckBox
                   //color="red"
                   value={option.question_Option_id}
@@ -389,7 +494,7 @@ export default function MockTest() {
                         styles(colorScheme).optionText,
                         {
                           paddingLeft: wp(3),
-                          fontFamily: FontFamily.Medium,
+                          fontFamily: FontFamily.GilroyMedium,
                           color:
                             selectedId === option.question_Option_id ||
                             correctOptionId === option.question_Option_id
@@ -442,6 +547,7 @@ export default function MockTest() {
           />
         </ScrollView>
       )}
+      <NetInfoScreen isvisible={isOffline} />
     </View>
   );
 }
@@ -469,8 +575,8 @@ const styles = (colorScheme) =>
       gap: 5,
     },
     optionText: {
-      fontSize: FontSize.font13,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font13,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.lightWhite : Colors.Black,
       textTransform: "capitalize",
       width: wp(80),
@@ -493,25 +599,27 @@ const styles = (colorScheme) =>
     },
     explanation: {
       color: Colors.Black,
-      fontSize: FontSize.font18,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font20 : FontSize.font18,
+      fontFamily: FontFamily.GilroySemiBold,
     },
     subtext: {
-      fontSize: FontSize.font12,
-      fontFamily: FontFamily.Medium,
+      fontSize: Platform.OS === "ios" ? FontSize.font17 : FontSize.font13,
+      fontFamily: FontFamily.GilroyMedium,
       color: Colors.DarkGrey,
+      lineHeight: Platform.OS === "ios" ? hp(2.8) : hp(2.3),
     },
     nextButton: {
       ...RNStyles.flexCenter,
       backgroundColor: colorScheme === "dark" ? Colors.White : Colors.Black,
-      padding: hp(1),
+      padding: Platform.OS === "ios" ? hp(1.5) : hp(1),
       width: wp(20),
       borderRadius: 50,
     },
     buttonText: {
       color: colorScheme === "dark" ? Colors.Black : Colors.White,
-      fontFamily: FontFamily.Medium,
+      fontFamily: FontFamily.GilroyMedium,
       textTransform: "capitalize",
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
     },
     optionImage: {
       width: wp(40),
@@ -529,5 +637,18 @@ const styles = (colorScheme) =>
       fontFamily: FontFamily.Bold,
       fontSize: FontSize.font16,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
+    },
+    RadioBtnView: {
+      height: hp(2.6),
+      width: hp(2.6),
+      borderRadius: normalize(50),
+      borderWidth: 3,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    RadioView: {
+      height: hp(1.2),
+      width: hp(1.2),
+      borderRadius: normalize(50),
     },
   });

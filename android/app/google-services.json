@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "676136670646-7lqnanp80gl1j3652l3en5387v89hmce.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.actodriving",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "676136670646-l8glp1iovmo8u6n3oa5r08qpe556so9d.apps.googleusercontent.com",
           "client_type": 3
         }

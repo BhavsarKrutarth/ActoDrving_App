@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Platform } from "react-native";
 import { RNImage, RNText, RNStyles } from "../../../common";
 import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
 import { Images } from "../../../constants";
@@ -114,7 +114,7 @@ export const Item = ({
               <RNText
                 style={{
                   fontSize: FontSize.font13,
-                  fontFamily: FontFamily.Bold,
+                  fontFamily: FontFamily.GilroyBold,
                   paddingHorizontal: wp(1),
                 }}
               >
@@ -216,14 +216,15 @@ const styles = (colorScheme) =>
   StyleSheet.create({
     buttonContainer: {
       backgroundColor: Colors.Orange,
-      paddingVertical: 5,
-      paddingHorizontal: 15,
+      paddingVertical: Platform.OS === "ios" ? hp(1) : hp(0.7),
+      paddingHorizontal: wp(4),
       borderRadius: 20,
     },
     buttonText: {
-      fontSize: FontSize.font14,
-      fontFamily: FontFamily.Medium,
+      fontSize: Platform.OS === "ios" ? FontSize.font16 : FontSize.font14,
+      fontFamily: FontFamily.GilroyMedium,
       color: Colors.White,
+      //paddingTop: Platform.OS === "ios" ? hp(0) : hp(0.3),
     },
     item: {
       width: wp(45),
@@ -243,14 +244,16 @@ const styles = (colorScheme) =>
       alignItems: "center",
     },
     title: {
-      fontFamily: FontFamily.SemiBold,
-      fontSize: FontSize.font18,
+      fontFamily: FontFamily.GilroySemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font22 : FontSize.font17,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     content: {
-      fontFamily: FontFamily.Medium,
-      fontSize: FontSize.font13,
+      paddingTop: Platform.OS === "ios" ? hp(1) : hp(0.5),
+      fontFamily: FontFamily.GilroyMedium,
+      fontSize: Platform.OS === "ios" ? FontSize.font16 : FontSize.font13,
       color: colorScheme === "dark" ? Colors.Grey : Colors.DarkGrey,
+      lineHeight: Platform.OS === "ios" ? hp(2.5) : hp(2.2),
     },
     selected: {
       height: wp(13),

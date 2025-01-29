@@ -1,4 +1,7 @@
 import {
+  ActivityIndicator,
+  FlatList,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -13,7 +16,7 @@ import {
   RNStyles,
   RNText,
 } from "../../../common";
-import { Colors, FontFamily, FontSize, wp } from "../../../theme";
+import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
 import { ProgressBar } from "react-native-paper";
 import FetchMethod from "../../../api/FetchMethod";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +31,8 @@ import {
 } from "../../../redux/Reducers/TopicReducer";
 import { useFocusEffect } from "@react-navigation/native";
 import { SET_MISTAKEQUESTIONDATA } from "../../../redux/Reducers/MistakeReducers";
+import NetInfoScreen from "../../../components/NetInfo";
+import NetInfo from "@react-native-community/netinfo";
 
 export function CNIndexes({ route, navigation }) {
   const { component } = route.params;
@@ -40,6 +45,7 @@ export function CNIndexes({ route, navigation }) {
   const { colorScheme, selectedLanguage } = useTheme();
   const userLoginData = useSelector((state) => state.Authentication.AsyncValue);
   const [isLoading, setLoading] = useState(true);
+  const [isOffline, setIsOffline] = useState(false);
 
   // useFocusEffect(
   //   React.useCallback(() => {
@@ -50,7 +56,46 @@ export function CNIndexes({ route, navigation }) {
 
   useFocusEffect(
     React.useCallback(() => {
+      const fetchMistakeData = async () => {
+        try {
+          const response = await FetchMethod.GET({
+            EndPoint: `UserMistakesDataControllers/MistackData?UserLoginId=${userLoginData.userLoginID}&VehicalID=${selectedCategory?.vehicle_Id}&LangCode=${selectedLanguage}`,
+          });
+          dispatch(SET_MISTAKEQUESTIONDATA(response));
+        } catch (error) {
+          console.log("MistakeData error ->", error);
+          dispatch(SET_MISTAKEQUESTIONDATA([]));
+        } finally {
+          setLoading(false);
+        }
+      };
       fetchMistakeData();
+    }, [selectedCategory?.vehicle_Id, selectedLanguage, isOffline])
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchData = async () => {
+        try {
+          const quizResponse = await FetchMethod.POST({
+            EndPoint: "Quiz/GetQuiz",
+            Params: {
+              vehicleId: selectedCategory.vehicle_Id,
+              languageCode: selectedLanguage,
+              userLoginID: userLoginData.userLoginID,
+            },
+          });
+          dispatch(SET_QUIZDATA(quizResponse));
+          const topicResponse = await FetchMethod.GET({
+            EndPoint: `Topic/getTopics?vehicleID=${selectedCategory.vehicle_Id}&languageCode=${selectedLanguage}&UserLoginID=${userLoginData.userLoginID}`,
+          });
+          dispatch(SET_TOPICDATA(topicResponse));
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
       if (
         selectedCategory.vehicle_Id &&
         selectedLanguage &&
@@ -62,48 +107,17 @@ export function CNIndexes({ route, navigation }) {
       selectedCategory?.vehicle_Id,
       selectedLanguage,
       userLoginData?.userLoginID,
+      isOffline,
     ])
   );
-  const fetchMistakeData = async () => {
-    try {
-      const response = await FetchMethod.GET({
-        EndPoint: `UserMistakesDataControllers/MistackData?UserLoginId=${userLoginData.userLoginID}&VehicalID=${selectedCategory?.vehicle_Id}&LangCode=${selectedLanguage}`,
-      });
-      //console.log("mistak response", response);
-      dispatch(SET_MISTAKEQUESTIONDATA(response));
-    } catch (error) {
-      console.log("MistakeData error ->", error);
-      dispatch(SET_MISTAKEQUESTIONDATA([]));
-    } finally {
-      setLoading(false);
-    }
-  };
-  const fetchData = async () => {
-    try {
-      const quizResponse = await FetchMethod.POST({
-        EndPoint: "Quiz/GetQuiz",
-        Params: {
-          vehicleId: selectedCategory.vehicle_Id,
-          languageCode: selectedLanguage,
-          userLoginID: userLoginData.userLoginID,
-        },
-      });
-      // console.log("data response", quizResponse[7].fill_Questions);
-      dispatch(SET_QUIZDATA(quizResponse));
-      const topicResponse = await FetchMethod.GET({
-        EndPoint: `Topic/getTopics?vehicleID=${selectedCategory.vehicle_Id}&languageCode=${selectedLanguage}&UserLoginID=${userLoginData.userLoginID}`,
-      });
-      dispatch(SET_TOPICDATA(topicResponse));
-    } catch (error) {
-      console.log("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  if (isLoading) {
-    return <RNLoader visible={isLoading} />;
-  }
+  useEffect(() => {
+    // Subscribe to NetInfo updates
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsOffline(!state.isConnected); // If not connected, set isOffline to true
+    });
+    return () => unsubscribe();
+  }, []);
 
   const renderComponent = () => {
     switch (component) {
@@ -126,8 +140,52 @@ export function CNIndexes({ route, navigation }) {
 
   const MockTest = memo(() => {
     return (
-      <View style={[RNStyles.flexWrapHorizontal, { gap: 10 }]}>
-        {quiz.map((item, index) => {
+      <View style={{ alignSelf: "center", paddingHorizontal: wp(2) }}>
+        <FlatList
+          numColumns={2}
+          data={quiz}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingVertical: hp(2) }}
+          renderItem={({ item, index }) => {
+            // console.log(item);
+            return (
+              <TouchableOpacity
+                key={index}
+                onPress={() => handleQuizSelection(item)}
+                style={[styles(colorScheme).MockTestcard]}
+              >
+                <RNText style={[styles(colorScheme).text, { width: wp(42) }]}>
+                  {item.name}
+                </RNText>
+                <ProgressBar
+                  progress={
+                    Math.round(
+                      (item.fill_Questions / item.total_QuestionsCount) * 10
+                    ) / 10
+                  }
+                  color={Colors.Green}
+                  style={{ borderRadius: 10 }}
+                />
+                <RNText
+                  style={[
+                    styles(colorScheme).text,
+                    {
+                      textAlign: "right",
+                      width: wp(40),
+                      fontSize:
+                        Platform.OS === "ios"
+                          ? FontSize.font13
+                          : FontSize.font11,
+                    },
+                  ]}
+                >
+                  {item.fill_Questions}/{item.total_QuestionsCount}
+                </RNText>
+              </TouchableOpacity>
+            );
+          }}
+        />
+        {/* {quiz.map((item, index) => {
           return (
             <TouchableOpacity
               key={index}
@@ -138,7 +196,11 @@ export function CNIndexes({ route, navigation }) {
                 {item.name}
               </RNText>
               <ProgressBar
-                progress={item.fill_Questions / item.total_QuestionsCount}
+                progress={
+                  Math.round(
+                    (item.fill_Questions / item.total_QuestionsCount) * 10
+                  ) / 10
+                }
                 color={Colors.Green}
                 style={{ borderRadius: 10 }}
               />
@@ -156,15 +218,57 @@ export function CNIndexes({ route, navigation }) {
               </RNText>
             </TouchableOpacity>
           );
-        })}
+        })} */}
+        <NetInfoScreen isvisible={isOffline} />
       </View>
     );
   });
 
   const TopicTest = () => {
     return (
-      <View style={[RNStyles.flexWrapHorizontal, { gap: 10 }]}>
-        {topic.map((item, index) => (
+      <View style={{ alignSelf: "center", paddingHorizontal: wp(2) }}>
+        <FlatList
+          data={topic}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingVertical: hp(2) }}
+          renderItem={({ item, index }) => {
+            return (
+              <Pressable
+                key={index}
+                style={[
+                  styles(colorScheme).MockTestcard,
+                  RNStyles.flexRow,
+                  { gap: 10 },
+                ]}
+                onPress={() => handleTopicSelection(item)}
+              >
+                <RNImage
+                  style={{ width: wp(12), height: wp(12) }}
+                  source={{ uri: item.image }}
+                />
+                <View style={{ gap: 5 }}>
+                  <RNText numberOfLines={2} style={styles(colorScheme).text}>
+                    {item.topicName}
+                  </RNText>
+                  <ProgressBar
+                    progress={
+                      Math.round(
+                        (item.fill_Questions / item.question_Count) * 10
+                      ) / 10
+                    }
+                    color={Colors.Green}
+                    style={{ borderRadius: 10, width: wp(25) }}
+                  />
+                  <RNText style={styles(colorScheme).questionCountText}>
+                    {item.fill_Questions}/{item.question_Count}
+                  </RNText>
+                </View>
+              </Pressable>
+            );
+          }}
+        />
+        {/* {topic.map((item, index) => (
           <Pressable
             key={index}
             style={[
@@ -194,16 +298,17 @@ export function CNIndexes({ route, navigation }) {
               </RNText>
             </View>
           </Pressable>
-        ))}
+        ))} */}
+        <NetInfoScreen isvisible={isOffline} />
       </View>
     );
   };
 
   return (
-    <RNContainer style={styles(colorScheme).container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {renderComponent()}
-      </ScrollView>
+    <RNContainer style={styles(colorScheme).container} isLoading={isLoading}>
+      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
+      {renderComponent()}
+      {/* </ScrollView> */}
     </RNContainer>
   );
 }
@@ -211,7 +316,7 @@ export function CNIndexes({ route, navigation }) {
 const styles = (colorScheme) =>
   StyleSheet.create({
     container: {
-      paddingVertical: 20,
+      //paddingVertical: 20,
       backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
     },
     tabContainer: {
@@ -226,7 +331,7 @@ const styles = (colorScheme) =>
     },
     tabText: {
       fontSize: FontSize.font14,
-      fontFamily: FontFamily.SemiBold,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     MockTestcard: {
@@ -236,18 +341,22 @@ const styles = (colorScheme) =>
       width: wp(47),
       borderWidth: 1,
       borderColor: colorScheme === "dark" ? "#3e6075" : Colors.LightGrey,
+      marginRight: wp(2),
+      marginBottom: hp(1),
     },
     text: {
-      fontSize: FontSize.font14,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font12,
       marginVertical: 3,
-      fontFamily: FontFamily.SemiBold,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       width: wp(25),
+      paddingBottom: Platform.OS === "ios" ? hp(0.5) : hp(0),
+      lineHeight: Platform.OS === "ios" ? hp(2.8) : hp(2.2),
     },
     questionCountText: {
       textAlign: "right",
       width: wp(25),
-      fontSize: FontSize.font11,
+      fontSize: Platform.OS === "ios" ? FontSize.font13 : FontSize.font11,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
   });

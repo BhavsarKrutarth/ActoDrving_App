@@ -144,5 +144,24 @@
     "notmatch": "Passwords do not match",
     "InvalidEmail": "Invalid email address.",
     "IncorrectPass": "Wrong password. Try again or click 'Forgot Password' to reset it."
+  },
+  "MistkeModal" : {
+    "Success":"Success",
+    "warning":"warning",
+    "SuccessContent": "Congratulations on completing your exam—well done!",
+    "tryagainContent": "Not reading the question carefully can lead to wrong answers",
+    "Ok":"Ok",
+    "Tryagain":"Try again"
+  },
+  "QuestionsReport" : {
+    "Congratulations":"Congratulations!",
+    "Congratulations_Des" : "Well done! You have achieved a perfect score!",
+    "Title":"Almost There!",
+    "Subtitle":"You’ll do better next time",
+    "Subtitle_Des":"Keep training to better your score ! If you need. go back to our study page and learn everything you need to know !",
+    "continue":"Continue",
+    "Correct":"Correct",
+    "Incorrect":"Incorrect",
+    "outof":"out of"
   }
 }

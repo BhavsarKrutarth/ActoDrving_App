@@ -134,5 +134,24 @@
     "notmatch": "密码不匹配",
     "InvalidEmail": "无效的电子邮件地址。",
     "IncorrectPass": "密码错误。请重试或点击“忘记密码”。"
+  },
+  "MistkeModal" : {
+    "Success": "成功",
+    "warning": "警告",
+    "SuccessContent": "恭喜完成考试—做得好！",
+    "tryagainContent": "不仔细阅读题目可能会导致错误答案",
+    "Ok": "好的",
+    "Tryagain": "再试一次"
+  },
+  "QuestionsReport":{
+    "Congratulations": "恭喜!",
+    "Congratulations_Des": "做得好！你已经取得了满分！",
+    "Title": "差一点就成功了！",
+    "Subtitle": "下次会更好",
+    "Subtitle_Des": "继续训练，提高你的成绩！如果需要，可以返回我们的学习页面，学习所有必要的知识！",
+    "continue": "继续",
+    "Correct": "正确",
+    "Incorrect": "错误",
+    "outof": "共"
   }
 }

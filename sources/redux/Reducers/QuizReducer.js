@@ -25,6 +25,14 @@ const QuizReducer = createSlice({
     SET_SELECTED_QUESTIONDATA: (state, action) => {
       state.selectedQuestion = action.payload;
     },
+    SET_CLEAR_QUESTIONDATA: (state, action) => {
+      // (state.quizData = []),
+      // (state.selectedQuiz = null),
+      (state.questionData = []),
+        //(state.selectedQuestion = null),
+        //(state.userAnswers = []),
+        (state.QuestionCounter = []);
+    },
     ADD_ANSWER: (state, action) => {
       const {
         loginID,
@@ -45,7 +53,6 @@ const QuizReducer = createSlice({
         user = { loginID, vehicles: [] };
         state.userAnswers.push(user);
       }
-
       let vehicle = user.vehicles.find((v) => v.vehicleID === vehicleID);
       if (!vehicle) {
         vehicle = { vehicleID, topic: [], quiz: [] };
@@ -93,7 +100,6 @@ const QuizReducer = createSlice({
           };
           vehicle.quiz.push(quiz);
         }
-
         if (isCorrect) {
           quiz.wrongQuestions = quiz.wrongQuestions.filter(
             (idx) => !questionIds.includes(idx)
@@ -109,10 +115,56 @@ const QuizReducer = createSlice({
             ...new Set([...quiz.wrongQuestions, ...questionIds]),
           ];
         }
-
         quiz.QuestionCounter =
           quiz.rightQuestions.length + quiz.wrongQuestions.length;
       }
+    },
+    QUESTIONS_ANSWER: (state, action) => {
+      state.data = action.payload;
+      const {
+        loginID,
+        vehicleID,
+        QuizID,
+        TopicID,
+        rightQuestions,
+        wrongQuestions,
+        isTopic,
+        QuestionCounter,
+      } = action.payload;
+
+      const Data = [
+        {
+          loginID: loginID,
+          vehicles: [
+            {
+              vehicleID: vehicleID,
+              topic: isTopic
+                ? [
+                    {
+                      TopicID: TopicID,
+                      rightQuestions: rightQuestions,
+                      wrongQuestions: wrongQuestions,
+                      questionCounter: QuestionCounter,
+                    },
+                  ]
+                : [], // Add topic details if needed
+              quiz: !isTopic
+                ? [
+                    {
+                      QuizID: QuizID,
+                      // rightQuestions: isCorrect ? [questionIndex] : [],
+                      // wrongQuestions: !isCorrect ? [questionIndex] : [],
+                      rightQuestions: rightQuestions,
+                      wrongQuestions: wrongQuestions,
+                      questionCounter: QuestionCounter,
+                    },
+                  ]
+                : [],
+            },
+          ],
+        },
+      ];
+      state.data = Data;
     },
   },
 });
@@ -123,6 +175,8 @@ export const {
   SET_QUESTIONDATA,
   SET_SELECTED_QUESTIONDATA,
   ADD_ANSWER,
+  QUESTIONS_ANSWER,
+  SET_CLEAR_QUESTIONDATA,
 } = QuizReducer.actions;
 
 export default QuizReducer.reducer;

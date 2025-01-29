@@ -9,6 +9,7 @@ import {
   ScrollView,
   Platform,
   Image,
+  Text,
 } from "react-native";
 import { useTranslation } from "react-i18next";
 import {
@@ -31,9 +32,9 @@ import {
 import { useDispatch } from "react-redux";
 import { Images } from "../../constants";
 import { Functions } from "../../utils";
-import { hoverGestureHandlerProps } from "react-native-gesture-handler/lib/typescript/handlers/gestures/hoverGesture";
-// import { GoogleSignin } from "@react-native-google-signin/google-signin";
-// import { appleAuth } from "@invertase/react-native-apple-authentication";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { appleAuth } from "@invertase/react-native-apple-authentication";
+import auth from "@react-native-firebase/auth";
 
 export default function Login({ navigation }) {
   const { t } = useTranslation();
@@ -46,70 +47,158 @@ export default function Login({ navigation }) {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [isLoginBtnDisabled, setLoginBtnDisabled] = useState(true);
+  //const [IsLoading, setLoading] = useState(false);
 
-  // GoogleSignin.configure({
-  //   // "676136670646-l8glp1iovmo8u6n3oa5r08qpe556so9d.apps.googleusercontent.com",
-  //   webClientId:
-  //     "676136670646-l8glp1iovmo8u6n3oa5r08qpe556so9d.apps.googleusercontent.com",
-  //   offlineAccess: true,
-  //   scopes: ["email", "profile"],
-  //   iosClientId:
-  //     "676136670646-sth07223adbr6cvdt3954ukj9n0ropou.apps.googleusercontent.com",
-  // });
+  GoogleSignin.configure({
+    webClientId:
+      "676136670646-l8glp1iovmo8u6n3oa5r08qpe556so9d.apps.googleusercontent.com",
+    offlineAccess: true,
+    scopes: ["email", "profile"],
+    iosClientId:
+      "676136670646-sth07223adbr6cvdt3954ukj9n0ropou.apps.googleusercontent.com",
+    // "676136670646-sth07223adbr6cvdt3954ukj9n0ropou.apps.googleusercontent.com",
+  });
   useEffect(() => {
     setLoginBtnDisabled(number === "" || password === "");
   }, [number, password]);
 
-  // const onGoogleButtonPress = async () => {
-  //   try {
-  //     console.log("Checking Play Services...");
-  //     await GoogleSignin.hasPlayServices({
-  //       showPlayServicesUpdateDialog: true,
-  //     });
+  const Googlerenpose = async () => {
+    //setLoading(true);
+    const renpose = await onGoogleButtonPress();
+    const userData = {
+      FirstName: renpose.additionalUserInfo.profile.given_name,
+      LastName: renpose.additionalUserInfo.profile.family_name,
+      Email: renpose.additionalUserInfo.profile.email,
+      password: "",
+      Flag: "Google",
+    };
+    setLoading(false);
+    //console.log("Finally ", userData);
+    await HandleRegister(userData);
+  };
+  async function onGoogleButtonPress() {
+    try {
+      // setLoading(true);
+      await GoogleSignin.hasPlayServices({
+        showPlayServicesUpdateDialog: true,
+      });
+      const response = await GoogleSignin.signIn();
+      //console.log(response.data.idToken);
+      if (response?.data.idToken != null) {
+        setLoading(false);
+        const googleCredential = auth.GoogleAuthProvider.credential(
+          response.data.idToken
+        );
+        return auth().signInWithCredential(googleCredential);
+      } else {
+        setLoading(false);
+        console.log("GoogleSignin idToken NUll");
+        // await signOut();
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("Google Sign-In error:", error);
+      //alert('Google Sign-In error: ' + error.message);
+    }
+  }
 
-  //     console.log("Attempting Google Sign-In...");
-  //     const response = await GoogleSignin.signIn();
-  //     console.log("Google Sign-In Response:", response);
+  async function onAppleButtonPress() {
+    try {
+      setLoading(true);
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+      });
+      if (!appleAuthRequestResponse.identityToken) {
+        throw new Error("Apple Sign-In failed - no identify token returned");
+      }
+      const { identityToken, nonce } = appleAuthRequestResponse;
+      const appleCredential = auth.AppleAuthProvider.credential(
+        identityToken,
+        nonce
+      );
+      setLoading(true);
+      const Data = await auth().signInWithCredential(appleCredential);
+      console.log("Data", Data);
+      setLoading(false);
+      return Data;
+    } catch (error) {
+      setLoading(false);
+      console.log("Google Sign-In error:", error);
+      //alert('Google Sign-In error: ' + error.message);
+    }
+  }
 
-  //     if (response.data?.idToken) {
-  //       console.log("Google ID Token found:", response.data?.idToken);
-  //       const googleCredential = auth.GoogleAuthProvider.credential(
-  //         response.idToken
-  //       );
-  //       console.log("Signing in with Google Credential...");
-  //       return auth().signInWithCredential(googleCredential);
-  //     } else {
-  //       console.log("Google Sign-In failed: ID Token is null.");
-  //     }
-  //   } catch (error) {
-  //     console.log("Google Sign-In Error:", error);
-  //   }
-  // };
+  const Applerenpose = async () => {
+    setLoading(true);
+    const renpose = await onAppleButtonPress();
+    const emailID = renpose.additionalUserInfo.profile.email;
+    const match = emailID.match(/^([a-zA-Z]+)(\d*)@/);
+    const namePart = match[1];
 
-  // const onAppleButtonPress = async () => {
-  //   // Start the sign-in request
-  //   const appleAuthRequestResponse = await appleAuth.performRequest({
-  //     requestedOperation: appleAuth.Operation.LOGIN,
-  //     // As per the FAQ of react-native-apple-authentication, the name should come first in the following array.
-  //     // See: https://github.com/invertase/react-native-apple-authentication#faqs
-  //     requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
-  //   });
+    const userData = {
+      FirstName: namePart,
+      LastName: namePart,
+      Email: renpose.additionalUserInfo.profile.email,
+      password: "",
+      Flag: "Apple",
+    };
+    setLoading(false);
+    console.log("userData", userData);
 
-  //   // Ensure Apple returned a user identityToken
-  //   if (!appleAuthRequestResponse.identityToken) {
-  //     throw new Error("Apple Sign-In failed - no identify token returned");
-  //   }
+    await HandleRegister(userData);
+  };
 
-  //   // Create a Firebase credential from the response
-  //   const { identityToken, nonce } = appleAuthRequestResponse;
-  //   const appleCredential = auth.AppleAuthProvider.credential(
-  //     identityToken,
-  //     nonce
-  //   );
-
-  //   // Sign the user in with the credential
-  //   return auth().signInWithCredential(appleCredential);
-  // };
+  const HandleRegister = async (RegisterData) => {
+    try {
+      console.log("RegisterData", RegisterData);
+      const response = await FetchMethod.POST({
+        EndPoint: "Register",
+        Params: {
+          firstName: RegisterData.FirstName,
+          lastName: RegisterData.LastName,
+          token: "",
+          emailID: RegisterData.Email,
+          moblieNo: "",
+          password: RegisterData.password,
+          flag: RegisterData.Flag,
+        },
+      });
+      console.log("Register response -->", response);
+      if (response) {
+        dispatch(onAuthChange(true));
+        await Functions.setUserData(response);
+        dispatch(setAsyncStorageValue(response));
+      } else {
+        setLoading(false);
+        toastRef.current.show(
+          "Login failed. Please check your details and try again.",
+          {
+            type: "danger",
+            placement: "top",
+            duration: 2000,
+            offset: StatusBar.currentHeight + hp(2),
+            animationType: "slide-in",
+          }
+        );
+      }
+    } catch (error) {
+      setLoading(false);
+      setTimeout(() => {
+        toastRef.current.show(
+          "Login failed. Please check your details and try again.",
+          {
+            type: "danger",
+            placement: "top",
+            duration: 2000,
+            offset: StatusBar.currentHeight + hp(2),
+            animationType: "slide-in",
+          }
+        );
+      }, 1000);
+      console.log("Register error", error);
+    }
+  };
 
   const handleMobileLogin = useCallback(async () => {
     const newErrors = {};
@@ -252,9 +341,10 @@ export default function Login({ navigation }) {
               <RNText
                 style={[
                   {
-                    fontSize: FontSize.font11,
+                    fontSize:
+                      Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
                     color: "#269DF3",
-                    fontFamily: FontFamily.Regular,
+                    fontFamily: FontFamily.GilroyRegular,
                   },
                 ]}
               >
@@ -280,10 +370,10 @@ export default function Login({ navigation }) {
                 {t("Auth.login")}
               </RNText>
             </TouchableOpacity>
-            {/* <View style={{ paddingTop: hp(4) }}>
+            <View style={{ paddingTop: hp(4) }}>
               <TouchableOpacity
                 style={styles(colorScheme).SocialBtnStyles}
-                onPress={() => onGoogleButtonPress()}
+                onPress={() => Googlerenpose()}
               >
                 <View style={styles(colorScheme).SocaialBtnView}>
                   <RNImage
@@ -297,7 +387,7 @@ export default function Login({ navigation }) {
               </TouchableOpacity>
               {Platform.OS === "ios" ? (
                 <TouchableOpacity
-                  onPress={() => onAppleButtonPress()}
+                  onPress={() => Applerenpose()}
                   style={[
                     styles(colorScheme).SocialBtnStyles,
                     { marginTop: hp(1) },
@@ -316,18 +406,25 @@ export default function Login({ navigation }) {
               ) : (
                 ""
               )}
-            </View> */}
+            </View>
             <View style={styles(colorScheme).newRegister}>
               <RNText
                 style={{
-                  fontSize: FontSize.font12,
+                  fontSize:
+                    Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
                   color: colorScheme === "dark" ? Colors.White : Colors.Black,
                 }}
               >
                 {t("Auth.Newto")}
               </RNText>
               <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <RNText style={{ fontSize: FontSize.font12, color: "#269DF3" }}>
+                <RNText
+                  style={{
+                    fontSize:
+                      Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
+                    color: "#269DF3",
+                  }}
+                >
                   {t("Auth.registerhere")}
                 </RNText>
               </TouchableOpacity>
@@ -335,8 +432,8 @@ export default function Login({ navigation }) {
           </View>
         </ScrollView>
       </RNKeyboardAvoid>
-
       <Toast ref={toastRef} />
+      {/* <RNLoader visible={isLoading} /> */}
     </RNContainer>
   );
 }
@@ -344,22 +441,24 @@ export default function Login({ navigation }) {
 const styles = (colorScheme) =>
   StyleSheet.create({
     title: {
-      fontSize: FontSize.font22,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: FontSize.font25,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       textAlign: "center",
     },
     newRegister: {
       ...RNStyles.center,
-      marginTop: hp(2),
+      marginTop: hp(3),
       flexDirection: "row",
       gap: wp(1),
     },
     subTitle: {
-      fontSize: FontSize.font13,
-      fontFamily: FontFamily.Medium,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font14,
+      fontFamily: FontFamily.GilroyMedium,
       color: colorScheme === "dark" ? Colors.Grey : Colors.DarkGrey,
       textAlign: "center",
+      paddingTop: hp(1),
+      lineHeight: Platform.OS === "ios" ? hp(3) : hp(2.3),
     },
     dataView: {
       flex: 1,
@@ -369,7 +468,7 @@ const styles = (colorScheme) =>
     },
     text: {
       fontSize: FontSize.font12,
-      fontFamily: FontFamily.Medium,
+      fontFamily: FontFamily.GilroyMedium,
       color: colorScheme === "dark" ? Colors.Grey : Colors.DarkGrey,
     },
     row: {
@@ -379,8 +478,8 @@ const styles = (colorScheme) =>
       height: wp(0),
     },
     userText: {
-      fontSize: FontSize.font14,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     emailContainer: {
@@ -390,8 +489,8 @@ const styles = (colorScheme) =>
       padding: 0,
       paddingHorizontal: 15,
       height: hp(6),
-      fontFamily: FontFamily.Medium,
-      fontSize: FontSize.font13,
+      fontFamily: FontFamily.GilroyMedium,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     passwordContainer: {
@@ -403,14 +502,14 @@ const styles = (colorScheme) =>
     },
     passwordInput: {
       width: wp(75),
-      fontFamily: FontFamily.Medium,
-      fontSize: FontSize.font13,
+      fontFamily: FontFamily.GilroyMedium,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
       padding: 0,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     confirmButton: {
       fontSize: FontSize.font11,
-      fontFamily: FontFamily.Medium,
+      fontFamily: FontFamily.GilroyMedium,
       color: colorScheme === "dark" ? Colors.Grey : Colors.DarkGrey,
       textAlign: "right",
     },
@@ -421,12 +520,12 @@ const styles = (colorScheme) =>
     },
     loginButton: {
       borderRadius: 5,
-      padding: hp(1.5),
+      padding: Platform.OS === "ios" ? hp(2) : hp(1.5),
     },
     loginText: {
       color: Colors.White,
-      fontSize: FontSize.font16,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font19 : FontSize.font15,
+      fontFamily: FontFamily.GilroySemiBold,
       textAlign: "center",
     },
     SocialBtnStyles: {
@@ -436,8 +535,8 @@ const styles = (colorScheme) =>
     },
     SocialBtnText: {
       color: Colors.Black,
-      fontSize: FontSize.font15,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
+      fontFamily: FontFamily.GilroySemiBold,
       textAlign: "center",
     },
     SocaialBtnView: {

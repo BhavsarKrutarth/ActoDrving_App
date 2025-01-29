@@ -58,7 +58,9 @@ const styles = (colorScheme) =>
     container: {
       borderBottomWidth: 1,
       //height: hp(7),
-      height: Platform.OS === "ios" ? hp(12) : hp(8),
+      //height: Platform.OS === "ios" ? hp(12) : hp(5),
+      paddingTop: hp(1),
+      paddingBottom: hp(0.7),
       flexDirection: "row",
       gap: wp(2),
       alignItems: "center",
@@ -67,10 +69,12 @@ const styles = (colorScheme) =>
     },
     title: {
       flex: 1,
-      fontSize: FontSize.font16,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font20 : FontSize.font16,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       textAlign: "center",
+      paddingTop: Platform.OS === "ios" ? hp(1.5) : hp(0.5),
+      paddingBottom: Platform.OS === "ios" ? hp(1) : hp(0),
     },
     LeftIcon: {
       ...RNStyles.center,

@@ -205,9 +205,9 @@ export default function Register({ navigation }) {
                 >
                   <RNText
                     color={"red"}
-                    size={FontSize.font20}
+                    size={FontSize.font19}
                     align={"center"}
-                    family={FontFamily.GilroyBold}
+                    family={FontFamily.GilroySemiBold}
                   >
                     {t("Delete.Delete")}{" "}
                   </RNText>
@@ -235,8 +235,8 @@ const styles = (colorScheme) =>
       marginBottom: hp(0),
     },
     userText: {
-      fontSize: FontSize.font14,
-      fontFamily: FontFamily.Medium,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font16,
+      fontFamily: FontFamily.GilroyMedium,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       paddingBottom: hp(1),
     },
@@ -247,13 +247,13 @@ const styles = (colorScheme) =>
     loginButton: {
       backgroundColor: Colors.Orange,
       borderRadius: 5,
-      padding: hp(2),
+      padding: Platform.OS === "ios" ? hp(1.8) : hp(1.3),
       width: wp(90),
     },
     loginText: {
       color: Colors.White,
-      fontSize: FontSize.font18,
-      fontFamily: FontFamily.GilroyBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font19 : FontSize.font17,
+      fontFamily: FontFamily.GilroySemiBold,
       textAlign: "center",
     },
     inputContainer: {
@@ -268,13 +268,13 @@ const styles = (colorScheme) =>
       height: hp(6),
       width: wp(75),
       fontFamily: FontFamily.Medium,
-      fontSize: FontSize.font14,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font14,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       borderWidth: 0,
     },
     InputView: {
-      fontSize: FontSize.font17,
-      fontFamily: FontFamily.GilroySemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
+      fontFamily: FontFamily.GilroyMedium,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       height: hp(6),
       paddingHorizontal: wp(3),

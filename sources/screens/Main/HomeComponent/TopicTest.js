@@ -1,25 +1,42 @@
 import {
+  Animated,
   BackHandler,
+  Platform,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
-import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import {
+  Colors,
+  FontFamily,
+  FontSize,
+  hp,
+  normalize,
+  wp,
+} from "../../../theme";
 import { RNImage, RNLoader, RNStyles, RNText } from "../../../common";
 import { RadioButton } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import FetchMethod from "../../../api/FetchMethod";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../../../common/RNThemeContext";
-import { SET_TOPICQUESTION_DATA } from "../../../redux/Reducers/TopicReducer";
-import { ADD_ANSWER } from "../../../redux/Reducers/QuizReducer";
+import {
+  SET_CLEAR_TOPICDATA,
+  SET_TOPICQUESTION_DATA,
+} from "../../../redux/Reducers/TopicReducer";
+import {
+  ADD_ANSWER,
+  QUESTIONS_ANSWER,
+} from "../../../redux/Reducers/QuizReducer";
 import { useFocusEffect } from "@react-navigation/native";
 import { CheckBox, Icon } from "@rneui/themed";
 import { Image } from "react-native";
 import { QuestionsReport } from "../../../components";
 import QuitModal from "../../../components/QuitModal";
+import NetInfoScreen from "../../../components/NetInfo";
+import NetInfo from "@react-native-community/netinfo";
 
 export default function TopicTest() {
   const { t } = useTranslation();
@@ -41,13 +58,18 @@ export default function TopicTest() {
   const [ReportScreen, SetReportScreen] = useState(false);
   const userLoginData = useSelector((state) => state.Authentication.AsyncValue);
   const [isLoading, setLoading] = useState(false);
+  const [RightQuestions, SetRightQuestions] = useState([]);
+  const [WrongQuestions, SetWrongQuestions] = useState([]);
+  const [AnswerCorrect, setAnswerCorrect] = useState(false);
+  const [isOffline, setIsOffline] = useState(false);
+  const scrollRef = useRef();
   //console.log(JSON.stringify(userAnswers, null, 2));
 
   useFocusEffect(
     useCallback(() => {
       if (selectedTopic?.fill_Questions == questions.length) {
-        // SetReportScreen(true);
-        QuestionsReports();
+        SetReportScreen(true);
+        //QuestionsReports();
       } else {
         SetReportScreen(false);
       }
@@ -125,60 +147,70 @@ export default function TopicTest() {
 
     return () => backHandler.remove(); // Cleanup the listener on unmount
   }, [modalVisible]);
-  const QuestionsReports = async () => {
-    setLoading(true);
-    const vehicle = userAnswers?.[0]?.vehicles?.[0];
-    const Topic = vehicle?.topic?.find(
-      (q) => q.topicID === selectedTopic.topicID
-    );
-    //console.log("Topic", Topic);
-    const rightQuestionsCount = Topic.rightQuestions.length;
-    const wrongQuestionsCount = Topic.wrongQuestions.length;
-    const TotalQuestions = rightQuestionsCount + wrongQuestionsCount;
-
-    try {
-      const response = await FetchMethod.POST({
-        EndPoint: `UserMistakesDataControllers/QuestionsReport`,
-        Params: {
-          quizID: 0,
-          userLoginID: userLoginData.userLoginID,
-          topicID: selectedTopic.topicID,
-          totalQuestions: TotalQuestions,
-          correct: rightQuestionsCount,
-          iNcorrect: wrongQuestionsCount,
-        },
-      });
-      setLoading(false);
-      // dispatch(SET_QUESTIONDATA(response));
-      if (response) {
-        setLoading(false);
-        SetReportScreen(true);
-        console.log("Questions Answer Report Data renpose", response);
-      }
-    } catch (error) {
-      setLoading(false);
-      console.log("Error fetching QuizQuestions:", error);
-    }
-  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      //console.log("selectedTopic.topicID", selectedTopic.topicID);
-      setLoading(true);
-      try {
-        const response = await FetchMethod.GET({
-          EndPoint: `TopicQuestions/getTopicQuestions?topicID=${selectedTopic.topicID}&languageCode=${selectedLanguage}`,
-        });
-        dispatch(SET_TOPICQUESTION_DATA(response));
-      } catch (error) {
-        console.log("Error fetching Topic:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [dispatch, selectedTopic, selectedLanguage]);
+    // Subscribe to NetInfo updates
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsOffline(!state.isConnected); // If not connected, set isOffline to true
+    });
+    return () => unsubscribe();
+  }, []);
+  // const QuestionsReports = async () => {
+  //   setLoading(true);
+  //   const vehicle = userAnswers?.[0]?.vehicles?.[0];
+  //   const Topic = vehicle?.topic?.find(
+  //     (q) => q.topicID === selectedTopic.topicID
+  //   );
+  //   //console.log("Topic", Topic);
+  //   const rightQuestionsCount = Topic.rightQuestions.length;
+  //   const wrongQuestionsCount = Topic.wrongQuestions.length;
+  //   const TotalQuestions = rightQuestionsCount + wrongQuestionsCount;
 
+  //   try {
+  //     const response = await FetchMethod.POST({
+  //       EndPoint: `UserMistakesDataControllers/QuestionsReport`,
+  //       Params: {
+  //         quizID: 0,
+  //         userLoginID: userLoginData.userLoginID,
+  //         topicID: selectedTopic.topicID,
+  //         totalQuestions: TotalQuestions,
+  //         correct: rightQuestionsCount,
+  //         iNcorrect: wrongQuestionsCount,
+  //       },
+  //     });
+  //     setLoading(false);
+  //     // dispatch(SET_QUESTIONDATA(response));
+  //     if (response) {
+  //       setLoading(false);
+  //       SetReportScreen(true);
+  //       // console.log("Questions Answer Report Data renpose", response);
+  //     }
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.log("Error fetching QuizQuestions:", error);
+  //   }
+  // };
+  const fetchData = async () => {
+    //console.log("selectedTopic.topicID", selectedTopic.topicID);
+    setLoading(true);
+    try {
+      const response = await FetchMethod.GET({
+        EndPoint: `TopicQuestions/getTopicQuestions?topicID=${selectedTopic.topicID}&languageCode=${selectedLanguage}`,
+      });
+      dispatch(SET_TOPICQUESTION_DATA(response));
+    } catch (error) {
+      console.log("Error fetching Topic:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+    return () => ClearData();
+  }, [dispatch, selectedTopic, selectedLanguage, isOffline]);
+  const ClearData = () => {
+    dispatch(SET_CLEAR_TOPICDATA());
+  };
   useEffect(() => {
     if (questions.length > 0 && selectedTopic?.fill_Questions >= 0) {
       const initialIndex = Math.min(
@@ -205,6 +237,31 @@ export default function TopicTest() {
   }, [selectedQuestion, questions]);
 
   const handleNextQuestion = () => {
+    scrollRef.current.scrollTo({ x: 0, y: 0, animated: true });
+    dispatch(
+      QUESTIONS_ANSWER({
+        loginID: userLoginData.userLoginID,
+        vehicleID: selectedTopic.vehicleID,
+        TopicID: selectedTopic.topicID,
+        //isCorrect,
+        //questionIndex: currentQuestion.questionId,
+        rightQuestions: RightQuestions,
+        wrongQuestions: WrongQuestions,
+        isTopic: true,
+        QuestionCounter: currentQuestionIndex + 1,
+      })
+    );
+    dispatch(
+      ADD_ANSWER({
+        loginID: userLoginData.userLoginID,
+        vehicleID: selectedTopic.vehicleID,
+        TopicID: selectedTopic.topicID,
+        isCorrect: AnswerCorrect,
+        questionIndex: currentQuestion.topicQuestion_ID,
+        isTopic: true,
+        // QuestionCounter: currentQuestionIndex + 1,
+      })
+    );
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedId(null);
@@ -213,7 +270,8 @@ export default function TopicTest() {
     } else {
       // SetReportScreen(true);
       console.log("Quiz completed!");
-      QuestionsReports();
+      SetReportScreen(true);
+      //QuestionsReports();
     }
   };
 
@@ -222,29 +280,41 @@ export default function TopicTest() {
       setSelectedId(option.topic_Question_Option_ID);
       setIsOptionSelected(true);
       const isCorrect = option.is_correct;
+      setAnswerCorrect(isCorrect);
       if (isCorrect) {
         setCorrectOptionId(null);
+        SetRightQuestions((prevRightQuestions) => [
+          ...prevRightQuestions,
+          currentQuestion.topicQuestion_ID,
+        ]);
       } else {
         const correctOption = currentQuestion.options.find(
           (opt) => opt.is_correct
         );
         setCorrectOptionId(correctOption.topic_Question_Option_ID);
+        SetWrongQuestions((prevWrongQuestions) => [
+          ...prevWrongQuestions,
+          currentQuestion.topicQuestion_ID,
+        ]);
       }
+      ScrollToEndEffect();
 
-      dispatch(
-        ADD_ANSWER({
-          loginID: userLoginData.userLoginID,
-          vehicleID: selectedTopic.vehicleID,
-          TopicID: selectedTopic.topicID,
-          isCorrect,
-          questionIndex: currentQuestion.topicQuestion_ID,
-          isTopic: true,
-          QuestionCounter: currentQuestionIndex + 1,
-        })
-      );
+      // dispatch(
+      //   ADD_ANSWER({
+      //     loginID: userLoginData.userLoginID,
+      //     vehicleID: selectedTopic.vehicleID,
+      //     TopicID: selectedTopic.topicID,
+      //     isCorrect,
+      //     questionIndex: currentQuestion.topicQuestion_ID,
+      //     isTopic: true,
+      //     QuestionCounter: currentQuestionIndex + 1,
+      //   })
+      // );
     }
   };
-
+  const ScrollToEndEffect = () => {
+    scrollRef.current.scrollToEnd({ animated: true });
+  };
   const currentQuestion = questions[currentQuestionIndex] || selectedQuestion;
   if (
     !currentQuestion ||
@@ -258,12 +328,12 @@ export default function TopicTest() {
     <View style={[styles(colorScheme).container]}>
       {ReportScreen ? (
         <QuestionsReport
-          navigationScreen={"CNIndexes"}
-          component={"TopicTest"}
+          // navigationScreen={"CNIndexes"}
+          // component={"TopicTest"}
           Topic_Id={selectedTopic.topicID}
         />
       ) : (
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
           {/* imageView */}
           {currentQuestion.questionImage != "0" && (
             <View style={styles(colorScheme).bannerImage}>
@@ -280,9 +350,11 @@ export default function TopicTest() {
               style={[
                 styles(colorScheme).optionText,
                 {
-                  fontSize: FontSize.font18,
+                  fontSize:
+                    Platform.OS === "ios" ? FontSize.font20 : FontSize.font17,
                   width: wp(90),
                   paddingVertical: hp(2),
+                  lineHeight: hp(3.2),
                 },
               ]}
             >
@@ -336,7 +408,7 @@ export default function TopicTest() {
                   onPress={() => handleOptionPress(option)}
                   color={Colors.White}
                 /> */}
-                  <Image
+                  {/* <Image
                     resizeMode="contain"
                     source={
                       selectedId === option.topic_Question_Option_ID ||
@@ -353,7 +425,41 @@ export default function TopicTest() {
                           ? Colors.White
                           : Colors.Grey,
                     }}
-                  />
+                  /> */}
+                  <View>
+                    <View
+                      style={[
+                        styles(colorScheme).RadioBtnView,
+                        {
+                          borderColor:
+                            selectedId === option.topic_Question_Option_ID ||
+                            correctOptionId === option.topic_Question_Option_ID
+                              ? Colors.White
+                              : Colors.Grey,
+                        },
+                      ]}
+                    >
+                      {selectedId === option.topic_Question_Option_ID ||
+                      correctOptionId === option.topic_Question_Option_ID ? (
+                        <View
+                          style={[
+                            styles(colorScheme).RadioView,
+                            {
+                              backgroundColor:
+                                selectedId ===
+                                  option.topic_Question_Option_ID ||
+                                correctOptionId ===
+                                  option.topic_Question_Option_ID
+                                  ? Colors.White
+                                  : Colors.Grey,
+                            },
+                          ]}
+                        ></View>
+                      ) : (
+                        <View></View>
+                      )}
+                    </View>
+                  </View>
                   {/* <CheckBox
                   value={option.topic_Question_Option_ID}
                   checked={
@@ -386,7 +492,7 @@ export default function TopicTest() {
                         styles(colorScheme).optionText,
                         {
                           paddingLeft: wp(3),
-                          fontFamily: FontFamily.Medium,
+                          fontFamily: FontFamily.GilroyMedium,
                           color:
                             selectedId === option.topic_Question_Option_ID
                               ? Colors.White
@@ -442,6 +548,7 @@ export default function TopicTest() {
           />
         </ScrollView>
       )}
+      <NetInfoScreen isvisible={isOffline} />
     </View>
   );
 }
@@ -471,8 +578,8 @@ const styles = (colorScheme) =>
       gap: 5,
     },
     optionText: {
-      fontSize: FontSize.font13,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font16 : FontSize.font13,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.lightWhite : Colors.Black,
       textTransform: "capitalize",
       width: wp(80),
@@ -495,25 +602,27 @@ const styles = (colorScheme) =>
     },
     explanation: {
       color: Colors.Black,
-      fontSize: FontSize.font18,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font20 : FontSize.font18,
+      fontFamily: FontFamily.GilroySemiBold,
     },
     subtext: {
-      fontSize: FontSize.font12,
-      fontFamily: FontFamily.Medium,
+      fontSize: Platform.OS === "ios" ? FontSize.font17 : FontSize.font13,
+      fontFamily: FontFamily.GilroyMedium,
       color: Colors.DarkGrey,
+      lineHeight: Platform.OS === "ios" ? hp(2.8) : hp(2.3),
     },
     nextButton: {
       ...RNStyles.flexCenter,
       backgroundColor: colorScheme === "dark" ? Colors.White : Colors.Black,
-      padding: hp(1),
+      padding: Platform.OS === "ios" ? hp(1.5) : hp(1),
       width: wp(25),
       borderRadius: 50,
     },
     buttonText: {
       color: colorScheme === "dark" ? Colors.Black : Colors.White,
-      fontFamily: FontFamily.Medium,
+      fontFamily: FontFamily.GilroyMedium,
       textTransform: "capitalize",
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
     },
     optionImage: {
       width: wp(40),
@@ -531,5 +640,18 @@ const styles = (colorScheme) =>
       fontFamily: FontFamily.Bold,
       fontSize: FontSize.font16,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
+    },
+    RadioBtnView: {
+      height: hp(2.6),
+      width: hp(2.6),
+      borderRadius: normalize(50),
+      borderWidth: 3,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    RadioView: {
+      height: hp(1.2),
+      width: hp(1.2),
+      borderRadius: normalize(50),
     },
   });

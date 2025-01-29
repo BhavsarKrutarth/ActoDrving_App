@@ -25,7 +25,8 @@ import InstructorDetail from "../../screens/Main/InstructorDetail";
 import EditProfile from "../../screens/Main/EditProfile";
 import { RNText } from "../../common";
 import { useNavigation } from "@react-navigation/native";
-import NavRoutes from "../NavRoutes";
+import { color } from "@rneui/base";
+import { QuestionsReport } from "../../components";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -102,7 +103,7 @@ const CustomTab = ({ navigation }) => {
         },
         tabBarLabelStyle: {
           color: colorScheme === "dark" ? Colors.White : Colors.Black,
-          fontSize: FontSize.font12,
+          fontSize: FontSize.font13,
           fontFamily: FontFamily.GilroyMedium,
           paddingTop: hp(0),
         },
@@ -116,7 +117,7 @@ const CustomTab = ({ navigation }) => {
         headerTitleStyle: {
           color: colorScheme === "dark" ? Colors.White : Colors.Black,
           fontSize: FontSize.font16,
-          fontFamily: FontFamily.SemiBold,
+          fontFamily: FontFamily.GilroySemiBold,
         },
       }}
     >

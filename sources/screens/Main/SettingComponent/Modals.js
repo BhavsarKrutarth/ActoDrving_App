@@ -6,6 +6,7 @@ import {
   ScrollView,
   Animated,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { Divider, RadioButton } from "react-native-paper";
 import { RNImage, RNStyles, RNText } from "../../../common";
@@ -75,7 +76,8 @@ export const LanguageModal = ({
                 style={[
                   styles(colorScheme).title,
                   {
-                    fontSize: FontSize.font13,
+                    fontSize:
+                      Platform.OS === "ios" ? FontSize.font16 : FontSize.font13,
                     color: colorScheme === "dark" ? Colors.White : Colors.Black,
                   },
                 ]}
@@ -113,7 +115,7 @@ export const SignOutModal = ({
           <RNText
             style={{
               fontSize: FontSize.font16,
-              fontFamily: FontFamily.SemiBold,
+              fontFamily: FontFamily.GilroySemiBold,
               color: colorScheme === "dark" ? Colors.White : Colors.Black,
               textAlign: "center",
             }}
@@ -192,11 +194,12 @@ export const DeleteAccount = ({
         <View style={[styles(colorScheme).logoutView, RNStyles.center]}>
           <RNText
             style={{
-              fontSize: FontSize.font16,
+              fontSize: FontSize.font15,
               width: wp(90),
-              fontFamily: FontFamily.SemiBold,
+              fontFamily: FontFamily.GilroySemiBold,
               color: colorScheme === "dark" ? Colors.White : Colors.Black,
               textAlign: "center",
+              lineHeight: Platform.OS === "ios" ? hp(2.8) : hp(2.5),
             }}
           >
             {t("Delete.Permission_Mes")}
@@ -312,13 +315,13 @@ export const ThemeModal = ({
 const styles = (colorScheme) =>
   StyleSheet.create({
     title: {
-      fontSize: FontSize.font15,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font19 : FontSize.font15,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     subTitle: {
-      fontSize: FontSize.font10,
-      fontFamily: FontFamily.Regular,
+      fontSize: FontSize.font11,
+      fontFamily: FontFamily.GilroyRegular,
       color: colorScheme === "dark" ? Colors.Grey : Colors.DarkGrey,
     },
     overlay: {
@@ -352,7 +355,7 @@ const styles = (colorScheme) =>
       gap: hp(1),
     },
     logoutButton: {
-      paddingVertical: hp(1.5),
+      paddingVertical: hp(1.6),
       width: wp(75),
       borderRadius: 50,
     },
@@ -360,14 +363,15 @@ const styles = (colorScheme) =>
       color: Colors.White,
       textAlign: "center",
       fontSize: FontSize.font14,
-      fontFamily: FontFamily.Medium,
+      fontFamily: FontFamily.GilroyMedium,
     },
     subModelText: {
-      fontSize: FontSize.font13,
-      fontFamily: FontFamily.Medium,
+      fontSize: FontSize.font14,
+      fontFamily: FontFamily.GilroyMedium,
       textAlign: "center",
       color: colorScheme === "dark" ? Colors.Grey : Colors.Black,
       marginBottom: hp(2),
+      lineHeight: hp(2.5),
     },
   });
 

@@ -157,6 +157,8 @@ const Images = {
       : require(iconpath + "Light_Success" + png),
   Google: require(imagePath + "Google" + png),
   Apple: require(imagePath + "Apple" + png),
+  NotFound: require(imagePath + "NotFound" + png),
+  Logo: require(imagePath + "Logo" + png),
 };
 
 export default Images;

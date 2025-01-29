@@ -36,7 +36,7 @@ const RNQueHeader = ({ route }) => {
     setModalVisible(true);
   };
   // console.log("selectedQuiz", selectedQuiz);
-  // console.log("userAnswer", JSON.stringify(userAnswers, null, 2));
+  //console.log("userAnswer", JSON.stringify(data, null, 2));
 
   // const handleMistakedata = async () => {
   //   try {
@@ -53,12 +53,6 @@ const RNQueHeader = ({ route }) => {
   // };
 
   const vehicleIndex = userAnswers
-    // .flatMap((user) =>
-    //   user.vehicles.map((vehicle, index) => ({ vehicle, index }))
-    // )
-    // .find(({ vehicle }) =>
-    //    returnvehicle.quiz.some((quiz) => quiz.QuizID === selectedQuiz.quiz_Id)
-    // )?.index;
     .flatMap((user) =>
       user.vehicles.map((vehicle, index) => {
         return { vehicle, index };
@@ -226,19 +220,19 @@ const styles = (colorScheme) =>
     headerContainer: {
       ...RNStyles.flexRowBetween,
       borderBottomWidth: 1,
-      height: Platform.OS === "ios" ? hp(12) : hp(8),
+      height: Platform.OS === "ios" ? hp(12) : hp(7),
       paddingHorizontal: wp(2),
       paddingTop: Platform.OS === "ios" ? hp(5) : hp(0),
       backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
       borderColor: colorScheme === "dark" ? Colors.Grey : Colors.LightGrey,
     },
     backIcon: {
-      height: wp(5),
-      width: wp(5),
+      height: wp(6),
+      width: wp(6),
     },
     titleText: {
-      fontFamily: FontFamily.SemiBold,
-      fontSize: FontSize.font14,
+      fontFamily: FontFamily.GilroySemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font19 : FontSize.font16,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       textAlign: "center",
     },
@@ -280,8 +274,8 @@ const styles = (colorScheme) =>
       borderRadius: 5,
     },
     QuestionsIndexText: {
-      fontSize: FontSize.font10,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font12 : FontSize.font10,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     // modalContainer: {

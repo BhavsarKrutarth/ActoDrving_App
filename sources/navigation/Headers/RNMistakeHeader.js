@@ -32,6 +32,10 @@ const RNMistakeHeader = ({}) => {
   const handlePressBack = () => {
     setModalVisible(true);
   };
+  // console.log(
+  //   "mistakeResponse----------->>>>>",
+  //   JSON.stringify(mistakeResponse, null, 2)
+  // );
 
   // const handleMistakedata = async () => {
   //   try {
@@ -61,16 +65,15 @@ const RNMistakeHeader = ({}) => {
       if (dataType == "Quizdata") {
         for (const quiz of vehicle.quizzes) {
           // console.log(questionId);
-
           if (quiz.QuizID === testID) {
             //console.log("quiz.QuizID === testID", quiz.QuizID === testID);
-
             const rightQuestions = quiz.rightQuestions;
             const wrongQuestions = quiz.wrongQuestions;
             if (rightQuestions.includes(questionId)) {
               return Colors.Green;
             }
             if (wrongQuestions.includes(questionId)) {
+              //console.log("wrongQuestions -->", wrongQuestions);
               return Colors.Red;
             }
           }
@@ -218,10 +221,12 @@ const styles = (colorScheme) =>
   StyleSheet.create({
     headerContainer: {
       borderBottomWidth: 1,
-      height: Platform.OS === "ios" ? hp(12) : hp(8),
+      height: Platform.OS === "ios" ? hp(11) : hp(7),
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
+      paddingHorizontal: wp(2),
+      paddingTop: Platform.OS === "ios" ? hp(5) : hp(0),
       backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
       borderColor: colorScheme === "dark" ? Colors.Grey : Colors.LightGrey,
     },
@@ -230,8 +235,8 @@ const styles = (colorScheme) =>
       width: wp(5),
     },
     titleText: {
-      fontFamily: FontFamily.SemiBold,
-      fontSize: FontSize.font14,
+      fontFamily: FontFamily.GilroySemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font19 : FontSize.font16,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
       textAlign: "center",
     },
@@ -264,8 +269,8 @@ const styles = (colorScheme) =>
       borderRadius: 5,
     },
     QuestionsIndexText: {
-      fontSize: FontSize.font10,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font12 : FontSize.font10,
+      fontFamily: FontFamily.GilroySemiBold,
       color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     // modalContainer: {

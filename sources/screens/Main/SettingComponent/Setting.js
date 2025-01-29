@@ -1,53 +1,58 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
   View,
   Animated,
   Easing,
-} from 'react-native';
-import {Divider} from 'react-native-paper';
-import {RNContainer, RNImage, RNStyles, RNText} from '../../../common';
-import {Colors, FontFamily, FontSize, wp} from '../../../theme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import i18next from 'i18next';
-import {useTheme} from '../../../common/RNThemeContext';
-import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
-import {Images} from '../../../constants';
-import {LanguageModal, SignOutModal, ThemeModal} from './Modals';
+  Linking,
+  Platform,
+} from "react-native";
+import { Divider } from "react-native-paper";
+import { RNContainer, RNImage, RNStyles, RNText } from "../../../common";
+import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import i18next from "i18next";
+import { useTheme } from "../../../common/RNThemeContext";
+import { useTranslation } from "react-i18next";
+import { useNavigation } from "@react-navigation/native";
+import { Images } from "../../../constants";
+import { LanguageModal, SignOutModal, ThemeModal } from "./Modals";
 import {
   onAuthChange,
   setAsyncStorageValue,
-} from '../../../redux/Reducers/AuthReducers';
-import {useDispatch} from 'react-redux';
+} from "../../../redux/Reducers/AuthReducers";
+import { useDispatch } from "react-redux";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { signOut } from "@react-native-firebase/auth";
+import { color } from "@rneui/base";
 
 export default function Setting() {
-  const {t} = useTranslation();
-  const {colorScheme, selectedLanguage, updateTheme, updateLanguage} =
+  const { t } = useTranslation();
+  const { colorScheme, selectedLanguage, updateTheme, updateLanguage } =
     useTheme();
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('system_default');
+  const [selectedOption, setSelectedOption] = useState("system_default");
   const [IsShowLang, setShowLanguage] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [showSignOutConfirmation, setShowSignOutConfirmation] = useState(false);
-  const languages = require('language-list')();
+  const languages = require("language-list")();
   const specificLanguageCodes = [
-    'en',
-    'gu',
-    'hi',
-    'zh',
-    'fr',
-    'ur',
-    'es',
-    'pa',
+    "en",
+    "gu",
+    "hi",
+    "zh",
+    "fr",
+    // "ur",
+    "es",
+    "pa",
   ];
   const filteredLanguageCodes = languages
     .getLanguageCodes()
-    .filter(code => specificLanguageCodes.includes(code));
-  const filteredLanguageNames = filteredLanguageCodes.map(code =>
-    languages.getLanguageName(code),
+    .filter((code) => specificLanguageCodes.includes(code));
+  const filteredLanguageNames = filteredLanguageCodes.map((code) =>
+    languages.getLanguageName(code)
   );
 
   const languageAnim = useRef(new Animated.Value(0)).current;
@@ -56,9 +61,9 @@ export default function Setting() {
   useEffect(() => {
     const loadPreferences = async () => {
       try {
-        const storedTheme = await AsyncStorage.getItem('theme_preference');
+        const storedTheme = await AsyncStorage.getItem("theme_preference");
         const storedLanguage = await AsyncStorage.getItem(
-          'language_preference',
+          "language_preference"
         );
         if (storedTheme) {
           setSelectedOption(storedTheme);
@@ -68,32 +73,32 @@ export default function Setting() {
           i18next.changeLanguage(storedLanguage);
         }
       } catch (error) {
-        console.error('Failed to load preferences.', error);
+        console.error("Failed to load preferences.", error);
       }
     };
     loadPreferences();
   }, [updateTheme, updateLanguage]);
 
-  const handleOptionPress = async option => {
+  const handleOptionPress = async (option) => {
     try {
       await updateTheme(option);
       setModalVisible(false);
     } catch (error) {
-      console.error('Failed to save theme preference.', error);
+      console.error("Failed to save theme preference.", error);
     }
   };
 
-  const handleLanguage = async lang => {
+  const handleLanguage = async (lang) => {
     try {
       await updateLanguage(lang);
-      await AsyncStorage.setItem('language_preference', lang);
+      await AsyncStorage.setItem("language_preference", lang);
       setShowLanguage(false);
       navigation.reset({
         index: 0,
-        routes: [{name: t('Nav.home')}],
+        routes: [{ name: t("Nav.home") }],
       });
     } catch (error) {
-      console.error('Failed to update language.', error);
+      console.error("Failed to update language.", error);
     }
   };
 
@@ -108,37 +113,44 @@ export default function Setting() {
     Language: i18next.t(`languageNames.${code}`),
   }));
 
+  const PrivacyPoliceURL = "https://actodrivingprivacypolicies.actoscript.com";
+  const TermsConditionsURL =
+    "https://actodriving_terms_conditions.actoscript.com";
+  // const handleURL = (url) => {
+  //   Linking.openURL(url);
+  // };
+
   const settingsOptions = [
     {
       image: Images.insurance,
-      title: t('setting.privacy'),
-      subtitle: t('setting.privacysubtitle'),
-      onPress: () => {},
+      title: t("setting.privacy"),
+      subtitle: t("setting.privacysubtitle"),
+      onPress: () => Linking.openURL(PrivacyPoliceURL),
     },
     {
       image: Images.terms,
-      title: t('setting.terms'),
-      subtitle: t('setting.termssubtitle'),
-      onPress: () => {},
+      title: t("setting.terms"),
+      subtitle: t("setting.termssubtitle"),
+      onPress: () => Linking.openURL(TermsConditionsURL),
     },
-    {
-      image: Images.star,
-      title: t('setting.rate'),
-      subtitle: t('setting.ratesubtitle'),
-      onPress: () => {},
-    },
-    {
-      image: Images.share,
-      title: t('setting.share'),
-      subtitle: t('setting.sharesubtitle'),
-      onPress: () => {},
-    },
-    {
-      image: Images.about,
-      title: t('setting.about'),
-      subtitle: '',
-      onPress: () => {},
-    },
+    // {
+    //   image: Images.star,
+    //   title: t("setting.rate"),
+    //   subtitle: t("setting.ratesubtitle"),
+    //   onPress: () => {},
+    // },
+    // {
+    //   image: Images.share,
+    //   title: t("setting.share"),
+    //   subtitle: t("setting.sharesubtitle"),
+    //   onPress: () => {},
+    // },
+    // {
+    //   image: Images.about,
+    //   title: t("setting.about"),
+    //   subtitle: "",
+    //   onPress: () => {},
+    // },
   ];
 
   const toggleLanguageMenu = () => {
@@ -171,7 +183,8 @@ export default function Setting() {
   const handleConfirmSignOut = async () => {
     AsyncStorage.clear();
     dispatch(onAuthChange(false));
-    dispatch(setAsyncStorageValue(''));
+    dispatch(setAsyncStorageValue(""));
+    await GoogleSignin.signOut();
     setShowSignOutConfirmation(false);
   };
 
@@ -188,8 +201,9 @@ export default function Setting() {
   return (
     <RNContainer
       style={{
-        backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
-      }}>
+        backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
+      }}
+    >
       {/* <Divider />
       <TouchableOpacity style={[RNStyles.flexRowBetween, {padding: wp(4)}]}>
         <View>
@@ -209,39 +223,41 @@ export default function Setting() {
         </TouchableOpacity>
       </TouchableOpacity> */}
       <Divider />
-      <TouchableOpacity style={{padding: wp(4)}} onPress={toggleLanguageMenu}>
+      <TouchableOpacity style={{ padding: wp(4) }} onPress={toggleLanguageMenu}>
         <RNText style={styles(colorScheme).title}>
-          {t('setting.App_language')}
+          {t("setting.App_language")}
         </RNText>
         <RNText style={styles(colorScheme).subTitle}>
           {
             filteredLanguageNames[
               filteredLanguageCodes.indexOf(selectedLanguage)
             ]
-          }{' '}
-          ({t('setting.device_language')})
+          }{" "}
+          ({t("setting.device_language")})
         </RNText>
       </TouchableOpacity>
       <Divider />
       <TouchableOpacity
-        style={{padding: wp(4)}}
-        onPress={() => navigation.navigate('EditProfile')}>
+        style={{ padding: wp(4) }}
+        onPress={() => navigation.navigate("EditProfile")}
+      >
         <RNText style={styles(colorScheme).title}>
-          {t('setting.EditProfile')}
+          {t("setting.EditProfile")}
         </RNText>
         <RNText style={styles(colorScheme).subTitle}>
-          {t('setting.Update_details')}
+          {t("setting.Update_details")}
         </RNText>
       </TouchableOpacity>
       <Divider />
-      <View style={{padding: wp(5), gap: 30}}>
+      <View style={{ padding: wp(5), gap: 30 }}>
         {settingsOptions.map((item, index) => (
           <TouchableOpacity
             key={index}
-            style={[RNStyles.flexRow, {gap: 20}]}
-            onPress={item.onPress}>
+            style={[RNStyles.flexRow, { gap: 20 }]}
+            onPress={item.onPress}
+          >
             <RNImage
-              style={{width: wp(6), height: wp(6)}}
+              style={{ width: wp(7), height: wp(7) }}
               source={item.image}
             />
             <View>
@@ -256,8 +272,19 @@ export default function Setting() {
         ))}
       </View>
       <Divider />
-      <TouchableOpacity style={{padding: wp(4)}} onPress={confirmSignOut}>
-        <RNText style={styles(colorScheme).title}>{t('setting.logout')}</RNText>
+      <TouchableOpacity style={{ padding: wp(4) }} onPress={confirmSignOut}>
+        <RNText
+          style={[
+            {
+              color: Colors.Red,
+              fontFamily: FontFamily.GilroyExtraBold,
+              fontSize:
+                Platform.OS === "ios" ? FontSize.font22 : FontSize.font18,
+            },
+          ]}
+        >
+          {t("setting.logout")}
+        </RNText>
       </TouchableOpacity>
 
       {/*  modals */}
@@ -289,16 +316,17 @@ export default function Setting() {
   );
 }
 
-const styles = colorScheme =>
+const styles = (colorScheme) =>
   StyleSheet.create({
     title: {
-      fontSize: FontSize.font14,
-      fontFamily: FontFamily.SemiBold,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      fontSize: Platform.OS === "ios" ? FontSize.font19 : FontSize.font16,
+      fontFamily: FontFamily.GilroySemiBold,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     subTitle: {
-      fontSize: FontSize.font12,
-      fontFamily: FontFamily.Regular,
-      color: colorScheme === 'dark' ? Colors.Grey : Colors.DarkGrey,
+      paddingTop: Platform.OS === "ios" ? hp(0.8) : hp(0.4),
+      fontSize: Platform.OS === "ios" ? FontSize.font15 : FontSize.font13,
+      fontFamily: FontFamily.GilroyRegular,
+      color: colorScheme === "dark" ? Colors.Grey : Colors.DarkGrey,
     },
   });
