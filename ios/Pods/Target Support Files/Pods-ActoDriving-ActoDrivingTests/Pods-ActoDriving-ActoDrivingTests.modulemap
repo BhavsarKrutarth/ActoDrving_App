@@ -1,4 +1,4 @@
-module Pods_ActoDriving_ActoDrivingTests {
+framework module Pods_ActoDriving_ActoDrivingTests {
   umbrella header "Pods-ActoDriving-ActoDrivingTests-umbrella.h"
 
   export *

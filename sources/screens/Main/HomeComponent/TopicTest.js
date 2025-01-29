@@ -1,58 +1,96 @@
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
-import {Colors, FontFamily, FontSize, hp, wp} from '../../../theme';
-import {RNImage, RNLoader, RNStyles, RNText} from '../../../common';
-import {RadioButton} from 'react-native-paper';
-import {useDispatch, useSelector} from 'react-redux';
-import FetchMethod from '../../../api/FetchMethod';
-import {useTranslation} from 'react-i18next';
-import {useTheme} from '../../../common/RNThemeContext';
-import {SET_TOPICQUESTION_DATA} from '../../../redux/Reducers/TopicReducer';
-import {ADD_ANSWER} from '../../../redux/Reducers/QuizReducer';
-import {useFocusEffect} from '@react-navigation/native';
-import {CheckBox, Icon} from '@rneui/themed';
-import {Image} from 'react-native';
+import {
+  Animated,
+  BackHandler,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import {
+  Colors,
+  FontFamily,
+  FontSize,
+  hp,
+  normalize,
+  wp,
+} from "../../../theme";
+import { RNImage, RNLoader, RNStyles, RNText } from "../../../common";
+import { RadioButton } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import FetchMethod from "../../../api/FetchMethod";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../../../common/RNThemeContext";
+import {
+  SET_CLEAR_TOPICDATA,
+  SET_TOPICQUESTION_DATA,
+} from "../../../redux/Reducers/TopicReducer";
+import {
+  ADD_ANSWER,
+  QUESTIONS_ANSWER,
+} from "../../../redux/Reducers/QuizReducer";
+import { useFocusEffect } from "@react-navigation/native";
+import { CheckBox, Icon } from "@rneui/themed";
+import { Image } from "react-native";
+import { QuestionsReport } from "../../../components";
+import QuitModal from "../../../components/QuitModal";
+import NetInfoScreen from "../../../components/NetInfo";
+import NetInfo from "@react-native-community/netinfo";
 
 export default function TopicTest() {
-  const {t} = useTranslation();
-  const {colorScheme, selectedLanguage} = useTheme();
+  const { t } = useTranslation();
+  const { colorScheme, selectedLanguage } = useTheme();
   const [selectedId, setSelectedId] = useState(null);
   const [correctOptionId, setCorrectOptionId] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
   const dispatch = useDispatch();
-  const datatype = 'Topicdata';
-  const questions = useSelector(state => state.Topic.QuestionData);
-  const selectedTopic = useSelector(state => state.Topic.selectedTopic);
-  const selectedQuestion = useSelector(state => state.Topic.selectedQuestion);
-  const userAnswers = useSelector(state => state.Quiz.userAnswers);
+  const datatype = "Topicdata";
+  const questions = useSelector((state) => state.Topic.QuestionData);
+  const selectedTopic = useSelector((state) => state.Topic.selectedTopic);
+  const selectedQuestion = useSelector((state) => state.Topic.selectedQuestion);
+  const userAnswers = useSelector((state) => state.Quiz.userAnswers);
   const mistakequesrtionsData = useSelector(
-    state => state.Mistake.mistakequesrtionsData,
+    (state) => state.Mistake.mistakequesrtionsData
   );
-  const userLoginData = useSelector(state => state.Authentication.AsyncValue);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [ReportScreen, SetReportScreen] = useState(false);
+  const userLoginData = useSelector((state) => state.Authentication.AsyncValue);
   const [isLoading, setLoading] = useState(false);
-  // console.log(JSON.stringify(userAnswers, null, 2));
+  const [RightQuestions, SetRightQuestions] = useState([]);
+  const [WrongQuestions, SetWrongQuestions] = useState([]);
+  const [AnswerCorrect, setAnswerCorrect] = useState(false);
+  const [isOffline, setIsOffline] = useState(false);
+  const scrollRef = useRef();
+  //console.log(JSON.stringify(userAnswers, null, 2));
 
   useFocusEffect(
     useCallback(() => {
+      if (selectedTopic?.fill_Questions == questions.length) {
+        SetReportScreen(true);
+        //QuestionsReports();
+      } else {
+        SetReportScreen(false);
+      }
       const fetchMistakeQuestions = () => {
         try {
           const filteredQuestions = mistakequesrtionsData
             .filter(
-              item =>
+              (item) =>
                 item.testID === selectedTopic.topicID &&
-                item.dataType === datatype,
+                item.dataType === datatype
             )
-            .map(item => item.questionId);
+            .map((item) => item.questionId);
 
           const completedQuestionIds = questions
             .slice(0, selectedTopic.fill_Questions)
-            .map(question => question.topicQuestion_ID);
-          const incorrectQuestions = completedQuestionIds.filter(id =>
-            filteredQuestions.includes(id),
+            .map((question) => question.topicQuestion_ID);
+          const incorrectQuestions = completedQuestionIds.filter((id) =>
+            filteredQuestions.includes(id)
           );
           const correctQuestions = completedQuestionIds.filter(
-            id => !filteredQuestions.includes(id),
+            (id) => !filteredQuestions.includes(id)
           );
 
           dispatch(
@@ -64,7 +102,7 @@ export default function TopicTest() {
               questionIndex: incorrectQuestions,
               isTopic: true,
               QuestionCounter: selectedTopic.fill_Questions,
-            }),
+            })
           );
 
           dispatch(
@@ -76,10 +114,10 @@ export default function TopicTest() {
               questionIndex: correctQuestions,
               isTopic: true,
               QuestionCounter: selectedTopic.fill_Questions,
-            }),
+            })
           );
         } catch (error) {
-          console.error('Error fetching mistake questions:', error);
+          console.log("Error fetching mistake questions:", error);
         }
       };
       fetchMistakeQuestions();
@@ -89,31 +127,95 @@ export default function TopicTest() {
       datatype,
       questions,
       selectedTopic.fill_Questions,
-    ]),
+    ])
   );
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        // Show the modal when back button is pressed
+        if (!modalVisible) {
+          setModalVisible(true);
+          return true; // Prevent the default back action
+        }
+
+        // If modal is already visible, allow closing it
+        setModalVisible(false);
+        return true; // Prevent default back action while closing the modal
+      }
+    );
+
+    return () => backHandler.remove(); // Cleanup the listener on unmount
+  }, [modalVisible]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await FetchMethod.GET({
-          EndPoint: `TopicQuestions/getTopicQuestions?topicID=${selectedTopic.topicID}&languageCode=${selectedLanguage}`,
-        });
-        dispatch(SET_TOPICQUESTION_DATA(response));
-      } catch (error) {
-        console.error('Error fetching Topic:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [dispatch, selectedTopic, selectedLanguage]);
+    // Subscribe to NetInfo updates
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsOffline(!state.isConnected); // If not connected, set isOffline to true
+    });
+    return () => unsubscribe();
+  }, []);
+  // const QuestionsReports = async () => {
+  //   setLoading(true);
+  //   const vehicle = userAnswers?.[0]?.vehicles?.[0];
+  //   const Topic = vehicle?.topic?.find(
+  //     (q) => q.topicID === selectedTopic.topicID
+  //   );
+  //   //console.log("Topic", Topic);
+  //   const rightQuestionsCount = Topic.rightQuestions.length;
+  //   const wrongQuestionsCount = Topic.wrongQuestions.length;
+  //   const TotalQuestions = rightQuestionsCount + wrongQuestionsCount;
 
+  //   try {
+  //     const response = await FetchMethod.POST({
+  //       EndPoint: `UserMistakesDataControllers/QuestionsReport`,
+  //       Params: {
+  //         quizID: 0,
+  //         userLoginID: userLoginData.userLoginID,
+  //         topicID: selectedTopic.topicID,
+  //         totalQuestions: TotalQuestions,
+  //         correct: rightQuestionsCount,
+  //         iNcorrect: wrongQuestionsCount,
+  //       },
+  //     });
+  //     setLoading(false);
+  //     // dispatch(SET_QUESTIONDATA(response));
+  //     if (response) {
+  //       setLoading(false);
+  //       SetReportScreen(true);
+  //       // console.log("Questions Answer Report Data renpose", response);
+  //     }
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.log("Error fetching QuizQuestions:", error);
+  //   }
+  // };
+  const fetchData = async () => {
+    //console.log("selectedTopic.topicID", selectedTopic.topicID);
+    setLoading(true);
+    try {
+      const response = await FetchMethod.GET({
+        EndPoint: `TopicQuestions/getTopicQuestions?topicID=${selectedTopic.topicID}&languageCode=${selectedLanguage}`,
+      });
+      dispatch(SET_TOPICQUESTION_DATA(response));
+    } catch (error) {
+      console.log("Error fetching Topic:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+    return () => ClearData();
+  }, [dispatch, selectedTopic, selectedLanguage, isOffline]);
+  const ClearData = () => {
+    dispatch(SET_CLEAR_TOPICDATA());
+  };
   useEffect(() => {
     if (questions.length > 0 && selectedTopic?.fill_Questions >= 0) {
       const initialIndex = Math.min(
         selectedTopic.fill_Questions,
-        questions.length - 1,
+        questions.length - 1
       );
       setCurrentQuestionIndex(initialIndex);
     }
@@ -122,8 +224,8 @@ export default function TopicTest() {
   useEffect(() => {
     if (selectedQuestion) {
       const index = questions.findIndex(
-        question =>
-          question.topicQuestion_ID === selectedQuestion.topicQuestion_ID,
+        (question) =>
+          question.topicQuestion_ID === selectedQuestion.topicQuestion_ID
       );
       if (index !== -1) {
         setCurrentQuestionIndex(index);
@@ -135,44 +237,84 @@ export default function TopicTest() {
   }, [selectedQuestion, questions]);
 
   const handleNextQuestion = () => {
+    scrollRef.current.scrollTo({ x: 0, y: 0, animated: true });
+    dispatch(
+      QUESTIONS_ANSWER({
+        loginID: userLoginData.userLoginID,
+        vehicleID: selectedTopic.vehicleID,
+        TopicID: selectedTopic.topicID,
+        //isCorrect,
+        //questionIndex: currentQuestion.questionId,
+        rightQuestions: RightQuestions,
+        wrongQuestions: WrongQuestions,
+        isTopic: true,
+        QuestionCounter: currentQuestionIndex + 1,
+      })
+    );
+    dispatch(
+      ADD_ANSWER({
+        loginID: userLoginData.userLoginID,
+        vehicleID: selectedTopic.vehicleID,
+        TopicID: selectedTopic.topicID,
+        isCorrect: AnswerCorrect,
+        questionIndex: currentQuestion.topicQuestion_ID,
+        isTopic: true,
+        // QuestionCounter: currentQuestionIndex + 1,
+      })
+    );
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedId(null);
       setCorrectOptionId(null);
       setIsOptionSelected(false);
     } else {
-      console.log('Quiz completed!');
+      // SetReportScreen(true);
+      console.log("Quiz completed!");
+      SetReportScreen(true);
+      //QuestionsReports();
     }
   };
 
-  const handleOptionPress = option => {
+  const handleOptionPress = (option) => {
     if (!isOptionSelected) {
       setSelectedId(option.topic_Question_Option_ID);
       setIsOptionSelected(true);
       const isCorrect = option.is_correct;
+      setAnswerCorrect(isCorrect);
       if (isCorrect) {
         setCorrectOptionId(null);
+        SetRightQuestions((prevRightQuestions) => [
+          ...prevRightQuestions,
+          currentQuestion.topicQuestion_ID,
+        ]);
       } else {
         const correctOption = currentQuestion.options.find(
-          opt => opt.is_correct,
+          (opt) => opt.is_correct
         );
         setCorrectOptionId(correctOption.topic_Question_Option_ID);
+        SetWrongQuestions((prevWrongQuestions) => [
+          ...prevWrongQuestions,
+          currentQuestion.topicQuestion_ID,
+        ]);
       }
+      ScrollToEndEffect();
 
-      dispatch(
-        ADD_ANSWER({
-          loginID: userLoginData.userLoginID,
-          vehicleID: selectedTopic.vehicleID,
-          TopicID: selectedTopic.topicID,
-          isCorrect,
-          questionIndex: currentQuestion.topicQuestion_ID,
-          isTopic: true,
-          QuestionCounter: currentQuestionIndex + 1,
-        }),
-      );
+      // dispatch(
+      //   ADD_ANSWER({
+      //     loginID: userLoginData.userLoginID,
+      //     vehicleID: selectedTopic.vehicleID,
+      //     TopicID: selectedTopic.topicID,
+      //     isCorrect,
+      //     questionIndex: currentQuestion.topicQuestion_ID,
+      //     isTopic: true,
+      //     QuestionCounter: currentQuestionIndex + 1,
+      //   })
+      // );
     }
   };
-
+  const ScrollToEndEffect = () => {
+    scrollRef.current.scrollToEnd({ animated: true });
+  };
   const currentQuestion = questions[currentQuestionIndex] || selectedQuestion;
   if (
     !currentQuestion ||
@@ -184,95 +326,141 @@ export default function TopicTest() {
 
   return (
     <View style={[styles(colorScheme).container]}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* imageView */}
-        {currentQuestion.questionImage != '0' && (
-          <View style={styles(colorScheme).bannerImage}>
-            <RNImage
-              style={{width: wp(100)}}
-              source={{uri: currentQuestion.questionImage}}
-            />
-          </View>
-        )}
+      {ReportScreen ? (
+        <QuestionsReport
+          // navigationScreen={"CNIndexes"}
+          // component={"TopicTest"}
+          Topic_Id={selectedTopic.topicID}
+        />
+      ) : (
+        <ScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
+          {/* imageView */}
+          {currentQuestion.questionImage != "0" && (
+            <View style={styles(colorScheme).bannerImage}>
+              <RNImage
+                style={{ width: wp(100) }}
+                source={{ uri: currentQuestion.questionImage }}
+              />
+            </View>
+          )}
 
-        {/* question/option component */}
-        <View style={styles(colorScheme).questionView}>
-          <RNText
-            style={[
-              styles(colorScheme).optionText,
-              {
-                fontSize: FontSize.font18,
-                width: wp(90),
-                paddingVertical: hp(2),
-              },
-            ]}>
-            {currentQuestionIndex + 1}. {currentQuestion.text}
-          </RNText>
+          {/* question/option component */}
+          <View style={styles(colorScheme).questionView}>
+            <RNText
+              style={[
+                styles(colorScheme).optionText,
+                {
+                  fontSize:
+                    Platform.OS === "ios" ? FontSize.font20 : FontSize.font17,
+                  width: wp(90),
+                  paddingVertical: hp(2),
+                  lineHeight: hp(3.2),
+                },
+              ]}
+            >
+              {currentQuestionIndex + 1}. {currentQuestion.text}
+            </RNText>
 
-          <View
-            style={[
-              currentQuestion?.options?.some(
-                option => option.optionImage !== '0',
-              ) && RNStyles.flexWrapHorizontal,
-              {width: wp(95), gap: 20},
-            ]}>
-            {currentQuestion?.options?.map(option => (
-              <TouchableOpacity
-                key={option.topic_Question_Option_ID}
-                style={[
-                  option.optionImage !== '0'
-                    ? styles(colorScheme).optionImage
-                    : styles(colorScheme).optionbtn,
-                  {
-                    padding: wp(4),
-                    backgroundColor:
-                      selectedId === option.topic_Question_Option_ID
-                        ? option.is_correct
+            <View
+              style={[
+                currentQuestion?.options?.some(
+                  (option) => option.optionImage !== "0"
+                ) && RNStyles.flexWrapHorizontal,
+                { width: wp(95), gap: 20 },
+              ]}
+            >
+              {currentQuestion?.options?.map((option) => (
+                <TouchableOpacity
+                  key={option.topic_Question_Option_ID}
+                  style={[
+                    option.optionImage !== "0"
+                      ? styles(colorScheme).optionImage
+                      : styles(colorScheme).optionbtn,
+                    {
+                      padding: wp(4),
+                      backgroundColor:
+                        selectedId === option.topic_Question_Option_ID
+                          ? option.is_correct
+                            ? Colors.LightGreen
+                            : Colors.lightRed
+                          : correctOptionId === option.topic_Question_Option_ID
                           ? Colors.LightGreen
-                          : Colors.lightRed
-                        : correctOptionId === option.topic_Question_Option_ID
-                        ? Colors.LightGreen
-                        : colorScheme === 'dark'
-                        ? '#111c22'
-                        : Colors.lightWhite,
-                    borderColor:
-                      selectedId === option.topic_Question_Option_ID
-                        ? option.is_correct
+                          : colorScheme === "dark"
+                          ? "#111c22"
+                          : Colors.lightWhite,
+                      borderColor:
+                        selectedId === option.topic_Question_Option_ID
+                          ? option.is_correct
+                            ? Colors.Green
+                            : Colors.Red
+                          : correctOptionId === option.topic_Question_Option_ID
                           ? Colors.Green
-                          : Colors.Red
-                        : correctOptionId === option.topic_Question_Option_ID
-                        ? Colors.Green
-                        : colorScheme === 'dark'
-                        ? '#111c22'
-                        : Colors.lightWhite,
-                  },
-                ]}
-                onPress={() => handleOptionPress(option)}>
-                {/* <RadioButton
+                          : colorScheme === "dark"
+                          ? "#111c22"
+                          : Colors.lightWhite,
+                    },
+                  ]}
+                  onPress={() => handleOptionPress(option)}
+                >
+                  {/* <RadioButton
                   value={option.topic_Question_Option_ID}
                   status={selectedId === option.topic_Question_Option_ID ? 'checked' : (correctOptionId === option.topic_Question_Option_ID ? 'checked' : 'unchecked')}
                   onPress={() => handleOptionPress(option)}
                   color={Colors.White}
                 /> */}
-                <Image
-                  resizeMode="contain"
-                  source={
-                    selectedId === option.topic_Question_Option_ID ||
-                    correctOptionId === option.topic_Question_Option_ID
-                      ? require('../../../assets/images/F_Radio.png')
-                      : require('../../../assets/images/Radio.png')
-                  }
-                  style={{
-                    width: wp(5),
-                    height: wp(5),
-                    tintColor:
+                  {/* <Image
+                    resizeMode="contain"
+                    source={
                       selectedId === option.topic_Question_Option_ID ||
                       correctOptionId === option.topic_Question_Option_ID
-                        ? Colors.White
-                        : Colors.Grey,
-                  }}
-                />
-                {/* <CheckBox
+                        ? require("../../../assets/images/F_Radio.png")
+                        : require("../../../assets/images/Radio.png")
+                    }
+                    style={{
+                      width: wp(5),
+                      height: wp(5),
+                      tintColor:
+                        selectedId === option.topic_Question_Option_ID ||
+                        correctOptionId === option.topic_Question_Option_ID
+                          ? Colors.White
+                          : Colors.Grey,
+                    }}
+                  /> */}
+                  <View>
+                    <View
+                      style={[
+                        styles(colorScheme).RadioBtnView,
+                        {
+                          borderColor:
+                            selectedId === option.topic_Question_Option_ID ||
+                            correctOptionId === option.topic_Question_Option_ID
+                              ? Colors.White
+                              : Colors.Grey,
+                        },
+                      ]}
+                    >
+                      {selectedId === option.topic_Question_Option_ID ||
+                      correctOptionId === option.topic_Question_Option_ID ? (
+                        <View
+                          style={[
+                            styles(colorScheme).RadioView,
+                            {
+                              backgroundColor:
+                                selectedId ===
+                                  option.topic_Question_Option_ID ||
+                                correctOptionId ===
+                                  option.topic_Question_Option_ID
+                                  ? Colors.White
+                                  : Colors.Grey,
+                            },
+                          ]}
+                        ></View>
+                      ) : (
+                        <View></View>
+                      )}
+                    </View>
+                  </View>
+                  {/* <CheckBox
                   value={option.topic_Question_Option_ID}
                   checked={
                     selectedId === option.topic_Question_Option_ID ||
@@ -292,77 +480,85 @@ export default function TopicTest() {
                   }}
                   textStyle={{color: 'transparent'}}
                 /> */}
-                {option.optionImage !== '0' ? (
-                  <RNImage
-                    source={{uri: option.optionImage}}
-                    style={styles(colorScheme).image}
-                  />
-                ) : (
-                  <RNText
-                    numberOfLines={2}
-                    style={[
-                      styles(colorScheme).optionText,
-                      {
-                        paddingLeft: wp(3),
-                        fontFamily: FontFamily.Medium,
-                        color:
-                          selectedId === option.topic_Question_Option_ID
-                            ? Colors.White
-                            : correctOptionId ===
-                              option.topic_Question_Option_ID
-                            ? Colors.White
-                            : colorScheme === 'dark'
-                            ? Colors.lightWhite
-                            : '#262626',
-                      },
-                    ]}>
-                    {option.optionText}
-                  </RNText>
-                )}
-              </TouchableOpacity>
-            ))}
+                  {option.optionImage !== "0" ? (
+                    <RNImage
+                      source={{ uri: option.optionImage }}
+                      style={styles(colorScheme).image}
+                    />
+                  ) : (
+                    <RNText
+                      numberOfLines={2}
+                      style={[
+                        styles(colorScheme).optionText,
+                        {
+                          paddingLeft: wp(3),
+                          fontFamily: FontFamily.GilroyMedium,
+                          color:
+                            selectedId === option.topic_Question_Option_ID
+                              ? Colors.White
+                              : correctOptionId ===
+                                option.topic_Question_Option_ID
+                              ? Colors.White
+                              : colorScheme === "dark"
+                              ? Colors.lightWhite
+                              : "#262626",
+                        },
+                      ]}
+                    >
+                      {option.optionText}
+                    </RNText>
+                  )}
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
-        </View>
 
-        {/* explanation component */}
-        <View style={styles(colorScheme).explanationView}>
-          <View style={styles(colorScheme).explanationContainer}>
-            <RNText style={styles(colorScheme).explanation}>
-              {t('Question.explanation')}
-            </RNText>
-            <RNText style={styles(colorScheme).subtext}>
-              {currentQuestion.explanation}
-            </RNText>
+          {/* explanation component */}
+          <View style={styles(colorScheme).explanationView}>
+            <View style={styles(colorScheme).explanationContainer}>
+              <RNText style={styles(colorScheme).explanation}>
+                {t("Question.explanation")}
+              </RNText>
+              <RNText style={styles(colorScheme).subtext}>
+                {currentQuestion.explanation}
+              </RNText>
+            </View>
+            <TouchableOpacity
+              onPress={handleNextQuestion}
+              style={[
+                styles(colorScheme).nextButton,
+                {
+                  backgroundColor: isOptionSelected
+                    ? colorScheme === "dark"
+                      ? Colors.White
+                      : Colors.Black
+                    : Colors.Grey,
+                },
+              ]}
+              disabled={!isOptionSelected}
+            >
+              <RNText style={styles(colorScheme).buttonText}>
+                {t("Question.next")}
+              </RNText>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={handleNextQuestion}
-            style={[
-              styles(colorScheme).nextButton,
-              {
-                backgroundColor: isOptionSelected
-                  ? colorScheme === 'dark'
-                    ? Colors.White
-                    : Colors.Black
-                  : Colors.Grey,
-              },
-            ]}
-            disabled={!isOptionSelected}>
-            <RNText style={styles(colorScheme).buttonText}>
-              {t('Question.next')}
-            </RNText>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+          <QuitModal
+            visible={modalVisible}
+            OnRequestClose={() => setModalVisible(false)}
+          />
+        </ScrollView>
+      )}
+      <NetInfoScreen isvisible={isOffline} />
     </View>
   );
 }
 
-const styles = colorScheme =>
+const styles = (colorScheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
       gap: 15,
-      backgroundColor: colorScheme === 'dark' ? Colors.Black : Colors.White,
+      backgroundColor: colorScheme === "dark" ? Colors.Black : Colors.White,
     },
     bannerImage: {
       paddingVertical: 10,
@@ -382,10 +578,10 @@ const styles = colorScheme =>
       gap: 5,
     },
     optionText: {
-      fontSize: FontSize.font13,
-      fontFamily: FontFamily.SemiBold,
-      color: colorScheme === 'dark' ? Colors.lightWhite : Colors.Black,
-      textTransform: 'capitalize',
+      fontSize: Platform.OS === "ios" ? FontSize.font16 : FontSize.font13,
+      fontFamily: FontFamily.GilroySemiBold,
+      color: colorScheme === "dark" ? Colors.lightWhite : Colors.Black,
+      textTransform: "capitalize",
       width: wp(80),
     },
     radioButton: {
@@ -393,38 +589,40 @@ const styles = colorScheme =>
       width: wp(2),
     },
     explanationView: {
-      alignSelf: 'center',
+      alignSelf: "center",
       width: wp(95),
       gap: 20,
       marginVertical: hp(2),
     },
     explanationContainer: {
-      backgroundColor: colorScheme === 'dark' ? '#a5d9b1' : '#dbf0e0',
+      backgroundColor: colorScheme === "dark" ? "#a5d9b1" : "#dbf0e0",
       padding: wp(7),
       gap: 5,
       borderRadius: 10,
     },
     explanation: {
       color: Colors.Black,
-      fontSize: FontSize.font18,
-      fontFamily: FontFamily.SemiBold,
+      fontSize: Platform.OS === "ios" ? FontSize.font20 : FontSize.font18,
+      fontFamily: FontFamily.GilroySemiBold,
     },
     subtext: {
-      fontSize: FontSize.font12,
-      fontFamily: FontFamily.Medium,
+      fontSize: Platform.OS === "ios" ? FontSize.font17 : FontSize.font13,
+      fontFamily: FontFamily.GilroyMedium,
       color: Colors.DarkGrey,
+      lineHeight: Platform.OS === "ios" ? hp(2.8) : hp(2.3),
     },
     nextButton: {
       ...RNStyles.flexCenter,
-      backgroundColor: colorScheme === 'dark' ? Colors.White : Colors.Black,
-      padding: hp(1),
+      backgroundColor: colorScheme === "dark" ? Colors.White : Colors.Black,
+      padding: Platform.OS === "ios" ? hp(1.5) : hp(1),
       width: wp(25),
       borderRadius: 50,
     },
     buttonText: {
-      color: colorScheme === 'dark' ? Colors.Black : Colors.White,
-      fontFamily: FontFamily.Medium,
-      textTransform: 'capitalize',
+      color: colorScheme === "dark" ? Colors.Black : Colors.White,
+      fontFamily: FontFamily.GilroyMedium,
+      textTransform: "capitalize",
+      fontSize: Platform.OS === "ios" ? FontSize.font18 : FontSize.font15,
     },
     optionImage: {
       width: wp(40),
@@ -441,6 +639,19 @@ const styles = colorScheme =>
       ...RNStyles.flexCenter,
       fontFamily: FontFamily.Bold,
       fontSize: FontSize.font16,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
+    },
+    RadioBtnView: {
+      height: hp(2.6),
+      width: hp(2.6),
+      borderRadius: normalize(50),
+      borderWidth: 3,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    RadioView: {
+      height: hp(1.2),
+      width: hp(1.2),
+      borderRadius: normalize(50),
     },
   });

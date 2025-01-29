@@ -134,5 +134,24 @@
     "notmatch": "Las contraseñas no coinciden",
     "InvalidEmail": "Dirección de correo electrónico inválida.",
     "IncorrectPass": "Contraseña incorrecta. Inténtalo de nuevo o haz clic en 'Olvidé mi contraseña' para restablecerla."
-  }
+  },
+  "MistkeModal" : {
+   "Success": "Éxito",
+    "warning": "advertencia",
+    "SuccessContent": "¡Felicidades por completar tu examen—bien hecho!",
+    "tryagainContent": "No leer la pregunta cuidadosamente puede llevar a respuestas incorrectas",
+    "Ok": "De acuerdo",
+    "Tryagain": "Inténtalo de nuevo"
+    },
+    "QuestionsReport":{
+    "Congratulations": "¡Felicidades!",
+    "Congratulations_Des": "¡Bien hecho! ¡Has conseguido una puntuación perfecta!",
+    "Title": "¡Casi lo logras!",
+    "Subtitle": "La próxima vez lo harás mejor",
+    "Subtitle_Des": "¡Sigue entrenando para mejorar tu puntuación! Si lo necesitas, vuelve a nuestra página de estudio y aprende todo lo que necesitas saber.",
+    "continue": "Continuar",
+    "Correct": "Correcto",
+    "Incorrect": "Incorrecto",
+    "outof": "de"
+    }
 }

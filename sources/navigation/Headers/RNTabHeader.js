@@ -6,29 +6,29 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {useTheme} from '../../common/RNThemeContext';
-import {useDispatch, useSelector} from 'react-redux';
-import FetchMethod from '../../api/FetchMethod';
+} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../../common/RNThemeContext";
+import { useDispatch, useSelector } from "react-redux";
+import FetchMethod from "../../api/FetchMethod";
 import {
   SET_CATEGORYDATA,
   SET_SELECTED_CATEGORY,
-} from '../../redux/Reducers/CategoryReducer';
-import {Images} from '../../constants';
-import {RNImage, RNStyles, RNText} from '../../common';
-import {Colors, FontFamily, FontSize, hp, wp} from '../../theme';
-import {SafeAreaView} from 'react-native';
+} from "../../redux/Reducers/CategoryReducer";
+import { Images } from "../../constants";
+import { RNImage, RNStyles, RNText } from "../../common";
+import { Colors, FontFamily, FontSize, hp, wp } from "../../theme";
+import { SafeAreaView } from "react-native";
 
-export default function RNTabHeader({navigation}) {
-  const {t} = useTranslation();
-  const {colorScheme, selectedLanguage} = useTheme();
+export default function RNTabHeader({ navigation }) {
+  const { t } = useTranslation();
+  const { colorScheme, selectedLanguage } = useTheme();
   const [showCategory, setShowCategory] = useState(false);
   const dispatch = useDispatch();
-  const categories = useSelector(state => state.Category.categoryData);
+  const categories = useSelector((state) => state.Category.categoryData);
   const selectedCategory = useSelector(
-    state => state.Category.selectedCategory,
+    (state) => state.Category.selectedCategory
   );
   const bounceAnim = useRef(new Animated.Value(0)).current;
 
@@ -39,11 +39,12 @@ export default function RNTabHeader({navigation}) {
           EndPoint: `Vehicle/GetCategory?langCode=${selectedLanguage}`,
         });
         dispatch(SET_CATEGORYDATA(response));
+
         if (response.length > 0) {
           dispatch(SET_SELECTED_CATEGORY(response[0]));
         }
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error("Error fetching categories:", error);
       }
     };
     fetchData();
@@ -79,7 +80,7 @@ export default function RNTabHeader({navigation}) {
     }
   };
 
-  const selectCategory = category => {
+  const selectCategory = (category) => {
     dispatch(SET_SELECTED_CATEGORY(category));
     bounceOut();
   };
@@ -100,32 +101,34 @@ export default function RNTabHeader({navigation}) {
   };
 
   const handleSetting = () => {
-    navigation.navigate('SettingScreen');
+    navigation.navigate("SettingScreen");
   };
 
   const thumbnail = {
-    'motorcycle-thumbnail.png': Images.motorcycle,
-    'car-thumbnail.png': Images.cars,
-    'hgv-thumbnail.png': Images.hgv,
-    'pcv-thumbnail.png': Images.pcv,
-    'adi-thumbnail.png': Images.adi,
+    "motorcycle-thumbnail.png": Images.motorcycle,
+    "car-thumbnail.png": Images.cars,
+    "hgv-thumbnail.png": Images.hgv,
+    "pcv-thumbnail.png": Images.pcv,
+    "adi-thumbnail.png": Images.adi,
   };
 
   const images = {
-    'motorcycle-thumbnail.png': Images.motorcyclethumbnail,
-    'car-thumbnail.png': Images.carthumbnail,
-    'hgv-thumbnail.png': Images.hgvthumbnail,
-    'pcv-thumbnail.png': Images.pcvthumbnail,
-    'adi-thumbnail.png': Images.adithumbnail,
+    "motorcycle-thumbnail.png": Images.motorcyclethumbnail,
+    "car-thumbnail.png": Images.carthumbnail,
+    "hgv-thumbnail.png": Images.hgvthumbnail,
+    "pcv-thumbnail.png": Images.pcvthumbnail,
+    "adi-thumbnail.png": Images.adithumbnail,
   };
 
   return (
     <SafeAreaView
-      style={[styles(colorScheme).Container, RNStyles.flexRowBetween]}>
-      <View style={{width: '27%', paddingHorizontal: wp(2)}}>
+      style={[styles(colorScheme).Container, RNStyles.flexRowBetween]}
+    >
+      <View style={{ width: "27%", paddingHorizontal: wp(2) }}>
         <TouchableOpacity
           //style={{width: wp(33), backgroundColor: 'red'}}
-          onPress={handleSetting}>
+          onPress={handleSetting}
+        >
           <RNImage
             style={{
               height: wp(6),
@@ -136,33 +139,36 @@ export default function RNTabHeader({navigation}) {
           />
         </TouchableOpacity>
       </View>
-      <View style={{flex: 1, alignItems: 'center'}}>
+      <View style={{ flex: 1, alignItems: "center" }}>
         <RNText
           style={{
-            fontFamily: FontFamily.Bold,
-            fontSize: FontSize.font18,
-            color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+            fontFamily: FontFamily.GilroyMedium,
+            fontSize: Platform.OS === "ios" ? FontSize.font22 : FontSize.font20,
+            color: colorScheme === "dark" ? Colors.White : Colors.Black,
             //width: wp(33),
-          }}>
-          {t('header.TheoryTest')}
+          }}
+        >
+          {t("header.TheoryTest")}
         </RNText>
       </View>
 
       <View
         style={{
-          width: '27%',
-          alignItems: 'flex-end',
+          width: "27%",
+          alignItems: "flex-end",
           paddingHorizontal: wp(2),
-        }}>
+        }}
+      >
         <TouchableOpacity
           style={[styles(colorScheme).button, RNStyles.flexRowEvenly]}
-          onPress={toggleCategory}>
+          onPress={toggleCategory}
+        >
           <RNImage
-            style={{height: wp(6), width: wp(6)}}
+            style={{ height: wp(6), width: wp(6) }}
             source={
               selectedCategory
                 ? thumbnail[selectedCategory.thumbnail]
-                : 'Loading...'
+                : "Loading..."
             }
           />
           {/* <RNText numOfLines={1} style={styles(colorScheme).buttonText}>
@@ -172,7 +178,7 @@ export default function RNTabHeader({navigation}) {
             style={{
               height: wp(3),
               width: wp(3),
-              transform: [{rotate: '270deg'}],
+              transform: [{ rotate: "270deg" }],
             }}
             source={Images.leftarrow}
           />
@@ -181,12 +187,14 @@ export default function RNTabHeader({navigation}) {
 
       {showCategory && (
         <Animated.View
-          style={[styles(colorScheme).categoriesView, animatedStyle]}>
-          {categories.map(category => (
+          style={[styles(colorScheme).categoriesView, animatedStyle]}
+        >
+          {categories.map((category) => (
             <TouchableOpacity
               key={category.vehicle_Id}
               style={styles(colorScheme).categoryItem}
-              onPress={() => selectCategory(category)}>
+              onPress={() => selectCategory(category)}
+            >
               <RNImage
                 style={styles(colorScheme).categoryImage}
                 source={images[category.thumbnail]}
@@ -202,17 +210,17 @@ export default function RNTabHeader({navigation}) {
   );
 }
 
-const styles = colorScheme =>
+const styles = (colorScheme) =>
   StyleSheet.create({
     Container: {
       width: wp(100),
       borderBottomWidth: 1,
-      height: Platform.OS === 'ios' ? hp(12) : hp(8),
-      backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
-      borderColor: colorScheme === 'dark' ? Colors.White : Colors.LightGrey,
+      height: Platform.OS === "ios" ? hp(12) : hp(8),
+      backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
+      borderColor: colorScheme === "dark" ? Colors.White : Colors.LightGrey,
     },
     button: {
-      backgroundColor: colorScheme === 'dark' ? '#2c4454' : Colors.lightWhite,
+      backgroundColor: colorScheme === "dark" ? "#2c4454" : Colors.lightWhite,
       borderRadius: 20,
       //padding: wp(2),
       paddingHorizontal: wp(2.5),
@@ -223,39 +231,39 @@ const styles = colorScheme =>
     buttonText: {
       fontFamily: FontFamily.Medium,
       fontSize: FontSize.font13,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
-      textAlign: 'center',
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
+      textAlign: "center",
       width: wp(10),
     },
     categoriesView: {
-      backgroundColor: colorScheme === 'dark' ? '#111c22' : Colors.White,
+      backgroundColor: colorScheme === "dark" ? "#111c22" : Colors.White,
       padding: 10,
-      position: 'absolute',
-      top: hp(12),
+      position: "absolute",
+      top: Platform.OS === "ios" ? hp(12) : hp(7),
       //marginHorizontal: wp(3.5),
       right: 10,
       zIndex: 1,
       borderRadius: 10,
       gap: 5,
       elevation: 5,
-      shadowColor: '#000',
-      shadowOffset: {width: 2, height: 2},
+      shadowColor: "#000",
+      shadowOffset: { width: 2, height: 2 },
       shadowOpacity: 0.2,
       shadowRadius: 5,
     },
     categoryItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: "row",
+      alignItems: "center",
       gap: 10,
       margin: 2,
     },
     categoryImage: {
-      height: wp(6),
-      width: wp(6),
+      height: wp(6.5),
+      width: wp(6.5),
     },
     categoryText: {
-      fontFamily: FontFamily.Medium,
-      fontSize: FontSize.font14,
-      color: colorScheme === 'dark' ? '#7D7D7D' : Colors.DarkGrey,
+      fontFamily: FontFamily.GilroyMedium,
+      fontSize: Platform.OS === "ios" ? FontSize.font17 : FontSize.font15,
+      color: colorScheme === "dark" ? "#7D7D7D" : Colors.DarkGrey,
     },
   });

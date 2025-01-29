@@ -1,4 +1,4 @@
-module Pods_ActoDriving {
+framework module Pods_ActoDriving {
   umbrella header "Pods-ActoDriving-umbrella.h"
 
   export *

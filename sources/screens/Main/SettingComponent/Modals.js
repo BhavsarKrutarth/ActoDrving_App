@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   TouchableOpacity,
@@ -6,11 +6,12 @@ import {
   ScrollView,
   Animated,
   StyleSheet,
-} from 'react-native';
-import {Divider, RadioButton} from 'react-native-paper';
-import {RNImage, RNStyles, RNText} from '../../../common';
-import {Colors, FontFamily, FontSize, hp, wp} from '../../../theme';
-import {Images} from '../../../constants';
+  Platform,
+} from "react-native";
+import { Divider, RadioButton } from "react-native-paper";
+import { RNImage, RNStyles, RNText } from "../../../common";
+import { Colors, FontFamily, FontSize, hp, wp } from "../../../theme";
+import { Images } from "../../../constants";
 
 export const LanguageModal = ({
   IsShowLang,
@@ -42,29 +43,31 @@ export const LanguageModal = ({
               },
             ],
           },
-        ]}>
-        <View style={[RNStyles.flexRow, {gap: 20, padding: hp(3)}]}>
+        ]}
+      >
+        <View style={[RNStyles.flexRow, { gap: 20, padding: hp(3) }]}>
           <TouchableOpacity onPress={toggleLanguageMenu}>
             <RNImage
-              style={{height: wp(3), width: wp(3)}}
+              style={{ height: wp(3), width: wp(3) }}
               source={Images.close}
             />
           </TouchableOpacity>
           <RNText style={styles(colorScheme).title}>
-            {t('setting.App_language')}
+            {t("setting.App_language")}
           </RNText>
         </View>
         <Divider />
-        <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
-          {LanguageInfo.map(item => (
+        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+          {LanguageInfo.map((item) => (
             <TouchableOpacity
               key={item.id}
-              style={[RNStyles.flexRow, {gap: 10, padding: 10}]}
-              onPress={() => handleLanguage(item.Code)}>
+              style={[RNStyles.flexRow, { gap: 10, padding: 10 }]}
+              onPress={() => handleLanguage(item.Code)}
+            >
               <RadioButton
                 value={item.Code}
                 status={
-                  selectedLanguage === item.Code ? 'checked' : 'unchecked'
+                  selectedLanguage === item.Code ? "checked" : "unchecked"
                 }
                 onPress={() => handleLanguage(item.Code)}
                 color={Colors.Green}
@@ -73,10 +76,12 @@ export const LanguageModal = ({
                 style={[
                   styles(colorScheme).title,
                   {
-                    fontSize: FontSize.font13,
-                    color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+                    fontSize:
+                      Platform.OS === "ios" ? FontSize.font16 : FontSize.font13,
+                    color: colorScheme === "dark" ? Colors.White : Colors.Black,
                   },
-                ]}>
+                ]}
+              >
                 {item.Language}
               </RNText>
             </TouchableOpacity>
@@ -100,55 +105,64 @@ export const SignOutModal = ({
           RNStyles.flexCenter,
           {
             backgroundColor:
-              colorScheme === 'dark'
-                ? 'rgba(35, 55, 67, 0.5)'
-                : 'rgba(0 ,0 , 0, 0.5)',
+              colorScheme === "dark"
+                ? "rgba(35, 55, 67, 0.5)"
+                : "rgba(0 ,0 , 0, 0.5)",
           },
-        ]}>
+        ]}
+      >
         <View style={[styles(colorScheme).logoutView, RNStyles.center]}>
           <RNText
             style={{
               fontSize: FontSize.font16,
-              fontFamily: FontFamily.SemiBold,
-              color: colorScheme === 'dark' ? Colors.White : Colors.Black,
-              textAlign: 'center',
-            }}>
-            {t('setting.logout_desc')}
+              fontFamily: FontFamily.GilroySemiBold,
+              color: colorScheme === "dark" ? Colors.White : Colors.Black,
+              textAlign: "center",
+            }}
+          >
+            {t("setting.logout_desc")}
           </RNText>
           <RNImage
-            style={{width: wp(45), height: wp(45)}}
+            style={{ width: wp(45), height: wp(45) }}
             source={Images.Logout}
           />
           <RNText style={styles(colorScheme).subModelText}>
-            {t('setting.logout_mess')}
+            {t("setting.logout_mess")}
           </RNText>
-          <View style={{gap: 10}}>
+          <View style={{ gap: 10 }}>
             <TouchableOpacity
               style={[
-                {backgroundColor: Colors.Orange},
+                { backgroundColor: Colors.Orange },
                 styles(colorScheme).logoutButton,
               ]}
-              onPress={handleConfirmSignOut}>
+              onPress={handleConfirmSignOut}
+            >
               <RNText
                 style={[
                   styles(colorScheme).title,
-                  {color: Colors.White, textAlign: 'center'},
-                ]}>
-                {t('setting.LogOut_Account')}
+                  { color: Colors.White, textAlign: "center" },
+                ]}
+              >
+                {t("setting.LogOut_Account")}
               </RNText>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles(colorScheme).logoutButton, {paddingBottom: hp(0)}]}
-              onPress={cancelSignOut}>
+              style={[
+                styles(colorScheme).logoutButton,
+                { paddingBottom: hp(0) },
+              ]}
+              onPress={cancelSignOut}
+            >
               <RNText
                 style={[
                   styles(colorScheme).title,
                   {
-                    color: colorScheme === 'dark' ? Colors.Grey : Colors.Grey,
-                    textAlign: 'center',
+                    color: colorScheme === "dark" ? Colors.Grey : Colors.Grey,
+                    textAlign: "center",
                   },
-                ]}>
-                {t('setting.Keepit')}
+                ]}
+              >
+                {t("setting.Keepit")}
               </RNText>
             </TouchableOpacity>
           </View>
@@ -171,53 +185,63 @@ export const DeleteAccount = ({
           RNStyles.flexCenter,
           {
             backgroundColor:
-              colorScheme === 'dark'
-                ? 'rgba(35, 55, 67, 0.5)'
-                : 'rgba(0 ,0 , 0, 0.5)',
+              colorScheme === "dark"
+                ? "rgba(35, 55, 67, 0.5)"
+                : "rgba(0 ,0 , 0, 0.5)",
           },
-        ]}>
+        ]}
+      >
         <View style={[styles(colorScheme).logoutView, RNStyles.center]}>
           <RNText
             style={{
-              fontSize: FontSize.font16,
+              fontSize: FontSize.font15,
               width: wp(90),
-              fontFamily: FontFamily.SemiBold,
-              color: colorScheme === 'dark' ? Colors.White : Colors.Black,
-              textAlign: 'center',
-            }}>
-            {t('Delete.Permission_Mes')}
+              fontFamily: FontFamily.GilroySemiBold,
+              color: colorScheme === "dark" ? Colors.White : Colors.Black,
+              textAlign: "center",
+              lineHeight: Platform.OS === "ios" ? hp(2.8) : hp(2.5),
+            }}
+          >
+            {t("Delete.Permission_Mes")}
           </RNText>
           <RNImage
-            style={{width: wp(45), height: wp(45)}}
+            style={{ width: wp(45), height: wp(45) }}
             source={Images.Logout}
           />
-          <View style={{gap: 10}}>
+          <View style={{ gap: 10 }}>
             <TouchableOpacity
               style={[
-                {backgroundColor: Colors.Orange},
+                { backgroundColor: Colors.Orange },
                 styles(colorScheme).logoutButton,
               ]}
-              onPress={handleConfirmSignOut}>
+              onPress={handleConfirmSignOut}
+            >
               <RNText
                 style={[
                   styles(colorScheme).title,
-                  {color: Colors.White, textAlign: 'center'},
-                ]}>
-                {t('Delete.Yes_Delete')}
+                  { color: Colors.White, textAlign: "center" },
+                ]}
+              >
+                {t("Delete.Yes_Delete")}
               </RNText>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles(colorScheme).logoutButton, {paddingBottom: hp(0)}]}
-              onPress={cancelSignOut}>
+              style={[
+                styles(colorScheme).logoutButton,
+                { paddingBottom: hp(0) },
+              ]}
+              onPress={cancelSignOut}
+            >
               <RNText
                 style={[
                   styles(colorScheme).title,
                   {
-                    color: colorScheme === 'dark' ? Colors.Grey : Colors.Grey,
-                    textAlign: 'center',
+                    color: colorScheme === "dark" ? Colors.Grey : Colors.Grey,
+                    textAlign: "center",
                   },
-                ]}>
-                {t('setting.Keepit')}
+                ]}
+              >
+                {t("setting.Keepit")}
               </RNText>
             </TouchableOpacity>
           </View>
@@ -239,45 +263,46 @@ export const ThemeModal = ({
         RNStyles.flexCenter,
         {
           backgroundColor:
-            colorScheme === 'dark'
-              ? 'rgba(35, 55, 67, 0.5)'
-              : 'rgba(0 ,0 , 0, 0.5)',
+            colorScheme === "dark"
+              ? "rgba(35, 55, 67, 0.5)"
+              : "rgba(0 ,0 , 0, 0.5)",
         },
-      ]}>
+      ]}
+    >
       <View style={styles(colorScheme).modalContent}>
-        <View style={[RNStyles.flexRow, {gap: 20, padding: hp(3)}]}>
+        <View style={[RNStyles.flexRow, { gap: 20, padding: hp(3) }]}>
           <TouchableOpacity onPress={() => setModalVisible(false)}>
             <RNImage
-              style={{height: wp(3), width: wp(3)}}
+              style={{ height: wp(3), width: wp(3) }}
               source={Images.close}
             />
           </TouchableOpacity>
           <RNText style={styles(colorScheme).title}>
-            {t('setting.theme')}
+            {t("setting.theme")}
           </RNText>
         </View>
         <RadioButton.Group value={selectedOption}>
           <RadioButton.Item
             color={Colors.Green}
-            label={t('setting.System_default')}
+            label={t("setting.System_default")}
             labelStyle={{
-              color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+              color: colorScheme === "dark" ? Colors.White : Colors.Black,
             }}
             value="system_default"
           />
           <RadioButton.Item
             color={Colors.Green}
-            label={t('setting.Light')}
+            label={t("setting.Light")}
             labelStyle={{
-              color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+              color: colorScheme === "dark" ? Colors.White : Colors.Black,
             }}
             value="light"
           />
           <RadioButton.Item
             color={Colors.Green}
-            label={t('setting.Dark')}
+            label={t("setting.Dark")}
             labelStyle={{
-              color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+              color: colorScheme === "dark" ? Colors.White : Colors.Black,
             }}
             value="dark"
           />
@@ -287,65 +312,66 @@ export const ThemeModal = ({
   </Modal>
 );
 
-const styles = colorScheme =>
+const styles = (colorScheme) =>
   StyleSheet.create({
     title: {
-      fontSize: FontSize.font15,
-      fontFamily: FontFamily.SemiBold,
-      color: colorScheme === 'dark' ? Colors.White : Colors.Black,
+      fontSize: Platform.OS === "ios" ? FontSize.font19 : FontSize.font15,
+      fontFamily: FontFamily.GilroySemiBold,
+      color: colorScheme === "dark" ? Colors.White : Colors.Black,
     },
     subTitle: {
-      fontSize: FontSize.font10,
-      fontFamily: FontFamily.Regular,
-      color: colorScheme === 'dark' ? Colors.Grey : Colors.DarkGrey,
+      fontSize: FontSize.font11,
+      fontFamily: FontFamily.GilroyRegular,
+      color: colorScheme === "dark" ? Colors.Grey : Colors.DarkGrey,
     },
     overlay: {
       ...StyleSheet.absoluteFillObject,
       backgroundColor:
-        colorScheme === 'dark' ? 'rgba(35, 55, 67, 0.5)' : 'rgba(0, 0, 0, 0.5)',
+        colorScheme === "dark" ? "rgba(35, 55, 67, 0.5)" : "rgba(0, 0, 0, 0.5)",
     },
     languageContainer: {
-      position: 'absolute',
+      position: "absolute",
       bottom: 0,
-      width: '100%',
-      height: '45%',
-      backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
+      width: "100%",
+      height: "45%",
+      backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
       borderTopLeftRadius: wp(5),
       borderTopRightRadius: wp(5),
     },
     modalContent: {
-      position: 'absolute',
+      position: "absolute",
       bottom: 0,
-      width: '100%',
+      width: "100%",
       height: hp(30),
-      backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
+      backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
       borderTopLeftRadius: wp(5),
       borderTopRightRadius: wp(5),
     },
     logoutView: {
-      backgroundColor: colorScheme === 'dark' ? Colors.BgBlack : Colors.White,
+      backgroundColor: colorScheme === "dark" ? Colors.BgBlack : Colors.White,
       width: wp(95),
       padding: wp(10),
       borderRadius: 20,
       gap: hp(1),
     },
     logoutButton: {
-      paddingVertical: hp(1.5),
+      paddingVertical: hp(1.6),
       width: wp(75),
       borderRadius: 50,
     },
     logoutButtonText: {
       color: Colors.White,
-      textAlign: 'center',
+      textAlign: "center",
       fontSize: FontSize.font14,
-      fontFamily: FontFamily.Medium,
+      fontFamily: FontFamily.GilroyMedium,
     },
     subModelText: {
-      fontSize: FontSize.font13,
-      fontFamily: FontFamily.Medium,
-      textAlign: 'center',
-      color: colorScheme === 'dark' ? Colors.Grey : Colors.Black,
+      fontSize: FontSize.font14,
+      fontFamily: FontFamily.GilroyMedium,
+      textAlign: "center",
+      color: colorScheme === "dark" ? Colors.Grey : Colors.Black,
       marginBottom: hp(2),
+      lineHeight: hp(2.5),
     },
   });
 

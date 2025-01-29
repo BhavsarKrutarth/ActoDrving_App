@@ -2,80 +2,120 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/fonts/Gilroy-Black.ttf",
+      "path": "sources/assets/fonts/Gilroy-Black.ttf",
       "sha1": "41d7d53d34ae67d9dc54979abee04f3514163740"
     },
     {
-      "path": "assets/fonts/Gilroy-Bold.ttf",
+      "path": "sources/assets/fonts/Gilroy-Bold.ttf",
       "sha1": "7fe4d8cf5325dd47363d0f80fefb40ac7df5d5a6"
     },
     {
-      "path": "assets/fonts/Gilroy-ExtraBold.ttf",
+      "path": "sources/assets/fonts/Gilroy-ExtraBold.ttf",
       "sha1": "eb2b7042895e0fe98ea023f3e45048f9d152127e"
     },
     {
-      "path": "assets/fonts/Gilroy-Heavy.ttf",
+      "path": "sources/assets/fonts/Gilroy-Heavy.ttf",
       "sha1": "3e47b596a6cc4ad3ac4f79353c4bddc987bc84bc"
     },
     {
-      "path": "assets/fonts/Gilroy-Light.ttf",
+      "path": "sources/assets/fonts/Gilroy-Light.ttf",
       "sha1": "510faebaff56ce8b518fc84bdd1aefeefae00b65"
     },
     {
-      "path": "assets/fonts/Gilroy-Medium.ttf",
+      "path": "sources/assets/fonts/Gilroy-Medium.ttf",
       "sha1": "d7f893124bd4fff78805e69df31385ae113368be"
     },
     {
-      "path": "assets/fonts/Gilroy-Regular.ttf",
+      "path": "sources/assets/fonts/Gilroy-Regular.ttf",
       "sha1": "a737c19356e50cb9a50eb64ca7446c80dd3aa3e3"
     },
     {
-      "path": "assets/fonts/Gilroy-SemiBold.ttf",
+      "path": "sources/assets/fonts/Gilroy-SemiBold.ttf",
       "sha1": "8663a356eb9bc23b77696208f74376daf59687ea"
     },
     {
-      "path": "assets/fonts/Gilroy-Thin.ttf",
+      "path": "sources/assets/fonts/Gilroy-Thin.ttf",
       "sha1": "af4998778ceb58ef38ff3fe5441eec696cb970dc"
     },
     {
-      "path": "assets/fonts/Inter_18pt-Black.ttf",
+      "path": "sources/assets/fonts/Inter_18pt-Black.ttf",
       "sha1": "4dbdd9baf9a7049838cc0e472e0136c4f310cc78"
     },
     {
-      "path": "assets/fonts/Inter_18pt-Bold.ttf",
+      "path": "sources/assets/fonts/Inter_18pt-Bold.ttf",
       "sha1": "518a0361a245a66b49bc24ae0137f38328197bdc"
     },
     {
-      "path": "assets/fonts/Inter_18pt-ExtraBold.ttf",
+      "path": "sources/assets/fonts/Inter_18pt-ExtraBold.ttf",
       "sha1": "d01b4a9a01dfdb6d9a5c6ec153d528d70706d885"
     },
     {
-      "path": "assets/fonts/Inter_18pt-Light.ttf",
+      "path": "sources/assets/fonts/Inter_18pt-Light.ttf",
       "sha1": "6b041e6fc61656b930d8ef638a0b9d6a0ac8e084"
     },
     {
-      "path": "assets/fonts/Inter_18pt-Medium.ttf",
+      "path": "sources/assets/fonts/Inter_18pt-Medium.ttf",
       "sha1": "e2d21cdc9730ce4d4bdccb3476413a5b79fe7d52"
     },
     {
-      "path": "assets/fonts/Inter_18pt-Regular.ttf",
+      "path": "sources/assets/fonts/Inter_18pt-Regular.ttf",
       "sha1": "bd1976c1f019853ab6143ef1246e25aa66fd990e"
     },
     {
-      "path": "assets/fonts/Inter_18pt-SemiBold.ttf",
+      "path": "sources/assets/fonts/Inter_18pt-SemiBold.ttf",
       "sha1": "f3e44abd6661d5b861e66db22f4f79a6c466cd00"
     },
     {
-      "path": "assets/fonts/Inter_24pt-Bold.ttf",
+      "path": "sources/assets/fonts/Inter_24pt-Bold.ttf",
       "sha1": "327abbf74a5d71ffa8d888d976234cb11dabf194"
     },
     {
-      "path": "assets/fonts/Inter_24pt-Thin.ttf",
+      "path": "sources/assets/fonts/Inter_24pt-Thin.ttf",
       "sha1": "c63bb2618f2f823b077100c23ca5cd4e64fe99a3"
     },
     {
-      "path": "assets/fonts/Inter_28pt-Light.ttf",
+      "path": "sources/assets/fonts/Inter_28pt-Light.ttf",
       "sha1": "a67e1cb8acb26c3b95fa9c2c49f6d43141c491bb"
+    },
+    {
+      "path": "sources/assets/fonts/Poppins-Black.ttf",
+      "sha1": "645e04c53c6b5b35bce654a811ebce16af8aa721"
+    },
+    {
+      "path": "sources/assets/fonts/Poppins-Bold.ttf",
+      "sha1": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa"
+    },
+    {
+      "path": "sources/assets/fonts/Poppins-ExtraBold.ttf",
+      "sha1": "4b5c0750f073abd576413a0898d3b95adaf199c8"
+    },
+    {
+      "path": "sources/assets/fonts/Poppins-ExtraLight.ttf",
+      "sha1": "85af6582a7e6155917c605f9d3fed68c02b23b06"
+    },
+    {
+      "path": "sources/assets/fonts/Poppins-Italic.ttf",
+      "sha1": "e2bfcd56016c3c915221ef1c5fc1a17b0776eb91"
+    },
+    {
+      "path": "sources/assets/fonts/Poppins-Light.ttf",
+      "sha1": "e247a92158e112f8bf7b638c8d95381d66b00dbb"
+    },
+    {
+      "path": "sources/assets/fonts/Poppins-Medium.ttf",
+      "sha1": "283f21b44efbdbf276ba802be2d949a36bbc4233"
+    },
+    {
+      "path": "sources/assets/fonts/Poppins-Regular.ttf",
+      "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
+    },
+    {
+      "path": "sources/assets/fonts/Poppins-SemiBold.ttf",
+      "sha1": "8a4ace9392d06bcb7f8ea2f5169b07e4c383a90d"
+    },
+    {
+      "path": "sources/assets/fonts/Poppins-Thin.ttf",
+      "sha1": "09ba4dcd5509c8085bf88c665dcc51cbdfced27b"
     }
   ]
 }

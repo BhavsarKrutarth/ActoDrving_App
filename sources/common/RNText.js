@@ -1,6 +1,6 @@
-import React from 'react';
-import { Text } from 'react-native';
-import { Colors, FontFamily, FontSize } from '../theme';
+import React from "react";
+import { Text } from "react-native";
+import { Colors, FontFamily, FontSize } from "../theme";
 const RNText = ({
   children,
   style,
@@ -23,8 +23,8 @@ const RNText = ({
   const TextStyles = {
     color: color ?? Colors.Black,
     fontSize: size ?? FontSize.font16,
-    fontFamily: family ?? FontFamily.Regular,
-    textAlign: align ?? 'left',
+    fontFamily: family ?? FontFamily.GilroyRegular,
+    textAlign: align ?? "left",
     fontWeight: weight,
     paddingTop: pTop,
     paddingLeft: pLeft,
@@ -39,7 +39,8 @@ const RNText = ({
       onPress={onPress}
       numberOfLines={numOfLines}
       style={[TextStyles, style]}
-      {...restProps}>
+      {...restProps}
+    >
       {children}
     </Text>
   );

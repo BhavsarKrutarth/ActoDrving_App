@@ -1,4 +1,4 @@
-import {normalize} from './Responsive';
+import { normalize } from "./Responsive";
 const FontSize = {
   font6: normalize(6),
   font7: normalize(7),
@@ -37,21 +37,21 @@ const FontSize = {
   font40: normalize(40),
 };
 const FontFamily = {
-  Black: 'Inter_18pt-Black',
-  Bold: 'Inter_18pt-Bold',
-  ExtraBold: 'Inter_18pt-ExtraBold',
-  Light: 'Inter_18pt-Light',
-  Medium: 'Inter_18pt-Medium',
-  Regular: 'Inter_18pt-Regular',
-  SemiBold: 'Inter_18pt-SemiBold',
-  Thin: 'Inter_24pt-Thin',
-  Gilroylack: 'Gilroy-Black',
-  GilroyBold: 'Gilroy-Bold',
-  GilroyExtraBold: 'Gilroy-ExtraBold',
-  GilroyLight: 'Gilroy-Light',
-  GilroyMedium: 'Gilroy-Medium',
-  GilroyRegular: 'Gilroy-Regular',
-  GilroySemiBold: 'Gilroy-SemiBold',
-  GilroyThin: 'Gilroy-Thin',
+  Black: "Poppins-Bold",
+  Bold: "Poppins-Bold",
+  ExtraBold: "Poppins-ExtraBold",
+  Light: "Poppins-Light",
+  Medium: "Poppins-Medium",
+  Regular: "Poppins-Regular",
+  SemiBold: "Poppins-SemiBold",
+  Thin: "Poppins-Thin",
+  Gilroylack: "Gilroy-Black",
+  GilroyBold: "Gilroy-Bold",
+  GilroyExtraBold: "Gilroy-ExtraBold",
+  GilroyLight: "Gilroy-Light",
+  GilroyMedium: "Gilroy-Medium",
+  GilroyRegular: "Gilroy-Regular",
+  GilroySemiBold: "Gilroy-SemiBold",
+  GilroyThin: "Gilroy-Thin",
 };
-export {FontSize, FontFamily};
+export { FontSize, FontFamily };

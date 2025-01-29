@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "676136670646",
+    "project_id": "actodriving",
+    "storage_bucket": "actodriving.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676136670646:android:7c0e9e83b7645492e19d17",
+        "android_client_info": {
+          "package_name": "com.actodriving"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676136670646-6t18u9oevpkevpaug5ntcjefvv5gbvbn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.actodriving",
+            "certificate_hash": "12354bcbb9ec6c6229832637b9316262cab3945d"
+          }
+        },
+        {
+          "client_id": "676136670646-7lqnanp80gl1j3652l3en5387v89hmce.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.actodriving",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "676136670646-l8glp1iovmo8u6n3oa5r08qpe556so9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC26TfwzMr4gtIJLSVL0rJVkgxOFh_cJwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "676136670646-l8glp1iovmo8u6n3oa5r08qpe556so9d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "676136670646-sth07223adbr6cvdt3954ukj9n0ropou.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.actodriving"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
